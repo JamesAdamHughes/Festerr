@@ -1,0 +1,6 @@
+<div class="event-details" data-event-id={{id}} style="padding:20px;">
+	
+	<h1>{{eventname}}</h1>
+	<p>{{venue.town}}</p>
+	
+</div>

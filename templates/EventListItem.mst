@@ -1,0 +1,11 @@
+<div class="row" style="overflow-y: scroll; height:600px; margin-top:20px">
+	<div class="col-md-12" style="margin-top:40px">
+		<ul class="list-group" id="event-list">
+			{{#events}}
+			<li class="list-group-item" data-event-id={{id}}>
+				{{eventname}}
+			</li>
+			{{/events}}
+		</ul>
+	</div>					
+</div>

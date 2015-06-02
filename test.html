@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.0.0/mustache.min.js"></script>
+
+		<script type="text/javascript" src="js/Festerr.js"></script>
+	</head>
+
+	<body>
+	<div class="container">
+		<div class="row">
+
+			<div class="page-header">
+				<h1>Festerr  <small>Find UK Festivals</small> </h1>
+
+				<!-- <div class="col-md-12"> -->
+					<!-- </div> -->
+			</div>
+
+
+			
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<input type="text" class="form-control" id="search-box" placeholder="Search for a festival, artist or event">
+
+			</div>
+			
+		</div>
+		<div class="row">
+			<div class="col-md-6" id="map-container">
+				<canvas id="canvas" width="596" height="750" ></canvas>	
+			</div>
+
+			<div class="col-md-6" id="info-container">
+								
+				<div class="row" style="overflow-y: scroll; height:600px; margin-top:20px">
+					<div class="col-md-12" style="margin-top:40px">
+						<ul class="list-group" id="event-list">
+						</ul>
+					</div>					
+				</div>
+					
+			</div>
+					
+
+			</div>
+			
+		</div>	
+	</div>
+	
+
+
+		<script type="text/javascript">
+			$(document).ready(function() {		
+				run();
+			});
+
+			$('#event-list').on('click', 'li', function(event){	
+				listClicked(event, $(this));
+			});
+
+			$('#search-box').on('change', function(){
+				var search_term = $(this).val();
+
+				//get seach results from data
+				searchForEvent(search_term, function(data){
+
+					$('#event-list').empty();
+					for(var i = 0; i < data.length; i++){
+						var event_data = data[i];
+						$('#event-list').append("<li class=\"list-group-item\" data-event-id=\"" + event_data["id"] + "\" >" + event_data["eventname"] + "</li>")
+					}
+
+					console.log("done getting search results...");
+
+				});
+			})
+
+
+		</script>
+	</body>
+
+	
+
+</html>
