@@ -14,7 +14,8 @@ var events_id_dump = []
 var canvas;
 var context;
 
-var UK_MAP_PATH = "images/UK_Map_ac_processed.png";
+var ROOT_PATH = "../";
+var UK_MAP_PATH = ROOT_PATH + "images/UK_Map_ac_processed.png";
 var SKIDDLE_API_KEY = "4746dc555db14c2c5b8f52295ef28c08";
 
 
