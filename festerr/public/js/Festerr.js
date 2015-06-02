@@ -17,6 +17,8 @@ var context;
 var ROOT_PATH = "../";
 var UK_MAP_PATH = ROOT_PATH + "images/UK_Map_ac_processed.png";
 var SKIDDLE_API_KEY = "4746dc555db14c2c5b8f52295ef28c08";
+var JSON_DUMP = ROOT_PATH + "json_dump/events_dump_29_5_15.json";
+var TEMPLATES = ROOT_PATH + "html/templates/";
 
 
 function run(){		
@@ -113,7 +115,7 @@ function run(){
 
 
 	//get all event data to store and search later
-	$.getJSON("../events_dump_29_5_15.json", function(data){
+	$.getJSON(JSON_DUMP, function(data){
 			event_data = data["results"];
 			for(var i = 0; i < event_data.length; i++){
 				var e = event_data[i];
@@ -174,7 +176,7 @@ function showEventDetails(event_id, event_color){
 	$.getJSON("http://www.skiddle.com/api/v1/events/" + event_id + "/?api_key=4746dc555db14c2c5b8f52295ef28c08", function(data) {
 
 		//put event data into the info template
-		$.get('../templates/EventDetail.mst', function(template) {
+		$.get(TEMPLATES + 'EventDetail.mst', function(template) {
 
 			//add color the json object
 			data["results"].eventcolor = event_color;
@@ -200,7 +202,7 @@ function showEventList(event_list){
 	$('#info-container').empty();
 	var template_data = {"events" : event_list};
 
-	$.get("../templates/EventListItem.mst", function(template) {
+	$.get(TEMPLATES + "EventListItem.mst", function(template) {
 		var rendered = Mustache.render(template, template_data);
 		$('#info-container').html(rendered);
 		$('#event-list').on('click', 'li', function(event){	
@@ -351,7 +353,7 @@ function getFestivalJSON(RequestType, limit, callback){
 	// 	callback(events);
 	// });
 
-	$.getJSON("../events_dump_29_5_15.json", function(data){
+	$.getJSON(JSON_DUMP, function(data){
 		var events = data["results"];
 		var return_data = [];
 
