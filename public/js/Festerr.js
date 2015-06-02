@@ -35,6 +35,15 @@ function run(){
 	//Load MAP Image
 	fabric.Image.fromURL(UK_MAP_PATH, function(oImg){
 		
+		// var imgInstance = new fabric.Image(oImg, {
+		// 	lockMovementY:true,
+		// 	lockMovementX:true
+		// })
+		oImg.lockMovementX = true;
+		oImg.lockMovementY = true;
+		oImg.hasBorders = false;
+		oImg.hasControls = false;
+
 		canvas.add(oImg);
 		canvas.sendToBack(oImg);
 		canvas.renderAll();
