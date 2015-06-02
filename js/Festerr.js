@@ -126,9 +126,6 @@ function run(){
 
 }
 
-
-
-
 //handle input from the list
 function listClicked(event, item_clicked){
 	var event_id = item_clicked.data("event-id");
@@ -139,7 +136,6 @@ function listClicked(event, item_clicked){
 //called when an event is selected from the map or the list
 function updateSelection(event_id){
 	var color_select_pair = updateMapFromClick(event_id, event_group, canvas);
-
 	//check if we selected or deselected an item
 	if(color_select_pair["was_prev"] == false){
 		//show event details in the sidebar
@@ -157,11 +153,13 @@ function updateSelection(event_id){
 function searchForEvent(searchTerm, callback){
 
 		var matching_items = [];
+		searchTerm = searchTerm.toLowerCase();
 
 		for(var i = 0; i < events_id_dump.length; i++){
+			
 			var name = events_id_dump[i];
-			name = name["eventname"];
-			var id = (events_id_dump[i])["id"];
+			name = name["eventname"].toLowerCase();
+
 			if(name.indexOf(searchTerm) >= 0){
 				matching_items.push(events_id_dump[i]);
 			}
@@ -197,8 +195,6 @@ function showEventList(event_list){
 		});
 	});
 }
-
-
 
 
 //Updates the color of each event on the map
@@ -333,12 +329,7 @@ function updateMapFromClick(event_id, event_group, canvas){
 		"was_prev" : was_prev,
 		"color" : color
 	};
-}
-
-
-
-
-	
+}	
 
 //Get Festival data from Skiddle API
 function getFestivalJSON(RequestType, limit, callback){
