@@ -14,13 +14,13 @@
 
 	<div id="event-details" class="row" style="margin-top:40px">
 		<div class="col-md-3">
-			<div class="circle" style="background:{{eventcolor}}">
+			<div class="circle" style="background:{{eventcolor_light}}">
 				<p>Artists</p>
 			</div>
 			
 		</div>
-		<div class="col-md-9" style="padding-top:20px">
-			<ul class="list-group" id="event-list">
+		<div class="col-md-9" style="padding-top:20px; overflow-y: scroll; height:400px;">
+			<ul class="list-group" id="artist-list">
 			{{#artists}}
 				<li class="list-group-item" data-event-id={{id}}>
 					{{name}}

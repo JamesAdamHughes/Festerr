@@ -72,14 +72,11 @@
 			$('#search-box').on('change', function(){
 				var search_term = $(this).val();
 
+				console.log("searching...");
 				//get seach results from data
 				searchForEvent(search_term, function(data){
 
-					$('#event-list').empty();
-					for(var i = 0; i < data.length; i++){
-						var event_data = data[i];
-						$('#event-list').append("<li class=\"list-group-item\" data-event-id=\"" + event_data["id"] + "\" >" + event_data["eventname"] + "</li>")
-					}
+					showEventList(data);
 
 					console.log("done getting search results...");
 
