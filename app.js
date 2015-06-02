@@ -1,12 +1,17 @@
 var express = require('express');
 var app = express();
 
-app.use(express.static(__dirname + '/public'));
+app.use('/',  express.static(__dirname + '/public'));
 
 // respond with "Hello World!" on the homepage
 app.get('/', function (req, res) {
   res.render('test.html');
+  // res.send("hellow world")
 });
+
+app.get('/hello', function (req, res) {
+	res.send("hello world");
+})
 
 
 

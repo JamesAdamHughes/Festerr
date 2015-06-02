@@ -18,7 +18,7 @@ var ROOT_PATH = "../";
 var UK_MAP_PATH = ROOT_PATH + "images/UK_Map_ac_processed.png";
 var SKIDDLE_API_KEY = "4746dc555db14c2c5b8f52295ef28c08";
 var JSON_DUMP = ROOT_PATH + "json_dump/events_dump_29_5_15.json";
-var TEMPLATES = ROOT_PATH + "html/templates/";
+var TEMPLATES = ROOT_PATH + "templates/";
 
 
 function run(){		
