@@ -16,7 +16,8 @@ var context;
 
 var ROOT_PATH = "../";
 var UK_MAP_PATH = ROOT_PATH + "images/UK_MAP_ac_processed.png";
-var SKIDDLE_API_KEY = "4746dc555db14c2c5b8f52295ef28c08";
+var SKIDDLE_API_PATH = "https://www.skiddle.com/api/v1/";
+var SKIDDLE_API_KEY = "api_key=4746dc555db14c2c5b8f52295ef28c08";
 var JSON_DUMP = ROOT_PATH + "json_dump/events_dump_29_5_15.json";
 var TEMPLATES = ROOT_PATH + "templates/";
 
@@ -173,7 +174,7 @@ function searchForEvent(searchTerm, callback){
 
 //show the event details
 function showEventDetails(event_id, event_color){
-	$.getJSON("http://www.skiddle.com/api/v1/events/" + event_id + "/?api_key=4746dc555db14c2c5b8f52295ef28c08", function(data) {
+	$.getJSON(SKIDDLE_API_PATH + "events/" + event_id + "/? " + SKIDDLE_API_KEY, function(data) {
 
 		//put event data into the info template
 		$.get(TEMPLATES + 'EventDetail.mst', function(template) {
