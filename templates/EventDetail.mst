@@ -1,6 +1,36 @@
-<div class="event-details" data-event-id={{id}} style="padding:20px;">
+<div class="event-details-container" data-event-id={{id}} style="padding:20px;margin-top:20px">
 	
-	<h1>{{eventname}}</h1>
-	<p>{{venue.town}}</p>
+	<div id="event-header" class="row">
+		<div class="col-md-3">
+			<div class="circle" style="background:{{eventcolor}}">
+				<p>{{date}}<p>	
+			</div>
+		</div>
+		<div class="col-md-9">
+			<h2>{{eventname}}</h2>
+			<p>{{venue.town}}</p>
+		</div>			
+	</div>
+
+	<div id="event-details" class="row" style="margin-top:40px">
+		<div class="col-md-3">
+			<div class="circle" style="background:{{eventcolor}}">
+				<p>Artists</p>
+			</div>
+			
+		</div>
+		<div class="col-md-9" style="padding-top:20px">
+			<ul class="list-group" id="event-list">
+			{{#artists}}
+				<li class="list-group-item" data-event-id={{id}}>
+					{{name}}
+				</li>
+			{{/artists}}
+		</ul>
+		</div>	
+		
+	</div>
+	
+	
 	
 </div>

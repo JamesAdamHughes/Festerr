@@ -140,7 +140,7 @@ function updateSelection(event_id){
 	//check if we selected or deselected an item
 	if(color_select_pair["was_prev"] == false){
 		//show event details in the sidebar
-		showEventDetails(event_id);
+		showEventDetails(event_id, color_select_pair["color"]);
 	}
 	else{
 		//show the event list again
@@ -170,12 +170,19 @@ function searchForEvent(searchTerm, callback){
 }
 
 //show the event details
-function showEventDetails(event_id){
+function showEventDetails(event_id, event_color){
 	$.getJSON("http://www.skiddle.com/api/v1/events/" + event_id + "/?api_key=4746dc555db14c2c5b8f52295ef28c08", function(data) {
 
 		//put event data into the info template
 		$.get('../templates/EventDetail.mst', function(template) {
+
+			//add color the json object
+			data["results"].eventcolor = event_color;
+			data["results"].date = prettify_date(data["results"].date);
+			console.log(data["results"]);
+		    
 		    var rendered = Mustache.render(template, data["results"]);
+
 		    $('#info-container').empty();
 			$('#info-container').html(rendered);
 		});
@@ -378,6 +385,17 @@ function getHashedColor(string){
 	var hash = Math.abs(string.hashCode() % colors.length);
 
 	return colors[hash];
+}
+
+//Get a nice date from the SKiddle format
+function prettify_date(date){
+
+	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	var split_date = date.split("-");
+	var pretty_date = "";
+	pretty_date = split_date[2] + " " +  months[split_date[1] - 1];
+
+	return pretty_date;
 }
 
 

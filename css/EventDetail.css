@@ -1,0 +1,16 @@
+.circle {
+	width : 80px;
+	height : 80px;
+	-moz-border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    border-radius: 50%;
+    background: #4679BD;
+    padding-top: 10px; 
+}
+
+.circle p {
+	font-size: large;
+	color: #FFFFFF;
+	padding-top: 18px;
+	padding-left:  13px;
+}
