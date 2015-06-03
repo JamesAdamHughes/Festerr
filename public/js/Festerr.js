@@ -9,6 +9,8 @@ var map_group = new fabric.Group();
 var event_group = [];
 var events_open_data = [];
 
+var mouse_down_canvas_event;
+
 var events_id_dump = []
 
 var canvas;
@@ -85,6 +87,7 @@ function run(){
 			  fill: color, 
 			  left: place.xpos - size, 
 			  top: place.ypos - size,
+			  animating : false,
 			  hasBorders:false,
 			  hasControls:false,
 			  lockMovementY:true,
@@ -93,6 +96,7 @@ function run(){
 
 			canvas.add(circle);
 			canvas.bringToFront(circle);
+
 			event_group.push(circle);
 			events_open_data.push(fest);
 
@@ -109,6 +113,9 @@ function run(){
 	canvas.observe('mouse:down', function(e) {
 	    activeInstance = canvas.getActiveObject();
 	    activeGroupInstance = canvas.getActiveGroup();
+
+	    canvas.__eventListeners["mouse:down"] = [];
+
 	    if (activeInstance!=null){   
 
 	    	var event_id = e.target.id;	
@@ -136,6 +143,9 @@ function run(){
 			}
 
 	});
+
+	//save this event to renable later when disabled for animations
+	mouse_down_canvas_event = canvas.__eventListeners["mouse:down"];
 
 }
 
@@ -183,8 +193,9 @@ function searchForEvent(searchTerm, callback){
 
 //show the event details
 function showEventDetails(event_id, event_color){
-	$.getJSON(SKIDDLE_API_PATH + "events/" + event_id + "/? " + SKIDDLE_API_KEY, function(data) {
 
+	$.getJSON("/event/?event_id=" + event_id, function(data){
+		// console.log(data);
 		//put event data into the info template
 		$.get(TEMPLATES + 'EventDetail.mst', function(template) {
 
@@ -205,6 +216,7 @@ function showEventDetails(event_id, event_color){
 		});
 
 	});
+
 }
 
 //display the current events in a list
@@ -224,10 +236,13 @@ function showEventList(event_list){
 
 //Updates the color of each event on the map
 //given a selected event
+//NOTE disabling canvas events during animation to prevent oddities
 function updateMapFromClick(event_id, event_group, canvas){
 	var color;
 	var was_prev = false;
+	var next_clicked = -1;
 	var map_clicked = false
+
 
 	//if we select the map, unselect everything
 	//setting eventID to prev selected will have this effect
@@ -235,10 +250,15 @@ function updateMapFromClick(event_id, event_group, canvas){
 		map_clicked = true;
 	}
 
+	if(event_id == prev_selected){
+		was_prev = true;
+	}
+
 	for(var i = 0; i < event_group.length; i++){
 		
 		var ev = event_group[i];
-		
+		// console.log(ev);
+
 		//reset eveything to normal
 		if(map_clicked){
 			ev.setOpacity(1);
@@ -249,6 +269,41 @@ function updateMapFromClick(event_id, event_group, canvas){
 			//if this was the one who was previously selected, bring it down to size
 			if(ev.id == prev_selected){
 				var delta_size = ev.radius - ev.inital_radius;
+				
+				ev.animate({
+					'radius': ev.inital_radius,
+					'top' : ev.top + delta_size,
+					'left' : ev.left + delta_size
+				}, 
+				{
+				  onChange:	canvas.renderAll.bind(canvas),
+				  duration: 500,
+				  easing: fabric.util.ease.easeInQuart,
+				  
+				  onComplete: function() {
+				  	canvas.__eventListeners["mouse:down"] = mouse_down_canvas_event;
+				  	console.log("reenabled mouse event");
+				  }
+				} );
+
+			}
+		}
+		
+
+		//clicked on an event
+		else{
+
+			//if this was the one previosuly selected, i.e reducing it
+			if(was_prev && ev.id == event_id){
+
+				//not currently animating
+				ev.setOpacity(1);
+				color = "white";
+				was_prev = true;				
+
+				var delta_size = ev.radius - ev.inital_radius;
+				var static_id = ev.id;
+				console.log("static: " + static_id);
 
 				ev.animate({
 					'radius': ev.inital_radius,
@@ -256,23 +311,29 @@ function updateMapFromClick(event_id, event_group, canvas){
 					'left' : ev.left + delta_size
 
 				}, 
-				{
+				{	
 				  onChange: canvas.renderAll.bind(canvas),
 				  duration: 500,
-				  easing: fabric.util.ease.easeInQuart
+				  easing: fabric.util.ease.easeInQuart,
+				  onComplete: function() {
+				  	canvas.__eventListeners["mouse:down"] = mouse_down_canvas_event;
+				  	console.log("reenabled mouse event");	
+			  	  }
 				} );
+				
 			}
-		}
+			//previous one was selected, reset the others to normal
+			else if(was_prev){
+				ev.setOpacity(1);
+				color = "white";
+			}
+			//selected another one, reudce this size
+			else if(ev.id == prev_selected){
 
-		//clicked on an event
-		else{
-
-			//unselect previosuly selected item
-			if(event_id == prev_selected){
-					ev.setOpacity(1);
-					color = "white";
-					was_prev = true;
+					ev.setOpacity(0.5);
 					var delta_size = ev.radius - ev.inital_radius;
+					
+					
 
 					ev.animate({
 						'radius': ev.inital_radius,
@@ -280,27 +341,24 @@ function updateMapFromClick(event_id, event_group, canvas){
 						'left' : ev.left + delta_size
 
 					}, 
-					{
+					{	
 					  onChange: canvas.renderAll.bind(canvas),
 					  duration: 500,
-					  easing: fabric.util.ease.easeInQuart
+					  easing: fabric.util.ease.easeInQuart,
+
+					  onComplete: function() {
+				  		console.log("didn't reanable events");	
+				  	  }
 					} );
-			}
 
-			//if we want to reset all the circles now
-			else if(was_prev){
-				ev.setOpacity(1);
-				color = "white";
-				canvas.bringForward(ev);
 			}
-
-			//selected item
-			else if( ev.id == event_id ){			
+			//selected a new event, inrease it's size
+			else if(ev.id == event_id){
 
 				ev.setOpacity(1);
 				color = ev.color;
 				canvas.bringToFront(ev);
-
+				
 				var new_size = 50 + (1/ev.inital_radius);
 				var delta_size = new_size - ev.inital_radius;
 
@@ -312,41 +370,37 @@ function updateMapFromClick(event_id, event_group, canvas){
 				{
 				  onChange: canvas.renderAll.bind(canvas),
 				  duration: 1000,
-				  easing: fabric.util.ease.easeOutQuart
+				  easing: fabric.util.ease.easeOutQuart,
+				  onComplete: function() {
+				  		canvas.__eventListeners["mouse:down"] = mouse_down_canvas_event;
+				  		console.log("reenabled mouse event");				  	
+			  	  }
 				} );
-			
+
+				next_clicked = ev.id;
+				
 			}
-
-			//unselect everything else
+			//hide other events not selected		
 			else{
-				//the one that was selected before
-				if(ev.id == prev_selected){
-					var delta_size = ev.radius - ev.inital_radius;
-	 
-					ev.animate({
-						'radius': ev.inital_radius,
-						'top' : ev.top + delta_size,
-						'left' : ev.left + delta_size
-
-					},
-					{
-					  onChange: canvas.renderAll.bind(canvas),
-					  duration: 500,
-					  easing: fabric.util.ease.easeInQuart
-					} );
-				}
 				ev.setOpacity(0.5);
 			}
+
+			
 		}
 	}
+
+	// console.log("done animating");
 
 	//update previous selection
 	if(was_prev){
 		prev_selected = -1;
 	}
 	else{
-		prev_selected = event_id;
+		prev_selected = next_clicked;
+
 	}
+
+	// console.log(prev_selected);
 
 	canvas.renderAll();
 
@@ -358,11 +412,7 @@ function updateMapFromClick(event_id, event_group, canvas){
 
 //Get Festival data from Skiddle API
 function getFestivalJSON(RequestType, limit, callback){
-	// $.getJSON("http://www.skiddle.com/api/v1/events/?api_key=4746dc555db14c2c5b8f52295ef28c08&eventcode=FEST&order=" + RequestType + "&limit=" + limit, function(data) {
-	// 	var events = data["results"];
-	// 	callback(events);
-	// });
-
+	
 	$.getJSON(JSON_DUMP, function(data){
 		var events = data["results"];
 		var return_data = [];
