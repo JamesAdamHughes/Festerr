@@ -13,6 +13,19 @@
     "jade": "~1.9.2",
     "morgan": "~1.5.3",
     "serve-favicon": "~2.2.1",
-    "requests" : "*"
-  }
+    "requests": "0.1.6"
+  },
+  "description": "Visualising music festivals across the UK",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JamesAdamHughes/Festerr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamesAdamHughes/Festerr/issues"
+  },
+  "homepage": "https://github.com/JamesAdamHughes/Festerr"
 }
