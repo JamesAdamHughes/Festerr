@@ -287,8 +287,7 @@ function updateMapFromClick(event_id, event_group, canvas){
 				} );
 
 			}
-		}
-		
+		}		
 
 		//clicked on an event
 		else{
@@ -331,15 +330,12 @@ function updateMapFromClick(event_id, event_group, canvas){
 			else if(ev.id == prev_selected){
 
 					ev.setOpacity(0.5);
-					var delta_size = ev.radius - ev.inital_radius;
-					
-					
+					var delta_size = ev.radius - ev.inital_radius;					
 
 					ev.animate({
 						'radius': ev.inital_radius,
 						'top' : ev.top + delta_size,
 						'left' : ev.left + delta_size
-
 					}, 
 					{	
 					  onChange: canvas.renderAll.bind(canvas),
@@ -384,7 +380,6 @@ function updateMapFromClick(event_id, event_group, canvas){
 			else{
 				ev.setOpacity(0.5);
 			}
-
 			
 		}
 	}
