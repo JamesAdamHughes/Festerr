@@ -58,6 +58,9 @@ function run(){
 	//builds the events list
 	getFestivalJSON("4", "20" , function(festivals){
 
+		// Loop though each festival object and create a circle for each
+		// Store that event data in the events list
+		// Store the circle into the events_group list for later
 		for(var i = 0; i < festivals.length; i++){
 			var fest = festivals[i];
 			var venue = fest["venue"];
@@ -114,6 +117,9 @@ function run(){
 	    activeInstance = canvas.getActiveObject();
 	    activeGroupInstance = canvas.getActiveGroup();
 
+	    // Disable any more mose down events while we handle this one
+	    // Can do this by simply remvoing this fucntion from the canvas's event listener list lol
+	    // We add this back in later
 	    canvas.__eventListeners["mouse:down"] = [];
 
 	    if (activeInstance!=null){   
@@ -149,14 +155,30 @@ function run(){
 
 }
 
-//handle input from the list
+//Get Festival data from Skiddle API
+function getFestivalJSON(RequestType, limit, callback){
+	
+	$.getJSON(JSON_DUMP, function(data){
+		var events = data["results"];
+		var return_data = [];
+
+		for(var i = 0; i < 20; i++){
+			return_data.push(events[i]);
+		}
+
+		callback(return_data);
+	})
+}	
+
+// Handle an event in the events' list being clicked
+// same as if someone had clicked an event on the map
 function listClicked(event, item_clicked){
 	var event_id = item_clicked.data("event-id");
 	updateSelection(event_id);			
 }
 
 
-//called when an event is selected from the map or the list
+// Called when an event is selected from the map or the list
 function updateSelection(event_id){
 	var color_select_pair = updateMapFromClick(event_id, event_group, canvas);
 	//check if we selected or deselected an item
@@ -171,8 +193,9 @@ function updateSelection(event_id){
 	
 }
 
-//searches for events given a search term
-//currently from staticlly servved file
+// Searches for events given a search term
+// Currently from staticlly servved file
+// Called when user enters a term into the search bar and presses enter
 function searchForEvent(searchTerm, callback){
 
 		var matching_items = [];
@@ -191,12 +214,13 @@ function searchForEvent(searchTerm, callback){
 		callback(matching_items);
 }
 
-//show the event details
+// Show the event details on the side, using mustash templates
+// Calls events api to get event details from the server
 function showEventDetails(event_id, event_color){
 
 	$.getJSON("/event/?event_id=" + event_id, function(data){
-		// console.log(data);
-		//put event data into the info template
+
+		//put event data into the mustache info template
 		$.get(TEMPLATES + 'EventDetail.mst', function(template) {
 
 			//add color the json object
@@ -219,7 +243,7 @@ function showEventDetails(event_id, event_color){
 
 }
 
-//display the current events in a list
+// display the current events in a list
 function showEventList(event_list){
 	$('#info-container').empty();
 	var template_data = {"events" : event_list};
@@ -234,9 +258,8 @@ function showEventList(event_list){
 }
 
 
-//Updates the color of each event on the map
-//given a selected event
-//NOTE disabling canvas events during animation to prevent oddities
+// Updates the color of each event on the map given a selected event
+// NOTE we disable canvas events during animation to prevent oddities
 function updateMapFromClick(event_id, event_group, canvas){
 	var color;
 	var was_prev = false;
@@ -254,18 +277,20 @@ function updateMapFromClick(event_id, event_group, canvas){
 		was_prev = true;
 	}
 
+	// Find the event we clicked in the events list
+	// Animate that bad boy, and hide all the other events
 	for(var i = 0; i < event_group.length; i++){
 		
 		var ev = event_group[i];
 
-		//reset eveything to normal
+		// Map was clicked so we reset eveything to normal
 		if(map_clicked){
 			ev.setOpacity(1);
 			color = "white";
 			canvas.bringForward(ev);
 			was_prev = true;
 
-			//if this was the one who was previously selected, bring it down to size
+			// if this was the event that is was previously selected, bring it down to size
 			if(ev.id == prev_selected){
 				var delta_size = ev.radius - ev.inital_radius;
 				
@@ -279,6 +304,7 @@ function updateMapFromClick(event_id, event_group, canvas){
 				  duration: 500,
 				  easing: fabric.util.ease.easeInQuart,
 				  
+				  // Add back the mouse down event to the canvas
 				  onComplete: function() {
 				  	canvas.__eventListeners["mouse:down"] = mouse_down_canvas_event;
 				  	console.log("reenabled mouse event");
@@ -288,10 +314,10 @@ function updateMapFromClick(event_id, event_group, canvas){
 			}
 		}		
 
-		//clicked on an event
+		// Clicked on an event circle
 		else{
 
-			//if this was the one previosuly selected, i.e reducing it
+			// if this was the one previosuly selected, we reducing (unselecting the event)
 			if(was_prev && ev.id == event_id){
 
 				//not currently animating
@@ -313,6 +339,7 @@ function updateMapFromClick(event_id, event_group, canvas){
 				  onChange: canvas.renderAll.bind(canvas),
 				  duration: 500,
 				  easing: fabric.util.ease.easeInQuart,
+				  // Add back the mouse down event to the canvas
 				  onComplete: function() {
 				  	canvas.__eventListeners["mouse:down"] = mouse_down_canvas_event;
 				  	console.log("reenabled mouse event");	
@@ -320,11 +347,13 @@ function updateMapFromClick(event_id, event_group, canvas){
 				} );
 				
 			}
+
 			//previous one was selected, reset the others to normal
 			else if(was_prev){
 				ev.setOpacity(1);
 				color = "white";
 			}
+
 			//selected another one, reudce this size
 			else if(ev.id == prev_selected){
 
@@ -383,8 +412,6 @@ function updateMapFromClick(event_id, event_group, canvas){
 		}
 	}
 
-	// console.log("done animating");
-
 	//update previous selection
 	if(was_prev){
 		prev_selected = -1;
@@ -394,8 +421,6 @@ function updateMapFromClick(event_id, event_group, canvas){
 
 	}
 
-	// console.log(prev_selected);
-
 	canvas.renderAll();
 
 	return {
@@ -404,21 +429,11 @@ function updateMapFromClick(event_id, event_group, canvas){
 	};
 }	
 
-//Get Festival data from Skiddle API
-function getFestivalJSON(RequestType, limit, callback){
-	
-	$.getJSON(JSON_DUMP, function(data){
-		var events = data["results"];
-		var return_data = [];
 
-		for(var i = 0; i < 20; i++){
-			return_data.push(events[i]);
-		}
 
-		callback(return_data);
-	})
-}	
-
+/*
+	Helper functions to handle colors, and map conversions
+*/
 
 //gets the color of an event based on a hash of the string
 //ensures events gets the same color each time it's loaded
