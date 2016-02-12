@@ -257,7 +257,6 @@ function updateMapFromClick(event_id, event_group, canvas){
 	for(var i = 0; i < event_group.length; i++){
 		
 		var ev = event_group[i];
-		// console.log(ev);
 
 		//reset eveything to normal
 		if(map_clicked){
