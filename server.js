@@ -6,8 +6,6 @@ var fs = require('fs');
 // API keys to access the skiddle festival database
 var contents = fs.readFileSync(__dirname + '/config/api_keys.json');
 var api_keys = JSON.parse(contents);
-console.log("Skiddle url: ",api_keys.skiddle.url);
-console.log("Skiddle key: ",api_keys.skiddle.key);
 
 // All static filss are in the public folder
 app.use(express.static(__dirname + '/public'));
