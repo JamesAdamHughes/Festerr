@@ -1,10 +1,13 @@
 var express = require('express');
 var app = express();
 var request = require('request');
+var fs = require('fs');
 
 // API keys to access the skiddle festival database
-var SKIDDLE_URL = "https://www.skiddle.com/api/v1/";
-var SKIDDLE_API_KEY = "/?api_key=4746dc555db14c2c5b8f52295ef28c08";
+var contents = fs.readFileSync(__dirname + '/config/api_keys.json');
+var api_keys = JSON.parse(contents);
+console.log("Skiddle url: ",api_keys.skiddle.url);
+console.log("Skiddle key: ",api_keys.skiddle.key);
 
 // All static filss are in the public folder
 app.use(express.static(__dirname + '/public'));
@@ -27,7 +30,7 @@ app.get('/event', function (req, res) {
 	res.contentType('json');
 
     // Call skiddle api and return the response
-	request(SKIDDLE_URL + "events/" + event_id + SKIDDLE_API_KEY, function (error, request, body) {
+	request(api_keys.skiddle.url + "events/" + event_id + api_keys.skiddle.key, function (error, request, body) {
 		if(!error && request.statusCode == 200){
 			response = body;
 			res.send(response)
