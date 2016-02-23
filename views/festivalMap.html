@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.0.0/mustache.min.js"></script>
-
-		<script type="text/javascript" src="js/Festerr.js"></script>
-
 		<link rel="stylesheet" type="text/css" href="css/EventDetail.css">
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+		<link rel="stylesheet" type="text/css" href="css/gridStyles.css">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 	</head>
 
 	<body>
@@ -27,6 +26,7 @@
 			
 		</div>
 		<div class="row">
+			<!-- SEARCH BOX -->
 			<div class="col-md-6 col-md-offset-3">
 				<input type="text" class="form-control" id="search-box" placeholder="Search for a festival, artist or event">
 
@@ -34,18 +34,54 @@
 			
 		</div>
 		<div class="row">
+			<!-- MAP CONTAINER -->
 			<div class="col-md-6" id="map-container">
 				<canvas id="canvas" width="596" height="750" ></canvas>	
 			</div>
-
+	
+			<!-- INFO CONTAINER??? -->
 			<div class="col-md-6" id="info-container">
+
+				<div ng-controller="gridListDemoCtrl" class="gridListdemoDynamicTiles" ng-app="MyApp">
+					<md-content layout="row">
+			            <!-- <div flex="30" layout="row">
+			                hello from the left
+			            </div> -->
+			            <md-content flex="100" layout="column" md-scroll-y layout-padding>
+			                    <md-list ng-repeat="tileRow in tileList">
+			                    <div class="header" > <h2>Week {{$index + 1}}</h2></div>
+			                    <md-grid-list
+			                        md-cols="8" md-row-height="1:1"
+			                        md-gutter="5px" >
+			                        <md-grid-tile ng-repeat="tile in tileRow"
+			                            md-rowspan="{{tile.span.row}}"
+			                            md-colspan="{{tile.span.col}}"
+			                            md-colspan-sm="1"
+			                            ng-class="tile.background"
+			                            ng-click="changeSize(tile)" >
+			                            <md-grid-tile-footer ng-class="tile.background">
+			                                <h3>{{tile.title}}</h3>
+			                            </md-grid-tile-footer>
+			                        </md-grid-tile>
+			                    </md-grid-list>
+			                    </md-list>     
+			            </md-content>
+			            <!--  <div flex="0">
+			                hello from the right
+			            </div> -->
+			            <!-- <script type="text/javascript">
+			            var grid = [[8,2]];
+			            gridSplit(grid, 5);
+			            </script> -->
+			        </md-content>
+				</div>
 								
-				<div class="row" style="overflow-y: scroll; height:600px; margin-top:20px">
+				<!-- <div class="row" style="overflow-y: scroll; height:600px; margin-top:20px">
 					<div class="col-md-12" style="margin-top:40px">
 						<ul class="list-group" id="event-list">
 						</ul>
 					</div>					
-				</div>
+				</div> -->
 					
 			</div>
 					
@@ -78,12 +114,19 @@
 					console.log("done getting search results...");
 
 				});
-			})
-
-
+			});
 		</script>
 	</body>
 
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.0.0/mustache.min.js"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
 
+	<script type="text/javascript" src="js/Festerr.js"></script>
+	<script type="text/javascript" src="js/gridListDemo.js"></script>
 </html>

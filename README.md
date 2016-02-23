@@ -24,6 +24,6 @@ Visualising music festivals across the UK
 ## Running the Site
     
 * `cd` to the festerr root level folder.
-* run `node server.js`.You should see the output `Festerr app listeneing at http://0.0.0.0:3000` on the prompt.
+* run `node server.js`.You should see the output `Festerr app listening at http://0.0.0.0:3000` on the prompt.
 * Navigate to `localhost:3000` and you should see the page.
 
