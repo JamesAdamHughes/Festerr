@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/JamesAdamHughes/Festerr.png?label=ready&title=Ready)](https://waffle.io/JamesAdamHughes/Festerr)
 # Festerr
 Visualising music festivals across the UK
 
