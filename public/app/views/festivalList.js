@@ -26,7 +26,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                 }
                 res[i].tileInfo = tileInfo;
             }
-            
+
             $scope.eventList = res;
         });
 
@@ -42,11 +42,15 @@ angular.module('FestivalListView', ['ngMaterial'])
                 };
             }
 
-            // Make the event taller
-            event.tileInfo.displaySpan.rows = 5;
-            currentlySelectedTile = tile.ID;
-
-
+            // If it was not the previosuly selected tile, make big
+            if (currentlySelectedTile !== tile.ID) {
+                // Make the event taller
+                event.tileInfo.displaySpan.rows = 5;
+                currentlySelectedTile = tile.ID;
+            } else {
+                // Unselected previsouly selected tile, reset counter
+                currentlySelectedTile = -1;
+            }
 
             //TODO make old span when clicking off
         }
