@@ -59,10 +59,10 @@
 			                            md-colspan-sm="1"
 			                            ng-click="selectTile(event.tileInfo)"
 			                            class="eventTile">
-			                            <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{event.layout.backgroundImage}})'}">			                            	
+			                            <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{event.largeimageurl}})'}">			                            	
 			                            </div>
 			                            <md-grid-tile-footer>
-			                                <h3>{{event.name}}</h3>
+			                                <h3>{{event.eventname}}</h3>
 			                            </md-grid-tile-footer>
 			                        </md-grid-tile>
 
@@ -72,9 +72,9 @@
 			                            md-rowspan="{{artist.layout.span.row}}"
 			                            md-colspan="{{artist.layout.span.col}}"
 			                            md-colspan-sm="1"
-			                            ng-repeat="artist in event.artists"
+			                            ng-repeat="artist in event.artists | limitTo:8"
 			                            class="artistTile">
-			                            <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{artist.layout.backgroundImage}})'}">			                            	
+			                            <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{artist.image}})'}">			                            	
 			                            </div>
 			                            <md-grid-tile-footer>
 			                                <h3>{{artist.name}}</h3>
