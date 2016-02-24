@@ -38,25 +38,153 @@ var festivalData = [{
             backgroundColor: "#9585BE",
             backgroundImage: "http://quaysnews.net/wp-content/uploads/2016/02/PL_FB_AD_1.png"
         },
-        artists: [{
-            name: "The Chemical Brothers",
-            layout: {
-                span: {
-                    row: 2,
-                    col: 2
-                },
-                backgroundImage: "https://static-secure.guim.co.uk/sys-images/Observer/Columnist/Columnists/2015/7/24/1437753327251/the-chemical-brothers-009.jpg"
-            }
-        }, {
-            name: "Major Lazer",
-            layout: {
-                span: {
-                    row: 2,
-                    col: 2
-                },
-                backgroundImage: "http://www.tribalmixes.com/pic/dj/new/major-lazer-1.jpg"
-            }
-        }]
+        artists: [
+        // {
+        //     name: "The Chemical Brothers",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "https://static-secure.guim.co.uk/sys-images/Observer/Columnist/Columnists/2015/7/24/1437753327251/the-chemical-brothers-009.jpg"
+        //     }
+        // }, {
+        //     name: "Major Lazer",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "http://www.tribalmixes.com/pic/dj/new/major-lazer-1.jpg"
+        //     }
+        // },{
+        //     name: "The Chemical Brothers",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "https://static-secure.guim.co.uk/sys-images/Observer/Columnist/Columnists/2015/7/24/1437753327251/the-chemical-brothers-009.jpg"
+        //     }
+        // }, {
+        //     name: "Major Lazer",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "http://www.tribalmixes.com/pic/dj/new/major-lazer-1.jpg"
+        //     }
+        // },{
+        //     name: "The Chemical Brothers",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "https://static-secure.guim.co.uk/sys-images/Observer/Columnist/Columnists/2015/7/24/1437753327251/the-chemical-brothers-009.jpg"
+        //     }
+        // }, {
+        //     name: "Major Lazer",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "http://www.tribalmixes.com/pic/dj/new/major-lazer-1.jpg"
+        //     }
+        // },{
+        //     name: "The Chemical Brothers",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "https://static-secure.guim.co.uk/sys-images/Observer/Columnist/Columnists/2015/7/24/1437753327251/the-chemical-brothers-009.jpg"
+        //     }
+        // }, {
+        //     name: "Major Lazer",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "http://www.tribalmixes.com/pic/dj/new/major-lazer-1.jpg"
+        //     }
+        // },{
+        //     name: "The Chemical Brothers",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "https://static-secure.guim.co.uk/sys-images/Observer/Columnist/Columnists/2015/7/24/1437753327251/the-chemical-brothers-009.jpg"
+        //     }
+        // }, {
+        //     name: "Major Lazer",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "http://www.tribalmixes.com/pic/dj/new/major-lazer-1.jpg"
+        //     }
+        // },{
+        //     name: "The Chemical Brothers",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "https://static-secure.guim.co.uk/sys-images/Observer/Columnist/Columnists/2015/7/24/1437753327251/the-chemical-brothers-009.jpg"
+        //     }
+        // }, {
+        //     name: "Major Lazer",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "http://www.tribalmixes.com/pic/dj/new/major-lazer-1.jpg"
+        //     }
+        // },{
+        //     name: "The Chemical Brothers",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "https://static-secure.guim.co.uk/sys-images/Observer/Columnist/Columnists/2015/7/24/1437753327251/the-chemical-brothers-009.jpg"
+        //     }
+        // }, {
+        //     name: "Major Lazer",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "http://www.tribalmixes.com/pic/dj/new/major-lazer-1.jpg"
+        //     }
+        // },{
+        //     name: "The Chemical Brothers",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "https://static-secure.guim.co.uk/sys-images/Observer/Columnist/Columnists/2015/7/24/1437753327251/the-chemical-brothers-009.jpg"
+        //     }
+        // }, {
+        //     name: "Major Lazer",
+        //     layout: {
+        //         span: {
+        //             row: 2,
+        //             col: 2
+        //         },
+        //         backgroundImage: "http://www.tribalmixes.com/pic/dj/new/major-lazer-1.jpg"
+        //     }
+        // }
+        ]
     }, {
         name: "Strawberrys and Creem Festival",
         date: "26th July 2016",
