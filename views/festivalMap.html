@@ -54,9 +54,10 @@
 
 			                        <!-- Festival tile is also single -->
 									<md-grid-tile
-			                            md-rowspan="{{event.layout.span.row}}"
-			                            md-colspan="{{event.layout.span.col}}"
+			                            md-rowspan="{{event.tileInfo.displaySpan.rows}}"
+			                            md-colspan="{{event.tileInfo.displaySpan.cols}}"
 			                            md-colspan-sm="1"
+			                            ng-click="selectTile(event.tileInfo)"
 			                            class="eventTile">
 			                            <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{event.largeimageurl}})'}">			                            	
 			                            </div>
