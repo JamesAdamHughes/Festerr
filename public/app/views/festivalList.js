@@ -2,7 +2,12 @@ angular.module('FestivalListView', ['ngMaterial'])
     .controller('FestivalListCtrl', ['$scope', 'FestivalDataService', function($scope, FestivalDataService) {
 
         // Holds all info for all events we show in the events list
-        $scope.eventList = FestivalDataService.getFestivalData();
+        $scope.eventList;
+
+        FestivalDataService.getFestivalData().then(function(res){
+            console.log(res);
+            $scope.eventList = res;
+        })
 
 
 //         for (var i = 0; i < 10; i++) {
