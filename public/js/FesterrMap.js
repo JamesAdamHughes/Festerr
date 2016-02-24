@@ -1,5 +1,3 @@
-
-
 var prev_selected = -1;
 var width = 596;
 var height = 750;
