@@ -16,7 +16,7 @@ var context;
 
 var ROOT_PATH = "../";
 var UK_MAP_PATH = ROOT_PATH + "images/UK_MAP_ac_processed.png";
-var JSON_DUMP = ROOT_PATH + "json_dump/events_dump_29_5_15.json";
+var JSON_DUMP = ROOT_PATH + "json_dump/events_dump_23_2_16.json";
 var TEMPLATES = ROOT_PATH + "templates/";
 
 
