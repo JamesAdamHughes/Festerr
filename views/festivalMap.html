@@ -12,7 +12,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"> -->
+        <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 	</head>
 
 	<body>
@@ -36,20 +37,24 @@
 		<div class="row">
 			<!-- MAP CONTAINER -->
 			<div class="col-md-6" id="map-container">
-				<canvas id="canvas" width="596" height="750" ></canvas>	
+				<!-- <canvas id="canvas" width="596" height="750" ></canvas>	 -->
 			</div>
 	
 			<!-- TILES CONTAINER -->
 			<div class="col-md-6" id="info-container">
-				<div ng-controller="gridListDemoCtrl" class="gridListdemoDynamicTiles" ng-app="MyApp">
+				<div ng-controller="FestivalListCtrl" class="gridListdemoDynamicTiles" ng-app="MyApp">
 					<md-content layout="row">
 			            <md-content flex="100" layout="column" md-scroll-y layout-padding>
-			                    <md-list ng-repeat="tileRow in tileList">
+
+			            		<!-- Each festival event is contained in a tileRow -->
+			                    <!-- <md-list ng-repeat="tileRow in tileList">
 			                    <div class="header" > <h2>Week {{$index + 1}}</h2></div>
 			                    <md-grid-list
 			                        md-cols="8" md-row-height="1:1"
-			                        md-gutter="5px" >
-			                        <md-grid-tile ng-repeat="tile in tileRow"
+			                        md-gutter="5px" > -->
+
+			                        <!-- Each artist is  a tile in the tileRow -->
+			                       <!--  <md-grid-tile ng-repeat="tile in tileRow"
 			                            md-rowspan="{{tile.span.row}}"
 			                            md-colspan="{{tile.span.col}}"
 			                            md-colspan-sm="1"
@@ -59,8 +64,46 @@
 			                                <h3>{{tile.title}}</h3>
 			                            </md-grid-tile-footer>
 			                        </md-grid-tile>
+
+			                        'background-color': '{{event.tileLayout.background_color}}', ,
+
 			                    </md-grid-list>
-			                    </md-list>     
+			                    </md-list>  -->  
+
+			                    <!-- Each festival event is contained in a tileRow -->
+			                    <md-list ng-repeat="event in eventList">
+			                    <md-grid-list
+			                        md-cols="8" md-row-height="1:1"
+			                        md-gutter="5px" >
+
+			                        <!-- Festival tile is also single -->
+									<md-grid-tile
+			                            md-rowspan="{{event.layout.span.row}}"
+			                            md-colspan="{{event.layout.span.col}}"
+			                            md-colspan-sm="1"
+			                            class="eventTile">
+			                            <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{event.layout.backgroundImage}})'}">
+			                            	
+			                            </div>
+			                            <md-grid-tile-footer>
+			                                <h3>{{event.name}}</h3>
+			                            </md-grid-tile-footer>
+			                        </md-grid-tile>
+			                        <!-- Each artist is  a tile in the tileRow -->
+			                        <md-grid-tile
+			                            md-rowspan="{{artist.layout.span.row}}"
+			                            md-colspan="{{artist.layout.span.col}}"
+			                            md-colspan-sm="1"
+			                            ng-repeat="artist in event.artists"
+			                            class="artistTile">
+			                            <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{artist.layout.backgroundImage}})'}">			                            	
+			                            </div>
+			                            <md-grid-tile-footer>
+			                                <h3>{{artist.name}}</h3>
+			                            </md-grid-tile-footer>
+			                        </md-grid-tile>
+			                    </md-grid-list>
+			                    </md-list>      
 			            </md-content>
 			        </md-content>
 				</div>				
@@ -70,7 +113,7 @@
 
 	
 
-
+		<!-- Handle the search box and clicking event list -->
 		<script type="text/javascript">
 			$(document).ready(function() {		
 				run();
