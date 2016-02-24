@@ -1,7 +1,8 @@
 var express = require('express');
-var app = express();
 var request = require('request');
 var fs = require('fs');
+
+var app = express();
 
 // API keys to access the skiddle festival database
 var contents = fs.readFileSync(__dirname + '/config/api_keys.json');
@@ -38,8 +39,9 @@ app.get('/event', function (req, res) {
 			res.send(response);
 		}
 	});
+});
 
-})
+
 
 // Start the server listening on port 3000
 var server = app.listen(process.env.PORT || 3000, function () {

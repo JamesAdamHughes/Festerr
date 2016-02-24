@@ -92,16 +92,6 @@ body {
 .gridListdemoDynamicTiles md-grid-tile-footer figcaption {
   width: 100%; }
 
-.gridListdemoDynamicTiles md-grid-tile-footer figcaption h3 {
-/*  margin: 0;
-  font-weight: 700;
-  width: 100%;
-  padding-left: 10px;
-  font-size: medium;
-  text-align: left;
-  font-size: 25px;*/
-}
-
 .eventTile md-grid-tile-footer h3 {
   margin: 0;
   font-weight: 700;
