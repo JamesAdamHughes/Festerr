@@ -25,6 +25,21 @@ angular.module('FestivalListView', ['ngMaterial'])
                     }
                 }
                 res[i].tileInfo = tileInfo;
+                for (var j = 0; j < res[i].artists.length; j++) {
+                    var artistTileInfo = {
+                        ID: j,
+                        selected: false,
+                        defaultSpan: {
+                            cols: 2,
+                            rows: 2
+                        },
+                        displaySpan: {
+                            cols: 2,
+                            rows: 2
+                        }
+                    }
+                    res[i].artists[j].tileInfo = artistTileInfo;
+                }
             }
 
             $scope.eventList = res;
