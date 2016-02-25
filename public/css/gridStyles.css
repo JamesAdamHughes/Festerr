@@ -101,6 +101,10 @@ body {
   position: relative;
 }
 
+.festival-tile-body {
+  width: 100%;
+}
+
 .festival-name-container h3 {
   margin: 0;
   font-weight: 700;
@@ -123,11 +127,6 @@ body {
 .expanded-body {
   height: 40%;
 }
-
-.closed-body {
-  height: 100%;
-}
-
 
 .festival-name-container {
   width: 100%;
