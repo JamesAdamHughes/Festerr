@@ -4,12 +4,11 @@ angular.module('FestivalListView', ['ngMaterial'])
         // Holds all info for all events we show in the events list
         $scope.eventList;
 
-        var currentlySelectedEventTile = -1;
-        var currentlySelectedArtistTile = -1;
+        $scope.currentlySelectedEventTile = -1;
+        $scope.currentlySelectedArtistTile = -1; 
 
         // Get the festival data from the server and display it
         FestivalDataService.getFestivalData().then(function(res) {
-            console.log(res);
 
             // add tile information to each festival we get
             for (var i = 0; i < res.length; i++) {
@@ -69,7 +68,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             var event = $scope.eventList[tile.ID];
 
             // Make the previosuly selected event (if exists) original size again
-            var prevEvent = $scope.eventList[currentlySelectedEventTile];
+            var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];
             if (prevEvent !== undefined) {
                 prevEvent.tileInfo.displaySpan = {
                     cols: prevEvent.tileInfo.defaultSpan.cols,
@@ -78,16 +77,16 @@ angular.module('FestivalListView', ['ngMaterial'])
             }
 
             // If it was not the previosuly selected tile, make big
-            if (currentlySelectedEventTile !== tile.ID) {
+            if ($scope.currentlySelectedEventTile !== tile.ID) {
                 // Make the event taller
                 event.tileInfo.displaySpan = {
                     cols: event.tileInfo.expandedSpan.cols,
                     rows: event.tileInfo.expandedSpan.rows
                 };
-                currentlySelectedEventTile = tile.ID;
+                $scope.currentlySelectedEventTile = tile.ID;
             } else {
                 // Unselected previsouly selected tile, reset counter
-                currentlySelectedEventTile = -1;
+                $scope.currentlySelectedEventTile = -1;
             }
 
             //TODO make old span when clicking off
@@ -96,7 +95,7 @@ angular.module('FestivalListView', ['ngMaterial'])
         $scope.selectArtistTile = function(event, tile) {
             var artist = $scope.eventList[event.ID].artists[tile.ID];
 
-            var prevArtist = $scope.eventList[event.ID].artists[currentlySelectedArtistTile];
+            var prevArtist = $scope.eventList[event.ID].artists[$scope.currentlySelectedArtistTile];
             if (prevArtist !== undefined) {
                 prevArtist.tileInfo.displaySpan = {
                     cols: prevArtist.tileInfo.defaultSpan.cols,
@@ -105,16 +104,16 @@ angular.module('FestivalListView', ['ngMaterial'])
             }
 
             // If it was not the previosuly selected tile, make big
-            if (currentlySelectedArtistTile !== tile.ID) {
+            if ($scope.currentlySelectedArtistTile !== tile.ID) {
                 // Make the artist taller and wider
                 artist.tileInfo.displaySpan = {
                     cols: artist.tileInfo.expandedSpan.cols,
                     rows: artist.tileInfo.expandedSpan.rows
                 };
-                currentlySelectedArtistTile = tile.ID;
+                $scope.currentlySelectedArtistTile = tile.ID;
             } else {
                 // Unselected previsouly selected tile, reset counter
-                currentlySelectedArtistTile = -1;
+                $scope.currentlySelectedArtistTile = -1;
             }
 
         }
