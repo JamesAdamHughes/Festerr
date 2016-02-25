@@ -3,18 +3,30 @@
     md-cols="8" md-row-height="1:1"
     md-gutter="5px" >
 
-    <!-- Festival tile is also single -->
+    <!-- Festival tile is standalone -->
     <md-grid-tile
         md-rowspan="{{event.tileInfo.displaySpan.rows}}"
         md-colspan="{{event.tileInfo.displaySpan.cols}}"
         md-colspan-sm="1"
         ng-click="selectTile(event.tileInfo)"
         class="eventTile">
-        <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{event.largeimageurl}})'}">                                            
-        </div>
-        <md-grid-tile-footer>
-            <h3>{{event.eventname}}</h3>
-        </md-grid-tile-footer>
+
+        <div class="festival-tile-container">
+             <!-- Festival header -->
+            <div class="festival-tile-header"
+                ng-style="{'background-image' :'url({{event.largeimageurl}})'}"
+                ng-class="currentlySelectedTile === {{event.tileInfo.ID}} ? 'expanded-header' : 'closed-header'"> 
+                <div class="festival-name-container">
+                    <h3>{{event.eventname}}</h3>                                  
+                </div>
+            </div>
+
+            <div class="festival-tile-body" ng-show="currentlySelectedTile === {{event.tileInfo.ID}}"
+                ng-class="currentlySelectedTile === {{event.tileInfo.ID}} ? 'expanded-body' : 'closed-body'">
+                hello world
+            </div>
+        </div>       
+
     </md-grid-tile>
 
     <!-- Each artist is a tile in the tileRow -->

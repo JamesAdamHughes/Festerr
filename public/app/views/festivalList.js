@@ -4,7 +4,7 @@ angular.module('FestivalListView', ['ngMaterial'])
         // Holds all info for all events we show in the events list
         $scope.eventList;
 
-        var currentlySelectedTile = -1;
+        $scope.currentlySelectedTile = -1;
 
         // Get the festival data from the server and display it
         FestivalDataService.getFestivalData().then(function(res) {
@@ -34,7 +34,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             var event = $scope.eventList[tile.ID];
 
             // Make the previosuly selected event (if exists) original size again
-            var prevEvent = $scope.eventList[currentlySelectedTile];
+            var prevEvent = $scope.eventList[$scope.currentlySelectedTile];
             if (prevEvent !== undefined) {
                 prevEvent.tileInfo.displaySpan = {
                     cols: prevEvent.tileInfo.defaultSpan.cols,
@@ -43,13 +43,13 @@ angular.module('FestivalListView', ['ngMaterial'])
             }
 
             // If it was not the previosuly selected tile, make big
-            if (currentlySelectedTile !== tile.ID) {
+            if ($scope.currentlySelectedTile !== tile.ID) {
                 // Make the event taller
                 event.tileInfo.displaySpan.rows = 5;
-                currentlySelectedTile = tile.ID;
+                $scope.currentlySelectedTile = tile.ID;
             } else {
                 // Unselected previsouly selected tile, reset counter
-                currentlySelectedTile = -1;
+                $scope.currentlySelectedTile = -1;
             }
 
             //TODO make old span when clicking off
