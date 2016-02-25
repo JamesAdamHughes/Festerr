@@ -17,7 +17,7 @@
 	</head>
 
 	<body>
-	<div class="container">
+	<div ng-controller="FestivalListCtrl" class="container" ng-app="festerrApp">
 		<div class="row">
 
 			<div class="page-header">
@@ -29,7 +29,7 @@
 		<div class="row">
 			<!-- SEARCH BOX -->
 			<div class="col-md-6 col-md-offset-3">
-				<input type="text" class="form-control" id="search-box" placeholder="Search for a festival, artist or event">
+				<input ng-model="query" type="text" class="form-control" id="search-box" placeholder="Search for a festival, artist or event">
 
 			</div>
 			
@@ -42,14 +42,13 @@
 	
 			<!-- TILES CONTAINER -->
 			<div class="col-md-6" id="info-container">
-				<div ng-controller="FestivalListCtrl" class="gridListdemoDynamicTiles" ng-app="festerrApp">
+				<div class="gridListdemoDynamicTiles">
 					<md-content layout="row">
 			            <md-content flex="100" layout="column" md-scroll-y layout-padding>
 						
 						<md-list ng-repeat="event in eventList" ng-include="'/templates/eventTile.html'">
 						</md-list>    
-		                     
-
+	                     
 			            </md-content>
 			        </md-content>
 				</div>				
@@ -57,32 +56,6 @@
 		</div>
 	</div>	
 
-	
-
-		<!-- Handle the search box and clicking event list -->
-		<script type="text/javascript">
-			$(document).ready(function() {		
-				run();
-			});
-
-			$('#event-list').on('click', 'li', function(event){	
-				listClicked(event, $(this));
-			});
-
-			$('#search-box').on('change', function(){
-				var search_term = $(this).val();
-
-				console.log("searching...");
-				//get seach results from data
-				searchForEvent(search_term, function(data){
-
-					showEventList(data);
-
-					console.log("done getting search results...");
-
-				});
-			});
-		</script>
 	</body>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
