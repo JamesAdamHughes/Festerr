@@ -54,15 +54,15 @@ angular.module('FestivalListView', ['ngMaterial'])
             $scope.eventList = res;
         });
 
-        $scope.search = function (row) {
+        $scope.search = function (event) {
             //Check if seach query matches event name
-            var event = angular.lowercase(row.eventname).indexOf(angular.lowercase($scope.query) || '') !== -1;
-            var artist = false;
+            var eventName = angular.lowercase(event.eventname).indexOf(angular.lowercase($scope.query) || '') !== -1;
+            var artistName = false;
             //Check if search query matches any artist within that event
-            for (var i = row.artists.length - 1; i >= 0; i--) {
-                artist = artist || (angular.lowercase(row.artists[i].name).indexOf(angular.lowercase($scope.query) || '') !== -1);
+            for (var i = event.artists.length - 1; i >= 0; i--) {
+                artistName = artistName || (angular.lowercase(event.artists[i].name).indexOf(angular.lowercase($scope.query) || '') !== -1);
             };
-            return event || artist;
+            return eventName || artistName;
         };
 
         $scope.selectEventTile = function(tile) {
