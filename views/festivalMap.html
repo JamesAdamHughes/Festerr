@@ -57,7 +57,7 @@
 			                            md-rowspan="{{event.tileInfo.displaySpan.rows}}"
 			                            md-colspan="{{event.tileInfo.displaySpan.cols}}"
 			                            md-colspan-sm="1"
-			                            ng-click="selectTile(event.tileInfo)"
+			                            ng-click="selectEventTile(event.tileInfo)"
 			                            class="eventTile">
 			                            <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{event.largeimageurl}})'}">			                            	
 			                            </div>
@@ -73,6 +73,7 @@
 			                            md-rowspan="{{artist.tileInfo.displaySpan.rows}}"
 			                            md-colspan="{{artist.tileInfo.displaySpan.cols}}"
 			                            md-colspan-sm="1"
+			                            ng-click="selectArtistTile(event.tileInfo, artist.tileInfo)"
 			                            class="artistTile">
 			                            <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{artist.image}})'}">			                            	
 			                            </div>
