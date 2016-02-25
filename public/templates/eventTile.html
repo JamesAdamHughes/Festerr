@@ -23,7 +23,15 @@
 
             <div class="festival-tile-body" ng-show="currentlySelectedTile === {{event.tileInfo.ID}}"
                 ng-class="currentlySelectedTile === {{event.tileInfo.ID}} ? 'expanded-body' : 'closed-body'">
-                hello world
+                <div class="festival-details-text">
+                    {{event.date}}
+                </div>
+                <div class="festival-details-text">
+                    {{event.entryprice}}
+                </div>
+                <div class="festival-details-text">
+                    {{event.venue.name}}
+                </div>
             </div>
         </div>       
 

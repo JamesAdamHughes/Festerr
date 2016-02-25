@@ -8,7 +8,6 @@ angular.module('FestivalListView', ['ngMaterial'])
 
         // Get the festival data from the server and display it
         FestivalDataService.getFestivalData().then(function(res) {
-            console.log(res);
 
             // add tile information to each festival we get
             for (var i = 0; i < res.length; i++) {
