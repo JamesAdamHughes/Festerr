@@ -115,7 +115,7 @@ body {
 }
 
 .expanded-header {
-  transition: 300ms;
+  transition: 500ms;
   height: 60%;
 }
 
