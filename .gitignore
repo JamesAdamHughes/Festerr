@@ -9,7 +9,7 @@ lib-cov
 *.pid
 *.gz
 *.xcf
-
+*.db
 pids
 logs
 results
