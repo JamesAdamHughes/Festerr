@@ -9,7 +9,7 @@ lib-cov
 *.pid
 *.gz
 *.xcf
-
+node.d.ts
 pids
 logs
 results
