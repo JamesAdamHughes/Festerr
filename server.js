@@ -1,6 +1,7 @@
 var express = require('express');
 var request = require('request');
 var fs = require('fs');
+var imageSearch = require('./utils/googleImageSearch');
 
 var app = express();
 
@@ -21,6 +22,12 @@ app.get('/', function (req, res) {
 
 // Serve /event 
 app.get('/event', require("./controllers/events.js"));
+
+// Example query for google image search
+// var query = imageSearch.buildImageQuery("Strawberries and cream festival 2016");
+// var imageSearchResult = imageSearch.makeRequest(query).then(function(res){
+//     console.log(res);
+// });
 
 
 // Start the server listening on port 3000

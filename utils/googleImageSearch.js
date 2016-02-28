@@ -7,19 +7,23 @@ var queryBuilder = require('./queryBuilder.js');
 var contents = fs.readFileSync(__dirname + '/../config/api_keys.json');
 var googleSearchAPI = JSON.parse(contents).google_search;
 
-// Set the params for the search
+// Set the default params for the search
 var defaultParams = {
+    // search term
     q: "parklife+festival+2016",
+    // custom seach engine key
     cx: googleSearchAPI.cx_key,
+    // app key
     key: googleSearchAPI.key,
-    fileType: "jpg",
-    imgType: "photo",
+    // type of search to conduct
     searchType: "image",
+    // filetype of image to search for
+    fileType: "jpg",
+    // what type of image to search for
+    imgType: "photo",
+    // how many results to return
     num: 5
 };
-
-// Create the query from the params
-// var query = queryBuilder.buildQuery(googleSearchAPI.url, params);
 
 var googleImageSearch = {
     
@@ -36,13 +40,14 @@ var googleImageSearch = {
         }
         escapedSearch = escapedSearch.substring(0, escapedSearch.length);
         
+        // Build the final query
         params.q = escapedSearch;
         query = queryBuilder.buildQuery(googleSearchAPI.url, params);
         
         return query;         
     },
     
-    // Make a request with the query
+    // Execute a request with the given query
     // returns a promise resolved with the json of the search result
     // Or an object containing the error response
     makeRequest: function (query) {
@@ -61,12 +66,5 @@ var googleImageSearch = {
         return deferred.promise;
     }
 };
-
-// Make a request
-// makeRequest(query).then(function (res) {
-//     console.log(res);
-// }).catch(function (err) {
-//     console.error(err);
-// });
 
 module.exports = googleImageSearch;
