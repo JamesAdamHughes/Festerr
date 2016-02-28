@@ -4,6 +4,8 @@
 		"key": "/?api_key=4746dc555db14c2c5b8f52295ef28c08"
 	},
     "google_search": {
-        "key": "AIzaSyA2TqQ57KW7HZFIpejw2jtsNgsCHiWe8hw"
+        "key": "AIzaSyA2TqQ57KW7HZFIpejw2jtsNgsCHiWe8hw",
+        "url": "https://www.googleapis.com/customsearch/v1",
+        "cx_key": "008101794855322500557%3Avpsos_ktj6y"
     }
 }
