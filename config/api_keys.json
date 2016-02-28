@@ -2,5 +2,8 @@
 	"skiddle": {
 		"url": "https://www.skiddle.com/api/v1/",
 		"key": "/?api_key=4746dc555db14c2c5b8f52295ef28c08"
-	}
+	},
+    "google_search": {
+        "key": "AIzaSyA2TqQ57KW7HZFIpejw2jtsNgsCHiWe8hw"
+    }
 }
