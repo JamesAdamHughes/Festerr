@@ -10,6 +10,9 @@ lib-cov
 *.gz
 *.xcf
 node.d.ts
+*.db
+.vscode/*
+typings
 pids
 logs
 results

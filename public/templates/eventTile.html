@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="festival-tile-body" ng-show="currentlySelectedEventTile === {{event.tileInfo.ID}}"
+            <div class="festival-tile-body" 
                 ng-class="currentlySelectedEventTile === {{event.tileInfo.ID}} ? 'expanded-body' : 'closed-body'">
                 <div class="festival-details-text">
                     {{event.date}}
@@ -45,7 +45,8 @@
         md-colspan-sm="1"
         ng-click="selectArtistTile(event.tileInfo, artist.tileInfo)"
         class="artistTile">
-        <div style="width: 100%; height: 100%;" ng-style="{'background-image' :'url({{artist.image}})'}">                                           
+        <div style="width: 100%; height: 100%;background-size: cover;
+" ng-style="{'background-image' :'url({{artist.image}})'}">                                           
         </div>
         <md-grid-tile-footer>
             <h3>{{artist.name}}</h3>
