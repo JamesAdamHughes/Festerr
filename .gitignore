@@ -9,6 +9,7 @@ lib-cov
 *.pid
 *.gz
 *.xcf
+*.db
 typings
 pids
 logs
