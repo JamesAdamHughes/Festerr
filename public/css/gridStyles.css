@@ -20,18 +20,6 @@ body {
 .gridListdemoBasicUsage md-grid-tile {
   transition: all 400ms ease-out 50ms; }
 
-@-webkit-keyframes MOVE-BG {
-  from {
-    -webkit-transform: translate(0,0);
-        /*-webkit-transform: translateY(0);*/
-
-  }
-  to { 
-    -webkit-transform: translate(-200%, -200%);
-        /*-webkit-transform: translateY(-200%);*/
-  }
-}
-
 .header h2{
   color: rgba(0,0,0,0.54);
   line-height: .75em;
@@ -127,7 +115,7 @@ body {
 }
 
 .expanded-header {
-  transition: 300ms;
+  transition: 500ms;
   height: 60%;
 }
 
@@ -138,6 +126,12 @@ body {
 
 .expanded-body {
   height: 40%;
+  transition: 500ms;
+}
+
+.closed-body {
+  height: 0%;
+  transition: 500ms;
 }
 
 .festival-name-container {
