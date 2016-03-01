@@ -1,6 +1,7 @@
 var express = require('express');
 var request = require('request');
 var fs = require('fs');
+var imageSearch = require('./utils/googleImageSearch');
 
 var app = express();
 
@@ -19,28 +20,13 @@ app.get('/', function (req, res) {
   res.render('festivalMap.html');
 });
 
+// Serve /event 
 app.get('/event', require("./controllers/events.js"));
 
-// Serve requests to 'event' 
-// // Returns a given events data from the Skiddle database using event_id
-// app.get('/event', function (req, res) {
-	
-// 	var event_id = req.query.event_id;
-// 	var response;
-
-// 	res.contentType('json');
-
-//     // Call skiddle api and return the response
-// 	request(api_keys.skiddle.url + "events/" + event_id + api_keys.skiddle.key, function (error, request, body) {
-// 		if(!error && request.statusCode == 200){
-// 			response = body;
-// 			res.send(response)
-// 		}
-// 		else{
-// 			response ={"error": "couldnt get data"};
-// 			res.send(response);
-// 		}
-// 	});
+// Example query for google image search
+// var query = imageSearch.buildImageQuery("Strawberries and cream festival 2016");
+// var imageSearchResult = imageSearch.makeRequest(query).then(function(res){
+//     console.log(res);
 // });
 
 

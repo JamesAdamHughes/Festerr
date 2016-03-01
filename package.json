@@ -4,15 +4,16 @@
   "description": "Visualising music festivals across the UK",
   "main": "app.js",
   "dependencies": {
-    "cookie-parser": "^1.3.5",
-    "ejs": "^2.3.1",
     "body-parser": "^1.12.4",
+    "cookie-parser": "^1.3.5",
     "debug": "^2.2.0",
-    "request": "^2.57.0",
-    "morgan": "^1.5.3",
+    "ejs": "^2.3.1",
+    "express": "^4.12.4",
     "jade": "^1.9.2",
-    "serve-favicon": "^2.2.1",
-    "express": "^4.12.4"
+    "morgan": "^1.5.3",
+    "q": "^1.4.1",
+    "request": "^2.69.0",
+    "serve-favicon": "^2.2.1"
   },
   "devDependencies": {},
   "scripts": {

@@ -9,6 +9,7 @@ lib-cov
 *.pid
 *.gz
 *.xcf
+node.d.ts
 *.db
 .vscode/*
 typings
