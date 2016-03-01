@@ -8,12 +8,7 @@ function HeaderController($scope, $mdDialog) {
     $scope.showSignupDialog = function ($event) {
         $mdDialog.show({
             clickOutsideToClose: true,
-            template:
-            '<md-dialog>' +
-            '  <md-dialog-content>' +
-            '     Signup :) {{employee}}' +
-            '  </md-dialog-content>' +
-            '</md-dialog>',
+            templateUrl: "templates/signupDialog.html",           
             controller: SignupController,
             // onComplete: afterShowAnimation,
         });
@@ -21,5 +16,5 @@ function HeaderController($scope, $mdDialog) {
 }
 
 function SignupController($scope, $mdDialog) {
-    $scope.employee = "Big fucktard";
+    $scope.employee = "James Hayes";
 }
