@@ -1,5 +1,5 @@
 body {
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 
@@ -156,4 +156,79 @@ body {
   font-size: medium;
   text-align: left;
   font-size: 15px;
+}
+
+#main-container {
+
+}
+
+#header-text-container h1{
+    margin: 0px;
+}
+
+#header-text-container small{
+    color: white;
+    font-size: medium;
+}
+
+#header-text-container {
+    width: 10%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+#header-text-container h1 {
+    margin: 0px;
+    font-size: xx-large;
+}
+
+#header-text-container h1 small {
+    color: white;
+    font-size: small;
+}
+
+#header-user-login-container {
+    width: 10%;
+}
+
+#header-search-box-container{
+    width: 60%;
+    height: 100%;
+}
+
+/*#header-search-box-container .form-control{
+    background-color: #BDC3C7;
+    color: white;
+    font-size: medium
+}*/
+
+#search-box {
+    background-color: #BFBFBF;
+    color: white;
+    font-size: medium; 
+    height: 100%;
+    border-radius: 2px;
+    border: 1px solid #BFBFBF;
+}
+
+#content-container {
+    margin-top: 65px;
+}
+
+#top-header {
+    height: 65px;
+    width: 100%;
+    background-color: #6C7A89;
+    position: fixed;
+    top: 0px;
+    left: 0px; 
+    z-index: 100; 
+    padding: 10px 10px 10px 10px;
+    color: white;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around; /* align horizontal */
+    align-items: center; /* align vertical */
 }

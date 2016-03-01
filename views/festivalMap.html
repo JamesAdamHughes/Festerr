@@ -10,50 +10,52 @@
 		<link rel="stylesheet" type="text/css" href="css/gridStyles.css">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 
         <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"> -->
         <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 	</head>
 
-	<body>
-	<div ng-controller="FestivalListCtrl" class="container" ng-app="festerrApp">
-		<div class="row">
-
-			<div class="page-header">
-				<h1>Festerr  <small>Find UK Festivals</small> </h1>
-
-			</div>
-			
-		</div>
-		<div class="row">
-			<!-- SEARCH BOX -->
-			<div class="col-md-6 col-md-offset-3">
-				<input ng-model="query" type="text" class="form-control" id="search-box" placeholder="Search for a festival, artist or event">
-			</div>
-			
-		</div>
-		<div class="row">
-			<!-- MAP CONTAINER -->
-			<div class="col-md-2" id="map-container">
-				<!-- <canvas id="canvas" width="596" height="750" ></canvas>	 -->
-			</div>
-	
-			<!-- TILES CONTAINER -->
-			<div class="col-md-10" id="info-container">
-				<div class="gridListdemoDynamicTiles">
-					<md-content layout="row">
-			            <md-content flex="100" layout="column" md-scroll-y layout-padding>
-						
-						<md-list ng-repeat="event in eventList | filter: search" ng-include="'/templates/eventTile.html'">
-						</md-list>    
-	                     
-			            </md-content>
-			        </md-content>
-				</div>				
-			</div>			
-		</div>
-	</div>	
+	<body ng-app="festerrApp">
+        
+    <div id="main-container" ng-controller="FestivalListCtrl">
+        
+        <div id="top-header">  
+            <div id="header-text-container">
+            <h1>Festerr</h1>               
+            </div>
+            
+            <div id="header-search-box-container">
+                <input ng-model="query" type="text" class="form-control" id="search-box" placeholder="Search for a festival, artist or event">
+            </div> 
+            
+            <div id="header-user-login-container">
+                <md-button>Login</md-button>
+            </div>    
+        </div>
+        <div  id="content-container" class="container" >
+            <div class="row">
+                <!-- MAP CONTAINER -->
+                <div class="col-md-2" id="map-container">
+                    <!-- <canvas id="canvas" width="596" height="750" ></canvas>	 -->
+                </div>
+        
+                <!-- TILES CONTAINER -->
+                <div class="col-md-10" id="info-container">
+                    <div class="gridListdemoDynamicTiles">
+                        <md-content layout="row">
+                            <md-content flex="100" layout="column" md-scroll-y layout-padding>
+                            
+                            <md-list ng-repeat="event in eventList | filter: search" ng-include="'/templates/eventTile.html'">
+                            </md-list>    
+                            
+                            </md-content>
+                        </md-content>
+                    </div>				
+                </div>			
+            </div>
+        </div>	
+    </div>   
 
 	</body>
 
