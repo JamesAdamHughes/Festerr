@@ -46,7 +46,7 @@
         ng-click="selectArtistTile(event.tileInfo, artist.tileInfo)"
         class="artistTile">
         <div style="width: 100%; height: 100%;background-size: cover;
-" ng-style="{'background-image' :'url({{artist.image}})'}">                                           
+" ng-style="{'background-image' :'url({{artist.image}})', 'border' : artist.tileInfo.border}">                                           
         </div>
         <md-grid-tile-footer>
             <h3>{{artist.name}}</h3>

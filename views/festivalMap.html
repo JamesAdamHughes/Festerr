@@ -27,7 +27,28 @@
             </div>
             
             <div id="header-search-box-container">
-                <input ng-model="query" type="text" class="form-control" id="search-box" placeholder="Search for a festival, artist or event">
+                <md-chips
+			        ng-model="selectedChips"
+			        md-autocomplete-snap=""
+			        md-require-match="true">
+			        <md-autocomplete
+			        	md-selected-item="selectedChip"
+			        	md-search-text="searchText"
+			        	md-items="item in chipSearch(searchText)"
+			        	md-item-text="item.name"
+			        	placeholder="Search for a festival, artist or event">
+			        	<span
+			        		md-highlight-text="searchText">
+			        		{{item.name}}
+		        		</span>
+	        		</md-autocomplete>
+			        <md-chip-template>
+			        	<span>
+				        	<strong>{{$chip.name}}</strong>
+				        	<em>({{$chip.type}})</em>
+			        	</span>
+		        	</md-chip-template>
+			    </md-chips>
             </div> 
             
             <div id="header-user-login-container">
@@ -63,7 +84,7 @@
                         <md-content layout="row">
                             <md-content flex="100" layout="column" md-scroll-y layout-padding>
                             
-                            <md-list ng-repeat="event in eventList | filter: search" ng-include="'/templates/eventTile.html'">
+                            <md-list ng-repeat="event in eventList | filter: displayEvent" ng-include="'/templates/eventTile.html'">
                             </md-list>    
                             
                             </md-content>
