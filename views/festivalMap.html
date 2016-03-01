@@ -38,9 +38,13 @@
 			<div class="col-md-2" id="map-container">
 				<!-- <canvas id="canvas" width="596" height="750" ></canvas>	 -->
 			</div>
+            
+            <div id="progress-container" ng-show="!eventsLoaded">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
 	
 			<!-- TILES CONTAINER -->
-			<div class="col-md-10" id="info-container">
+			<div class="col-md-10" id="info-container" ng-show="eventsLoaded">
 				<div class="gridListdemoDynamicTiles">
 					<md-content layout="row">
 			            <md-content flex="100" layout="column" md-scroll-y layout-padding>
