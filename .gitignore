@@ -12,6 +12,7 @@ lib-cov
 node.d.ts
 *.db
 .vscode/*
+public/json_dump/*
 typings
 pids
 logs
