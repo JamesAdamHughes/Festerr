@@ -3,7 +3,7 @@
         <div id="signup-dialog-input-container">
             <md-input-container>
                 <label>Username</label>
-                <input ng-model="user.title">
+                <input ng-model="user.username">
             </md-input-container>
             <md-input-container>
                 <label>Email</label>
@@ -11,11 +11,11 @@
             </md-input-container>
                 <md-input-container>
                 <label>Password</label>
-                <input ng-model="user.email" type="email">
+                <input ng-model="user.password" type="text">
             </md-input-container>
                 <md-input-container>
                 <label>Password Confirm</label>
-                <input ng-model="user.email" type="email">
+                <input ng-model="user.password_conf" type="text">
             </md-input-container>
         </div>
         <div id="signup-dialog-spotify-container">
@@ -23,7 +23,7 @@
         </div>        
         <div id="signup-dialog-actions-container">
             <md-button>Sign In</md-button>
-            <md-button class="md-primary">Register</md-button>
+            <md-button class="md-primary" ng-disabled="!registerEnabled()" ng-click="register(user)">Register</md-button>
         </div>        
     </md-dialog-content> 
 </md-dialog>

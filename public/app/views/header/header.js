@@ -21,4 +21,23 @@ function HeaderController($scope, $mdDialog) {
 
 function SignupController($scope, $mdDialog) {
     $scope.employee = "James Hayes";
+    
+    // Model that containers the entered user informtion from the signup sheet
+    $scope.user = {
+        username: "",
+        email: "",
+        password: "",
+        password_conf: ""
+    };
+    
+    $scope.registerEnabled = function(){
+        if($scope.user.username !== "" && $scope.user.email !== "" && $scope.user.password !== ""  && $scope.user.password_conf !== ""){
+            return true;
+        }
+        return false;
+    };
+    
+    $scope.register = function(user){
+        console.log(user);
+    };
 }
