@@ -124,5 +124,5 @@ angular.module('FestivalListView', ['ngMaterial'])
                 $scope.currentlySelectedArtistTile = -1;
             }
 
-        }
+        }    
     }]);
