@@ -1,18 +1,20 @@
 angular.module('FestivalListView', ['ngMaterial'])
-    .controller('FestivalListCtrl', ['$scope', 'FestivalDataService', function($scope, FestivalDataService) {
+    .controller('FestivalListCtrl', ['$scope', 'FestivalDataService', '$interval', function ($scope, FestivalDataService, $interval) {
 
         // Holds all info for all events we show in the events list
         $scope.eventList;
         $scope.artistList;
         $scope.currentlySelectedEventTile = -1;
-        $scope.currentlySelectedArtistTile = -1; 
+        $scope.currentlySelectedArtistTile = -1;
+
+        $scope.eventsLoaded = false;
 
         $scope.selectedChips = [];
         $scope.selectedChip = null;
         $scope.searchText = null;
 
         // Get the festival data from the server and display it
-        FestivalDataService.getFestivalData().then(function(res) {
+        FestivalDataService.getFestivalData().then(function (res) {
 
             // add tile information to each festival we get
             for (var i = 0; i < res.length; i++) {
@@ -55,6 +57,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             }
 
             $scope.eventList = res;
+            
         }).then(function() {
             var results = [];
             var names = [];
@@ -67,6 +70,12 @@ angular.module('FestivalListView', ['ngMaterial'])
                 };
             };
             $scope.artistList = results;
+  
+            // Show the loading icon for 0.5s before showing content
+            $interval(function () {
+                $scope.eventsLoaded = true;
+            }, 500, 1);
+
         });
 
         //Fucntion to filter event tiles from the list based on search chips
@@ -138,7 +147,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             }   
         }
 
-        $scope.selectEventTile = function(tile) {
+        $scope.selectEventTile = function (tile) {
             var event = $scope.eventList[tile.ID];
 
             // Make the previosuly selected event (if exists) original size again
@@ -166,7 +175,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             //TODO make old span when clicking off
         }
 
-        $scope.selectArtistTile = function(event, tile) {
+        $scope.selectArtistTile = function (event, tile) {
             var artist = $scope.eventList[event.ID].artists[tile.ID];
 
             var prevArtist = $scope.eventList[event.ID].artists[$scope.currentlySelectedArtistTile];
