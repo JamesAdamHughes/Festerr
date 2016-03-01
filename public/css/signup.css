@@ -21,6 +21,12 @@ md-input-container{
     justify-content: space-between; /* align horizontal */
 }
 
+#signup-dialog-actions-container{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between; /* align horizontal */
+}
+
 #signin-spotify{
     display: block;
     margin-left: auto;
