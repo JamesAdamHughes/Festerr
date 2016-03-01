@@ -57,12 +57,14 @@ angular.module('FestivalListView', ['ngMaterial'])
             }
 
             $scope.eventList = res;
-            
+
         }).then(function() {
             var results = [];
             var names = [];
+            // Create list of available list
             for (var i = $scope.eventList.length - 1; i >= 0; i--) {
                 for (var j = $scope.eventList[i].artists.length - 1; j >= 0; j--) {
+                    // Uses separate list of artist names so as to be able to quickly check their presence
                     if (names.indexOf($scope.eventList[i].artists[j].name) == -1) {
                         results.push($scope.eventList[i].artists[j]);
                         names.push($scope.eventList[i].artists[j].name);
