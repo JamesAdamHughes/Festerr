@@ -21,6 +21,7 @@ function HeaderController($scope, $mdDialog) {
 
 function SignupController($scope, $mdDialog) {
     $scope.employee = "James Hayes";
+    $scope.showSignin = false;
     
     // Model that containers the entered user informtion from the signup sheet
     $scope.user = {
@@ -35,6 +36,10 @@ function SignupController($scope, $mdDialog) {
             return true;
         }
         return false;
+    };
+    
+    $scope.showSigninContainer = function(){
+        $scope.showSignin = true;
     };
     
     $scope.register = function(user){
