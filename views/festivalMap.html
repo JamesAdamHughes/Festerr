@@ -45,7 +45,7 @@
 					<md-content layout="row">
 			            <md-content flex="100" layout="column" md-scroll-y layout-padding>
 						
-						<md-list ng-repeat="event in eventList" ng-include="'/templates/eventTile.html'">
+						<md-list ng-repeat="event in eventList | filter: search" ng-include="'/templates/eventTile.html'">
 						</md-list>    
 	                     
 			            </md-content>
