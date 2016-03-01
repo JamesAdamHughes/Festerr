@@ -65,7 +65,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             for (var i = $scope.eventList.length - 1; i >= 0; i--) {
                 for (var j = $scope.eventList[i].artists.length - 1; j >= 0; j--) {
                     // Uses separate list of artist names so as to be able to quickly check their presence
-                    if (names.indexOf($scope.eventList[i].artists[j].name) == -1) {
+                    if (names.indexOf($scope.eventList[i].artists[j].name) === -1) {
                         results.push($scope.eventList[i].artists[j]);
                         names.push($scope.eventList[i].artists[j].name);
                     }
@@ -84,22 +84,22 @@ angular.module('FestivalListView', ['ngMaterial'])
         $scope.displayEvent = function (event) {
             var display = true;
             //If there are no chips, display all results
-            if ($scope.selectedChips.length == 0) return true;
+            if ($scope.selectedChips.length === 0) return true;
             var eventName = angular.lowercase(event.eventname);
             for (var i = $scope.selectedChips.length - 1; i >=0; i--) {
                 var chipName = angular.lowercase($scope.selectedChips[i].name);
                 //Is this an event or an artist chip?
                 if ($scope.selectedChips[i].eventname) {
-                    display = display && (eventName == chipName);
+                    display = display && (eventName === chipName);
                 } else {
                     var artistPresent = false;
                     //Check through all artists in this event and return true if one matches the chip
                     for (var j = event.artists.length -1; j >=0; j--) {
                         var artistName = angular.lowercase(event.artists[j].name);
-                        artistPresent = artistPresent || artistName == chipName;
+                        artistPresent = artistPresent || artistName === chipName;
 
                         //LOGIC FOR HIGHLIGHTING MATCHING ARTISTS CAN GO HERE, EG:
-                        // event.artists[j].tileInfo.border = artistName == chipName? 'solid 5px blue' : '';
+                        // event.artists[j].tileInfo.border = artistName  ===  chipName? 'solid 5px blue' : '';
                     }
                     display = display && artistPresent;
                 }
@@ -201,5 +201,5 @@ angular.module('FestivalListView', ['ngMaterial'])
                 $scope.currentlySelectedArtistTile = -1;
             }
 
-        }
+        }    
     }]);

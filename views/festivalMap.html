@@ -8,7 +8,8 @@
 		<link rel="stylesheet" type="text/css" href="css/EventDetail.css">
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
 		<link rel="stylesheet" type="text/css" href="css/gridStyles.css">
-
+        <link rel="stylesheet" type="text/css" href="css/signup.css">
+        <link rel="stylesheet" type="text/css" href="css/header.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 
@@ -20,7 +21,7 @@
         
     <div id="main-container" ng-controller="FestivalListCtrl">
         
-        <div id="top-header">  
+        <div id="top-header" ng-controller="HeaderCtrl">  
             <div id="header-text-container">
             <h1>Festerr</h1>               
             </div>
@@ -51,7 +52,7 @@
             </div> 
             
             <div id="header-user-login-container">
-                <md-button>Sign in</md-button>
+                <md-button ng-click="showSignupDialog($event)">Register</md-button>
             </div>    
             
             <div id="header-tabs-container">
@@ -107,6 +108,7 @@
 	<script type="text/javascript" src="js/FesterrMap.js"></script>
 	<script type="text/javascript" src="app/app.js"></script>
 	<script type="text/javascript" src="app/views/festivalList.js"></script>
+    <script type="text/javascript" src="app/views/header/header.js"></script>
 	<script type="text/javascript" src="app/services/FestivalDataService.js"></script>
 	<script type="text/javascript" src="app/services/NetworkService.js"></script>
 
