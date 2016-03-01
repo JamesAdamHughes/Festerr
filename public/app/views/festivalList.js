@@ -3,7 +3,7 @@ angular.module('FestivalListView', ['ngMaterial'])
 
         // Holds all info for all events we show in the events list
         $scope.eventList;
-
+        $scope.artistList;
         $scope.currentlySelectedEventTile = -1;
         $scope.currentlySelectedArtistTile = -1; 
 
@@ -55,7 +55,21 @@ angular.module('FestivalListView', ['ngMaterial'])
             }
 
             $scope.eventList = res;
+        }).then(function() {
+            var results = [];
+            var names = [];
+            for (var i = $scope.eventList.length - 1; i >= 0; i--) {
+                for (var j = $scope.eventList[i].artists.length - 1; j >= 0; j--) {
+                    if (names.indexOf($scope.eventList[i].artists[j].name) == -1) {
+                        results.push($scope.eventList[i].artists[j]);
+                        names.push($scope.eventList[i].artists[j].name);
+                    }
+                };
+            };
+            $scope.artistList = results;
         });
+
+
 
         // $scope.search = function (event) {
         //     //Check if seach query matches event name
@@ -75,17 +89,38 @@ angular.module('FestivalListView', ['ngMaterial'])
             if ($scope.selectedChips.length == 0) return true;
             var eventName = angular.lowercase(event.eventname);
             for (var i = $scope.selectedChips.length - 1; i >=0; i--) {
-                display = display && eventName == angular.lowercase($scope.selectedChips[i].eventname);
+                var chipName = angular.lowercase($scope.selectedChips[i].name);
+                if ($scope.selectedChips[i].eventname) {
+                    display = display && (eventName == chipName);
+                } else {
+                    var artistPresent = false;
+                    for (var j = event.artists.length -1; j >=0; j--) {
+                        var artistName = angular.lowercase(event.artists[j].name);
+                        artistPresent = artistPresent || artistName == chipName;
+                    }
+                    display = display && artistPresent;
+                }
             }
             return display;
         }
 
         $scope.chipSearch = function (query) {
-            var results = query ? $scope.eventList.filter($scope.createFilterFor(query)) : [];
+            var events = query ? $scope.eventList.filter($scope.createEventFilterFor(query)) : [];
+            events = events.map(function (event) {
+                event.name = event.eventname;
+                event.type = "event";
+                return event;
+            });
+            var artists = query ? $scope.artistList.filter($scope.createArtistFilterFor(query)) : [];
+            artists = artists.map(function (artist) {
+                artist.type = "artist";
+                return artist;
+            });
+            var results = events.concat(artists);
             return results;
         }
 
-        $scope.createFilterFor = function (query) {
+        $scope.createEventFilterFor = function (query) {
             var lowerCaseQuery = angular.lowercase(query);
             return function filterFn(event) {
                 //Check if seach query matches event name
@@ -97,6 +132,13 @@ angular.module('FestivalListView', ['ngMaterial'])
                 };
                 return eventName || artistName;
             }
+        }
+
+        $scope.createArtistFilterFor = function (query) {
+            var lowerCaseQuery = angular.lowercase(query);
+            return function filterFn(artist) {
+                return (angular.lowercase(artist.name).indexOf(lowerCaseQuery) !== -1);
+            }   
         }
 
         $scope.selectEventTile = function(tile) {

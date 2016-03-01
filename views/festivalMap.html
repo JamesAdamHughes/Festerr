@@ -38,17 +38,17 @@
 			        	md-selected-item="selectedChip"
 			        	md-search-text="searchText"
 			        	md-items="item in chipSearch(searchText)"
-			        	md-item-text="item.eventname"
+			        	md-item-text="item.name"
 			        	placeholder="Search for a festival, artist or event">
 			        	<span
 			        		md-highlight-text="searchText">
-			        		{{item.eventname}}
+			        		{{item.name}}
 		        		</span>
 	        		</md-autocomplete>
 			        <md-chip-template>
 			        	<span>
-				        	<strong>{{$chip.eventname}}</strong>
-				        	<em>(festival)</em>
+				        	<strong>{{$chip.name}}</strong>
+				        	<em>({{$chip.type}})</em>
 			        	</span>
 		        	</md-chip-template>
 			    </md-chips>
