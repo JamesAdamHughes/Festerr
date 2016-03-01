@@ -147,6 +147,13 @@ body {
   align-items: center; /* align vertical */
 }
 
+
+#progress-container {
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */  
+}
+
 .artistTile md-grid-tile-footer h3 {
   margin: 0;
   font-weight: 700;
