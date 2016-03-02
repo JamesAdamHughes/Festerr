@@ -1,0 +1,28 @@
+ <div  id="content-container" class="container" >
+    <div class="row">
+        <!-- MAP CONTAINER -->
+        <div class="col-md-2" id="map-container">
+            <!-- <canvas id="canvas" width="596" height="750" ></canvas>	 -->
+        </div>
+            
+        <!-- Loading progress bar -->
+        <div id="progress-container" ng-show="!eventsLoaded">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+
+        <!-- TILES CONTAINER -->
+        <div class="col-md-10" id="info-container" ng-show="eventsLoaded">
+            <div class="gridListdemoDynamicTiles">
+                <md-content layout="row">
+                    <md-content flex="100" layout="column" md-scroll-y layout-padding>
+                    
+                    <md-list>
+                        <festival-tile event="event" selected="tileSelected(tileID)" collapse="event.collapse" ng-repeat="event in eventList | filter: displayEvent"> </festival-tile>
+                    </md-list>    
+                    
+                    </md-content>
+                </md-content>
+            </div>				
+        </div>			
+    </div>
+</div>	
