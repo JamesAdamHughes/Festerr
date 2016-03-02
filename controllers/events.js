@@ -32,8 +32,13 @@ router.get('/event', function(req, res){
             //Send the request
             request(options, function (error, reqResponse, body) {
               if (error) throw new Error(error);
-              response = JSON.parse(body).results;
-              response.ok = true;
+              var contents = JSON.parse(body);
+              if (contents.error !== 0) {
+                console.log('ERROR ' + contents.errorcode + ': ' + contents.errormessage);
+              } else {
+                  response = JSON.parse(body).results;
+                  response.ok = true;
+              }
               res.send(response);
             });
 
