@@ -16,6 +16,10 @@
     box-shadow: none;
 }
 
+::-webkit-input-placeholder { /* Only works on WebKit, Blink, Edge */
+    color:    white;
+}
+
 #search-autocomplete{
         width: 300px;
 }
@@ -60,13 +64,14 @@
 md-tabs.md-default-theme .md-tab {
     color: rgba(255,255,255,0.6);
 }
+
 md-tabs.md-default-theme .md-tab.md-active, md-tabs.md-default-theme .md-tab.md-focused{
     color:white;
 }
 
 md-tabs.md-default-theme md-ink-bar {
     color: white;
-    background-color: white;
+    background-color: #DB0A5B;
 }
 
 md-tabs.md-default-theme md-tabs-wrapper {
@@ -80,6 +85,16 @@ md-chips.md-default-theme .md-chips.md-focused {
 md-chips.md-default-theme .md-chips{
     box-shadow: none;
     margin-left: 20px;
+}
+
+.md-button.md-default-theme.md-raised:not([disabled]) {
+    color: white;
+    background-color: #DB0A5B;
+}
+
+.md-button.md-default-theme.md-raised:not([disabled]):hover {
+    color: white;
+    background-color: #f63c83; /* Slightly lighter highlight */
 }
 
 .form-control{
