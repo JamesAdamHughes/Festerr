@@ -150,34 +150,6 @@ angular.module('FestivalListView', ['ngMaterial'])
             }; 
         };
 
-        $scope.selectEventTile = function (tile) {
-            var event = $scope.eventList[tile.ID];
-
-            // Make the previosuly selected event (if exists) original size again
-            var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];
-            if (prevEvent !== undefined) {
-                prevEvent.tileInfo.displaySpan = {
-                    cols: prevEvent.tileInfo.defaultSpan.cols,
-                    rows: prevEvent.tileInfo.defaultSpan.rows
-                };
-            }
-
-            // If it was not the previosuly selected tile, make big
-            if ($scope.currentlySelectedEventTile !== tile.ID) {
-                // Make the event taller
-                event.tileInfo.displaySpan = {
-                    cols: event.tileInfo.expandedSpan.cols,
-                    rows: event.tileInfo.expandedSpan.rows
-                };
-                $scope.currentlySelectedEventTile = tile.ID;
-            } else {
-                // Unselected previsouly selected tile, reset counter
-                $scope.currentlySelectedEventTile = -1;
-            }
-
-            //TODO make old span when clicking off
-        };
-
         $scope.selectArtistTile = function (event, tile) {
             var artist = $scope.eventList[event.ID].artists[tile.ID];
 
