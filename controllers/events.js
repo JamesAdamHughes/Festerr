@@ -36,7 +36,7 @@ router.get('/event', function(req, res){
               if (contents.error !== 0) {
                 console.log('ERROR ' + contents.errorcode + ': ' + contents.errormessage);
               } else {
-                  response = JSON.parse(body).results;
+                  response = contents.results;
                   response.ok = true;
               }
               res.send(response);
