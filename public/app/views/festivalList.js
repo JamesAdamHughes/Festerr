@@ -5,7 +5,6 @@ angular.module('FestivalListView', ['ngMaterial'])
         $scope.eventList;
         $scope.artistList;
         $scope.currentlySelectedEventTile = -1;
-        $scope.currentlySelectedArtistTile = -1;
 
         $scope.eventsLoaded = false;
 
@@ -149,31 +148,6 @@ angular.module('FestivalListView', ['ngMaterial'])
                 return (angular.lowercase(artist.name).indexOf(lowerCaseQuery) !== -1);
             }; 
         };
-
-        $scope.selectArtistTile = function (event, tile) {
-            var artist = $scope.eventList[event.ID].artists[tile.ID];
-
-            var prevArtist = $scope.eventList[event.ID].artists[$scope.currentlySelectedArtistTile];
-            if (prevArtist !== undefined) {
-                prevArtist.tileInfo.displaySpan = {
-                    cols: prevArtist.tileInfo.defaultSpan.cols,
-                    rows: prevArtist.tileInfo.defaultSpan.rows
-                };
-            }
-
-            // If it was not the previosuly selected tile, make big
-            if ($scope.currentlySelectedArtistTile !== tile.ID) {
-                // Make the artist taller and wider
-                artist.tileInfo.displaySpan = {
-                    cols: artist.tileInfo.expandedSpan.cols,
-                    rows: artist.tileInfo.expandedSpan.rows
-                };
-                $scope.currentlySelectedArtistTile = tile.ID;
-            } else {
-                // Unselected previsouly selected tile, reset counter
-                $scope.currentlySelectedArtistTile = -1;
-            }
-        };  
         
         // When a tile is selected, tell the prev selected to collapse          
         $scope.tileSelected = function(id){               
