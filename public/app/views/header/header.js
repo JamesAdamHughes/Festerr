@@ -12,7 +12,7 @@ function HeaderController($scope, $mdDialog) {
         $mdDialog.show({
             parent: parentEl,
             clickOutsideToClose: true,
-            templateUrl: "templates/signupDialog.html",           
+            templateUrl: "app/views/header/signupDialog.html",           
             controller: SignupController,
             // onComplete: afterShowAnimation,
         });
@@ -20,7 +20,8 @@ function HeaderController($scope, $mdDialog) {
 }
 
 function SignupController($scope, $mdDialog) {
-    $scope.employee = "James Hayes";
+    
+    // Whether to show the sign in view on the signup dialog
     $scope.showSignin = false;
     
     // Model that containers the entered user informtion from the signup sheet
@@ -31,17 +32,20 @@ function SignupController($scope, $mdDialog) {
         password_conf: ""
     };
     
+    // Only enable the resgiter button if all the fields have been filled
     $scope.registerEnabled = function(){
         if($scope.user.username !== "" && $scope.user.email !== "" && $scope.user.password !== ""  && $scope.user.password_conf !== ""){
             return true;
         }
         return false;
     };
-    
+       
+    // Show the signin view when clicking the sign in button
     $scope.showSigninContainer = function(){
         $scope.showSignin = true;
     };
-    
+       
+    // TODO acutally register the user
     $scope.register = function(user){
         console.log(user);
     };
