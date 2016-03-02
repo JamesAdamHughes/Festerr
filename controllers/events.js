@@ -4,8 +4,8 @@ var request = require('request');
 var fs = require('fs');
 
 // API keys to access the skiddle festival database
-var contents = fs.readFileSync(__dirname + '/../config/api_keys.json');
-var api_keys = JSON.parse(contents);
+// var contents = fs.readFileSync(__dirname + '/../config/api_keys.json');
+// var api_keys = JSON.parse(contents);
 
 // Serve requests to the event endpoint
 router.get('/event', function(req, res){
@@ -21,11 +21,11 @@ router.get('/event', function(req, res){
 
             //Get all events from Skiddle API
             var options = { method: 'GET',
-              url: api_keys.skiddle.url + 'events/',
+              url: process.env.skiddle_url  + 'events/',
               qs: 
                { eventcode: 'FEST',
                  order: '4',
-                 api_key: api_keys.skiddle.key } };
+                 api_key: process.env.skiddle_api_key } };
 
             console.log("GET " + options.url);
 

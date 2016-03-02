@@ -4,8 +4,8 @@ var q = require('q');
 var queryBuilder = require('./queryBuilder.js');
 
 // Load the google search api key
-var contents = fs.readFileSync(__dirname + '/../config/api_keys.json');
-var googleSearchAPI = JSON.parse(contents).google_search;
+var contents = "fs.readFileSync(__dirname + '/../config/api_keys.json');"
+var googleSearchAPI = "JSON.parse(contents).google_search;"
 
 // Set the default params for the search
 var defaultParams = {
