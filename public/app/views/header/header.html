@@ -8,7 +8,7 @@
             ng-model="selectedChips"
             md-autocomplete-snap=""
             md-require-match="true">
-            <md-autocomplete
+            <md-autocomplete id="search-autocomplete"
                 md-selected-item="selectedChip"
                 md-search-text="searchText"
                 md-items="item in chipSearch(searchText)"
