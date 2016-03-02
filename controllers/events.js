@@ -3,7 +3,7 @@ var express = require('express'),
 var fs = require('fs');
 
 // API keys to access the skiddle festival database
-var contents = fs.readFileSync(__dirname + '/../public/json_dump/events_dump_23_2_16.json');
+var contents = fs.readFileSync(__dirname + '/../public/json_dump/smaller_dump_23_2_16.json');
 var festivalData = JSON.parse(contents).results;
 
 // Serve requests to the event endpoint
