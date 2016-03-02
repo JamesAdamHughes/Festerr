@@ -15,14 +15,14 @@
              <!-- Festival header -->
             <div class="festival-tile-header"
                 ng-style="{'background-image' :'url({{event.largeimageurl}})'}"
-                ng-class="currentlySelectedEventTile === {{event.tileInfo.ID}} ? 'expanded-header' : 'closed-header'"> 
+                ng-class="isExpanded ? 'expanded-header' : 'closed-header'"> 
                 <div class="festival-name-container">
                     <h3>{{event.eventname}}</h3>                                  
                 </div>
             </div>
 
             <div class="festival-tile-body" 
-                ng-class="currentlySelectedEventTile === {{event.tileInfo.ID}} ? 'expanded-body' : 'closed-body'">
+                ng-class="isExpanded ? 'expanded-body' : 'closed-body'">
                 <div class="festival-details-text">
                     {{event.date}}
                 </div>

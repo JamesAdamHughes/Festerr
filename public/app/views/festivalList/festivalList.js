@@ -165,11 +165,17 @@ angular.module('FestivalListView', ['ngMaterial'])
         // When a tile is selected, tell the prev selected to collapse          
         $scope.tileSelected = function(id){               
             var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];
-            if(prevEvent !== undefined){
+
+            // tell prev selected to close, unless it is same as the one selected
+            // that is handled by the directive itself
+            if(prevEvent !== undefined && prevEvent.tileInfo.ID !== id){
                 // collpase is a function defined in the festvial tile directive
                 prevEvent.collapse();
-            }           
-            $scope.currentlySelectedEventTile = id;
+                $scope.currentlySelectedEventTile = -1;
+            }  else {
+                $scope.currentlySelectedEventTile = id;
+            }          
+
         };
   
     }]);
