@@ -3,18 +3,14 @@ var fs = require('fs');
 var q = require('q');
 var queryBuilder = require('./queryBuilder.js');
 
-// Load the google search api key
-var contents = "fs.readFileSync(__dirname + '/../config/api_keys.json');"
-var googleSearchAPI = "JSON.parse(contents).google_search;"
-
 // Set the default params for the search
 var defaultParams = {
     // search term
     q: "parklife+festival+2016",
     // custom seach engine key
-    cx: googleSearchAPI.cx_key,
+    cx: process.env.google_cx_key,
     // app key
-    key: googleSearchAPI.key,
+    key: process.env.google_api_key,
     // type of search to conduct
     searchType: "image",
     // filetype of image to search for
@@ -42,7 +38,7 @@ var googleImageSearch = {
         
         // Build the final query
         params.q = escapedSearch;
-        query = queryBuilder.buildQuery(googleSearchAPI.url, params);
+        query = queryBuilder.buildQuery(process.env.google_url, params);
         
         return query;         
     },
