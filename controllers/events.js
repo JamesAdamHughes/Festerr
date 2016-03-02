@@ -7,10 +7,6 @@ var fs = require('fs');
 var contents = fs.readFileSync(__dirname + '/../config/api_keys.json');
 var api_keys = JSON.parse(contents);
 
-// // API keys to access the skiddle festival database
-// var contents = fs.readFileSync(__dirname + '/../public/json_dump/events_dump_23_2_16.json');
-// var festivalData = JSON.parse(contents).results;
-
 // Serve requests to the event endpoint
 router.get('/event', function(req, res){
 

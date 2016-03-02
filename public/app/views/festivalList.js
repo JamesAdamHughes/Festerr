@@ -33,7 +33,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                         cols: 8,
                         rows: 3
                     }
-                }
+                };
                 res[i].tileInfo = tileInfo;
                 for (var j = 0; j < res[i].artists.length; j++) {
                     var artistTileInfo = {
@@ -51,7 +51,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                             cols: 2,
                             rows: 2
                         }
-                    }
+                    };
                     res[i].artists[j].tileInfo = artistTileInfo;
                 }
             }
@@ -59,6 +59,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             $scope.eventList = res;
 
         }).then(function() {
+            
             var results = [];
             var names = [];
             // Create list of available list
@@ -72,7 +73,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                 };
             };
             $scope.artistList = results;
-  
+             
             // Show the loading icon for 0.5s before showing content
             $interval(function () {
                 $scope.eventsLoaded = true;
@@ -105,7 +106,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                 }
             }
             return display;
-        }
+        };
 
         //Function to filter events and artist lists and show autocomplete suggestions for chip search
         $scope.chipSearch = function (query) {
@@ -124,7 +125,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             var results = events.concat(artists);
             //RESULTS COULD BE SORTED BY SOME VALUE HERE?
             return results;
-        }
+        };
 
         //Filters the eventlist for events (or artists within that event) matching a query
         $scope.createEventFilterFor = function (query) {
@@ -138,16 +139,16 @@ angular.module('FestivalListView', ['ngMaterial'])
                     artistName = artistName || (angular.lowercase(event.artists[i].name).indexOf(lowerCaseQuery || '') !== -1);
                 };
                 return eventName || artistName;
-            }
-        }
+            };
+        };
 
         //Filters the artist for artists matching a query
         $scope.createArtistFilterFor = function (query) {
             var lowerCaseQuery = angular.lowercase(query);
             return function filterFn(artist) {
                 return (angular.lowercase(artist.name).indexOf(lowerCaseQuery) !== -1);
-            }   
-        }
+            }; 
+        };
 
         $scope.selectEventTile = function (tile) {
             var event = $scope.eventList[tile.ID];
@@ -175,7 +176,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             }
 
             //TODO make old span when clicking off
-        }
+        };
 
         $scope.selectArtistTile = function (event, tile) {
             var artist = $scope.eventList[event.ID].artists[tile.ID];
@@ -200,6 +201,5 @@ angular.module('FestivalListView', ['ngMaterial'])
                 // Unselected previsouly selected tile, reset counter
                 $scope.currentlySelectedArtistTile = -1;
             }
-
-        }    
+        };    
     }]);
