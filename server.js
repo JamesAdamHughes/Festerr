@@ -17,7 +17,7 @@ app.engine('.html', require('ejs').renderFile);
 
 // Serve requests to the / url and respond with the file 'test.html'
 app.get('/', function (req, res) {
-  res.render('festivalMap.html');
+  res.render('index.html');
 });
 
 // Serve /event 
