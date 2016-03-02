@@ -83,19 +83,25 @@ angular.module('FestivalListView', ['ngMaterial'])
         //Fucntion to filter event tiles from the list based on search chips
         $scope.displayEvent = function (event) {
             var display = true;
+            var eventName = angular.lowercase(event.eventname);
+            var chipName = "";
+            var artistPresent;
+            var artistName = "";
+            
             //If there are no chips, display all results
             if ($scope.selectedChips.length === 0) return true;
-            var eventName = angular.lowercase(event.eventname);
+            
+
             for (var i = $scope.selectedChips.length - 1; i >=0; i--) {
-                var chipName = angular.lowercase($scope.selectedChips[i].name);
+                chipName = angular.lowercase($scope.selectedChips[i].name);
                 //Is this an event or an artist chip?
                 if ($scope.selectedChips[i].eventname) {
                     display = display && (eventName === chipName);
                 } else {
-                    var artistPresent = false;
+                    artistPresent = false;
                     //Check through all artists in this event and return true if one matches the chip
                     for (var j = event.artists.length -1; j >=0; j--) {
-                        var artistName = angular.lowercase(event.artists[j].name);
+                        artistName = angular.lowercase(event.artists[j].name);
                         artistPresent = artistPresent || artistName === chipName;
 
                         //LOGIC FOR HIGHLIGHTING MATCHING ARTISTS CAN GO HERE, EG:
@@ -109,19 +115,23 @@ angular.module('FestivalListView', ['ngMaterial'])
 
         //Function to filter events and artist lists and show autocomplete suggestions for chip search
         $scope.chipSearch = function (query) {
-            var events = query ? $scope.eventList.filter($scope.createEventFilterFor(query)) : [];
+            var events;
+            var artists;
+            var results; 
+            
+            events = query ? $scope.eventList.filter($scope.createEventFilterFor(query)) : [];
             events = events.map(function (event) {
                 //Allows HTML to display 'name' and 'type' values in chips
                 event.name = event.eventname;
                 event.type = "event";
                 return event;
             });
-            var artists = query ? $scope.artistList.filter($scope.createArtistFilterFor(query)) : [];
+            artists = query ? $scope.artistList.filter($scope.createArtistFilterFor(query)) : [];
             artists = artists.map(function (artist) {
                 artist.type = "artist";
                 return artist;
             });
-            var results = events.concat(artists);
+            results = events.concat(artists);
             //RESULTS COULD BE SORTED BY SOME VALUE HERE?
             return results;
         };
@@ -129,10 +139,12 @@ angular.module('FestivalListView', ['ngMaterial'])
         //Filters the eventlist for events (or artists within that event) matching a query
         $scope.createEventFilterFor = function (query) {
             var lowerCaseQuery = angular.lowercase(query);
+            
             return function filterFn(event) {
                 //Check if seach query matches event name
                 var eventName = angular.lowercase(event.eventname).indexOf(lowerCaseQuery) !== -1;
                 var artistName = false;
+                
                 //Check if search query matches any artist within that event
                 for (var i = event.artists.length - 1; i >= 0; i--) {
                     artistName = artistName || (angular.lowercase(event.artists[i].name).indexOf(lowerCaseQuery || '') !== -1);
@@ -144,6 +156,7 @@ angular.module('FestivalListView', ['ngMaterial'])
         //Filters the artist for artists matching a query
         $scope.createArtistFilterFor = function (query) {
             var lowerCaseQuery = angular.lowercase(query);
+            
             return function filterFn(artist) {
                 return (angular.lowercase(artist.name).indexOf(lowerCaseQuery) !== -1);
             }; 

@@ -37,7 +37,6 @@ angular.module('festivalTileDirective', [])
 
                         scope.selected({ tileID: scope.event.tileInfo.ID });
                     }
-                    //TODO make old span when clicking off
                 };
                 
                 // Handle an artist tile being selected
