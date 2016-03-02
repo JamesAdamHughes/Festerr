@@ -13,6 +13,7 @@ node.d.ts
 *.db
 .vscode/*
 public/json_dump/*
+config/*
 typings
 pids
 logs
