@@ -80,7 +80,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             }, 500, 1);
 
         });
-
+        
         //Fucntion to filter event tiles from the list based on search chips
         $scope.displayEvent = function (event) {
             var display = true;
@@ -201,5 +201,16 @@ angular.module('FestivalListView', ['ngMaterial'])
                 // Unselected previsouly selected tile, reset counter
                 $scope.currentlySelectedArtistTile = -1;
             }
-        };    
+        };  
+        
+        // When a tile is selected, tell the prev selected to collapse          
+        $scope.tileSelected = function(id){               
+            var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];
+            if(prevEvent !== undefined){
+                // collpase is a function defined in the festvial tile directive
+                prevEvent.collapse();
+            }           
+            $scope.currentlySelectedEventTile = id;
+        };
+  
     }]);

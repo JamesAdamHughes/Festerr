@@ -42,7 +42,7 @@
                             <md-content flex="100" layout="column" md-scroll-y layout-padding>
                             
                             <md-list>
-                                <festival-tile event="event" ng-repeat="event in eventList | filter: displayEvent"> </festival-tile>
+                                <festival-tile event="event" selected="tileSelected(tileID)" collapse="event.collapse" ng-repeat="event in eventList | filter: displayEvent"> </festival-tile>
                             </md-list>    
                             
                             </md-content>
