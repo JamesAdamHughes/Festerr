@@ -59,6 +59,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             $scope.eventList = res;
 
         }).then(function() {
+            
             var results = [];
             var names = [];
             // Create list of available list
@@ -72,7 +73,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                 };
             };
             $scope.artistList = results;
-  
+             
             // Show the loading icon for 0.5s before showing content
             $interval(function () {
                 $scope.eventsLoaded = true;

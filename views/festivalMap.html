@@ -21,51 +21,8 @@
         
     <div id="main-container" ng-controller="FestivalListCtrl">
         
-        <div id="top-header" ng-controller="HeaderCtrl">  
-            <div id="header-text-container">
-            <h1>Festerr</h1>               
-            </div>
-            
-            <div id="header-search-box-container">
-                <md-chips
-			        ng-model="selectedChips"
-			        md-autocomplete-snap=""
-			        md-require-match="true">
-			        <md-autocomplete
-			        	md-selected-item="selectedChip"
-			        	md-search-text="searchText"
-			        	md-items="item in chipSearch(searchText)"
-			        	md-item-text="item.name"
-			        	placeholder="Search for a festival, artist or event">
-			        	<span
-			        		md-highlight-text="searchText">
-			        		{{item.name}}
-		        		</span>
-	        		</md-autocomplete>
-			        <md-chip-template>
-			        	<span>
-				        	<strong>{{$chip.name}}</strong>
-				        	<em>({{$chip.type}})</em>
-			        	</span>
-		        	</md-chip-template>
-			    </md-chips>
-            </div> 
-            
-            <div id="header-user-login-container">
-                <md-button ng-click="showSignupDialog($event)">Register</md-button>
-            </div>    
-            
-            <div id="header-tabs-container">
-                <md-tabs md-dynamic-height md-border-bottom>
-                <md-tab label="What's Hot">
-                </md-tab>
-                <md-tab label="Upcoming">                    
-                </md-tab>
-                <md-tab label="Favourites">                    
-                </md-tab>
-                </md-tabs>
-            </div>
-        </div>
+        <ng-include src="'/app/views/header/header.html'"></ng-include>
+        
         <div  id="content-container" class="container" >
             <div class="row">
                 <!-- MAP CONTAINER -->
