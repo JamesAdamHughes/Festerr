@@ -5,10 +5,6 @@ var imageSearch = require('./utils/googleImageSearch');
 
 var app = express();
 
-// API keys to access the skiddle festival database
-var contents = fs.readFileSync(__dirname + '/config/api_keys.json');
-var api_keys = JSON.parse(contents);
-
 // All static filss are in the public folder
 app.use(express.static(__dirname + '/public'));
 
