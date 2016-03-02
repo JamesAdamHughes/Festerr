@@ -16,6 +16,10 @@
     box-shadow: none;
 }
 
+::-webkit-input-placeholder { /* Only works on WebKit, Blink, Edge */
+    color:    white;
+}
+
 #search-autocomplete{
         width: 300px;
 }
@@ -60,6 +64,7 @@
 md-tabs.md-default-theme .md-tab {
     color: rgba(255,255,255,0.6);
 }
+
 md-tabs.md-default-theme .md-tab.md-active, md-tabs.md-default-theme .md-tab.md-focused{
     color:white;
 }
