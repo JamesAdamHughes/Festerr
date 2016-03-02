@@ -41,7 +41,8 @@
                         <md-content layout="row">
                             <md-content flex="100" layout="column" md-scroll-y layout-padding>
                             
-                            <md-list ng-repeat="event in eventList | filter: displayEvent" ng-include="'/templates/eventTile.html'">
+                            <md-list>
+                                <festival-tile event="event" ng-repeat="event in eventList | filter: displayEvent"> </festival-tile>
                             </md-list>    
                             
                             </md-content>
@@ -68,5 +69,5 @@
     <script type="text/javascript" src="app/views/header/header.js"></script>
 	<script type="text/javascript" src="app/services/FestivalDataService.js"></script>
 	<script type="text/javascript" src="app/services/NetworkService.js"></script>
-
+	<script type="text/javascript" src="app/directives/festvialTileDirective.js"></script>
 </html>
