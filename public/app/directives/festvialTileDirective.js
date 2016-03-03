@@ -12,47 +12,34 @@ angular.module('festivalTileDirective', [])
             },
             templateUrl: 'templates/eventTile.html',
             link: function (scope, element, attrs) {
-
+                
+                var margin = 100;                
+                var defaultMargin = 10;
+                var defaultHeight = 250;
+                var expandedHeight = 400;
+                
                 scope.isExpanded = false;
                 scope.displayHeight = 250;
-                scope.topMargin = 0;
-                scope.bottomMargin = 0;
-                scope.cardWidth = 0;
+                scope.topMargin = defaultMargin;
+                scope.bottomMargin = defaultMargin;
                 scope.showDetails = false;
-                scope.detailsFlex = 0;
-                   
-                var margin = 100;
-                var defaultHeight = 250;
-                var expandedHeight = 250;
+
+               
 
                 var prevSelectedArtistID = -1;
                 
                 // Handle user selecting the card
                 // Either move to expanded state, or return to normal if was already expanded
                 scope.selectEventTile = function () {
-
                     if (scope.isExpanded) {
                         // reduce the size to normal
-                        scope.collapse();                        
-                        scope.selected({ tileID: scope.event.tileInfo.ID });
-
+                        scope.collapse();
                     } else {
                         // expand to big size
-                        scope.displayHeight = expandedHeight;
-                        scope.isExpanded = true;
-                        scope.topMargin = margin;
-                        scope.bottomMargin = margin;
-                        scope.showDetails = true;
-                        scope.cardWidth = 50;
-                        scope.detailsFlex = 1;
-                        
-                        // scroll the view to the card selected                        
-                        window.scrollTo(0, element[0].offsetTop - 50);
-                        
-                        // tell the parent controller this has expanded
-                        // allows other tiles to close
-                        scope.selected({ tileID: scope.event.tileInfo.ID });
-                    }
+                        scope.expand();
+                    }                    
+                    // tell the parent controller this has expanded
+                    scope.selected({ tileID: scope.event.tileInfo.ID });
                 };
                 
                 // Handle an artist tile being selected
@@ -86,12 +73,17 @@ angular.module('festivalTileDirective', [])
                 scope.collapse = function () {
                     scope.displayHeight = defaultHeight;
                     scope.isExpanded = false;
-                    scope.topMargin = 0;
-                    scope.bottomMargin = 0;
+                    scope.topMargin = defaultMargin;
+                    scope.bottomMargin = defaultMargin;
                     scope.showDetails = false;
-                    scope.cardWidth = 0;
-                    scope.detailsFlex = 0;
-                    // window.scrollTo(0, element[0].offsetTop - margin);
+                };
+
+                scope.expand = function () {
+                    scope.displayHeight = expandedHeight;
+                    scope.isExpanded = true;
+                    scope.topMargin = margin;
+                    scope.bottomMargin = margin;
+                    scope.showDetails = true;
                 };
             }
         };

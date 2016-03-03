@@ -2,29 +2,25 @@
     /*
     
     */
-    display:flex;
-    flex-flow:row;
-    align-content: center;    
-    justify-content: center;
-
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: center;
     margin-top:20px;
     margin-bottom:20px;
 }
 
-.festival-card-image{
-    transition: 300ms;
-}
-
-.festival-card-container {
-
-}
-
 .festival-details-container {
-    /*width: 50%;*/
+    height: 500px;
+}
+
+.festival-card{
+    height: 100%;
 }
 
 #festial-card-list-container {
-    /*width: 100%;*/
+    width: 100%;
 }
 
 .festival-card-image {
@@ -34,7 +30,7 @@
 }
 
 .md-headline {
-    font-size: 20px;
+    font-size: large;
 }
 
 md-card-title {
@@ -54,12 +50,14 @@ md-card-actions{
 
 .animate-show {
     width:50%;
+    height: 500px;
 }
 
 .animate-show.ng-hide {
     width:0%;
+    height: 0px;
 }
 
 .animate-show.ng-hide-add, .animate-show.ng-hide-remove {
-  transition: all ease-out 300ms;
+  transition: all ease-out 0.5s;
 }

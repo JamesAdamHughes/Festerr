@@ -1,9 +1,8 @@
 <!-- Each festival event is contained in a tileRow -->
-<div class="festival-container">
-
-    <div class="festival-card-container" style="width:50%;  transition: all 1s">
-        <md-card class="festival-card" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px">
-            <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}'); height: {{displayHeight}}px" ng-click="selectEventTile(event.tileInfo)">
+<div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; transition: all 0.5s">
+    <div class="festival-card-container" style="width:50%;">
+        <md-card class="festival-card" >
+            <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}');" ng-click="selectEventTile(event.tileInfo)">
             </div>
             <md-card-actions layout="row" layout-align="end center">
                 <div>
@@ -20,36 +19,9 @@
         </md-card>
     </div>
     
-    <div class="festival-details-container animate-show" style="" ng-show="isExpanded">
-        <md-card class="festival-card" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px">
-            <div class="festival-card-image md-card-image" style="background-color: #446CB3; height: {{displayHeight}}px" ng-click="selectEventTile(event.tileInfo)">
-            </div>
-            <md-card-actions layout="row" layout-align="end center">
-                <div>
-                    <md-card-title-text>
-                        <span class="md-headline">DETAILS</span>
-                    </md-card-title-text>
-                </div>
-                <div style="width:36%;margin-right: -6px;">
-                    <md-button class="md-icon-button" aria-label="Favorite">
-                        <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
-                    </md-button>                    
-                </div>
-            </md-card-actions>
-        </md-card>
-    </div>
-    
-
-
-
-    <!-- Each artist is  a tile in the tileRow -->
-    <!--<md-grid-tile ng-repeat="artist in event.artists | limitTo:8" md-rowspan="{{artist.tileInfo.displaySpan.rows}}" md-colspan="{{artist.tileInfo.displaySpan.cols}}"
-    md-colspan-sm="1" ng-click="selectArtistTile(event.tileInfo, artist.tileInfo)" class="artistTile">
-        <div style="width: 100%; height: 100%;background-size: cover;
-" ng-style="{'background-image' :'url({{artist.image}})', 'border' : artist.tileInfo.border}">
+    <div class="festival-details-container animate-show" ng-show="isExpanded">
+        <div class="festival-card" md-whiteframe="6" style="background-color: #446CB3; height: 100%; margin:10px;box-shadow: 2px 2px 4px #AAAAAA;">
+            TEST         
         </div>
-        <md-grid-tile-footer>
-            <h3>{{artist.name}}</h3>
-        </md-grid-tile-footer>
-    </md-grid-tile>-->
+    </div>
 </div>
