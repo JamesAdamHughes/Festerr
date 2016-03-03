@@ -147,6 +147,9 @@ body {
   align-items: center; /* align vertical */
 }
 
+#main-container {
+    background-color: #ECF0F1;
+}
 
 #progress-container {
   margin-top: 200px;
