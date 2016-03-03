@@ -1,7 +1,65 @@
-.festival-card{
-    background-color: red;
+.festival-container{
+    /*
+    
+    */
+    display:flex;
+    flex-flow:row;
+    align-content: center;    
+    justify-content: center;
+
+    margin-top:20px;
+    margin-bottom:20px;
 }
 
 .festival-card-image{
     transition: 300ms;
+}
+
+.festival-card-container {
+
+}
+
+.festival-details-container {
+    /*width: 50%;*/
+}
+
+#festial-card-list-container {
+    /*width: 100%;*/
+}
+
+.festival-card-image {
+    height: 250px;
+    background-size: cover;
+    background-position-y: 40%;
+}
+
+.md-headline {
+    font-size: 20px;
+}
+
+md-card-title {
+    margin-left: 16px;
+}
+
+md-card-actions{
+    height:60px;
+    justify-content: space-between !important;
+    margin: 0px 10px 0px 20px;
+}
+
+.translate-left {
+    transform: translateX(-25%);
+    transition: 1s;
+}
+
+.animate-show {
+    width:50%;
+}
+
+.animate-show.ng-hide {
+    width:0%;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all ease-out 300ms;
 }

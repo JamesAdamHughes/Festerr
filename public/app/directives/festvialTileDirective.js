@@ -17,10 +17,13 @@ angular.module('festivalTileDirective', [])
                 scope.displayHeight = 250;
                 scope.topMargin = 0;
                 scope.bottomMargin = 0;
+                scope.cardWidth = 0;
+                scope.showDetails = false;
+                scope.detailsFlex = 0;
                    
-                var margin = 60;
+                var margin = 100;
                 var defaultHeight = 250;
-                var expandedHeight = 400;
+                var expandedHeight = 250;
 
                 var prevSelectedArtistID = -1;
                 
@@ -32,15 +35,19 @@ angular.module('festivalTileDirective', [])
                         // reduce the size to normal
                         scope.collapse();                        
                         scope.selected({ tileID: scope.event.tileInfo.ID });
+
                     } else {
                         // expand to big size
                         scope.displayHeight = expandedHeight;
                         scope.isExpanded = true;
                         scope.topMargin = margin;
                         scope.bottomMargin = margin;
+                        scope.showDetails = true;
+                        scope.cardWidth = 50;
+                        scope.detailsFlex = 1;
                         
                         // scroll the view to the card selected                        
-                        window.scrollTo(0, element[0].offsetTop - margin);
+                        window.scrollTo(0, element[0].offsetTop - 50);
                         
                         // tell the parent controller this has expanded
                         // allows other tiles to close
@@ -81,6 +88,10 @@ angular.module('festivalTileDirective', [])
                     scope.isExpanded = false;
                     scope.topMargin = 0;
                     scope.bottomMargin = 0;
+                    scope.showDetails = false;
+                    scope.cardWidth = 0;
+                    scope.detailsFlex = 0;
+                    // window.scrollTo(0, element[0].offsetTop - margin);
                 };
             }
         };

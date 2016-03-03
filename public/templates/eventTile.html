@@ -1,62 +1,44 @@
 <!-- Each festival event is contained in a tileRow -->
-<md-grid-list md-cols="8" md-row-height="1:1" md-gutter="5px">
+<div class="festival-container">
 
-    <!-- Festival tile is standalone -->
-    <!--<md-grid-tile
-        md-rowspan="{{event.tileInfo.displaySpan.rows}}"
-        md-colspan="{{event.tileInfo.displaySpan.cols}}"
-        md-colspan-sm="1"
-        ng-click="selectEventTile(event.tileInfo)"
-        class="eventTile">
-
-        <div class="festival-tile-container">-->
-    <!-- Festival header -->
-    <!--<div class="festival-tile-header"
-                ng-style="{'background-image' :'url({{event.largeimageurl}})'}"
-                ng-class="isExpanded ? 'expanded-header' : 'closed-header'"> 
-                <div class="festival-name-container">
-                    <h3>{{event.eventname}}</h3>                                  
-                </div>
+    <div class="festival-card-container" style="width:50%;  transition: all 1s">
+        <md-card class="festival-card" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px">
+            <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}'); height: {{displayHeight}}px" ng-click="selectEventTile(event.tileInfo)">
             </div>
-
-            <div class="festival-tile-body" 
-                ng-class="isExpanded ? 'expanded-body' : 'closed-body'">
-                <div class="festival-details-text">
-                    {{event.date}}
+            <md-card-actions layout="row" layout-align="end center">
+                <div>
+                    <md-card-title-text>
+                        <span class="md-headline">{{event.eventname}}</span>
+                    </md-card-title-text>
                 </div>
-                <div class="festival-details-text">
-                    {{event.entryprice}}
+                <div style="width:36%;margin-right: -6px;">
+                    <md-button class="md-icon-button" aria-label="Favorite">
+                        <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
+                    </md-button>
                 </div>
-                <div class="festival-details-text">
-                    {{event.venue.name}}
+            </md-card-actions>
+        </md-card>
+    </div>
+    
+    <div class="festival-details-container animate-show" style="" ng-show="isExpanded">
+        <md-card class="festival-card" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px">
+            <div class="festival-card-image md-card-image" style="background-color: #446CB3; height: {{displayHeight}}px" ng-click="selectEventTile(event.tileInfo)">
+            </div>
+            <md-card-actions layout="row" layout-align="end center">
+                <div>
+                    <md-card-title-text>
+                        <span class="md-headline">DETAILS</span>
+                    </md-card-title-text>
                 </div>
-            </div>
-        </div>       
-
-    </md-grid-tile>-->
-
-    <md-card class="festival-card" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px">
-        <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}'); height: {{displayHeight}}px" ng-click="selectEventTile(event.tileInfo)">
-        </div>
-        <md-card-actions layout="row" layout-align="end center">
-            <div>
-                <md-card-title-text>
-                    <span class="md-headline">{{event.eventname}}</span>
-                </md-card-title-text>
-            </div>
-            <div style="width:36%;margin-right: -6px;">
-                <md-button class="md-icon-button" aria-label="Favorite">
-                    <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Settings">
-                    <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Share">
-                    <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
-                </md-button>
-            </div>
-        </md-card-actions>
-    </md-card>
+                <div style="width:36%;margin-right: -6px;">
+                    <md-button class="md-icon-button" aria-label="Favorite">
+                        <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
+                    </md-button>                    
+                </div>
+            </md-card-actions>
+        </md-card>
+    </div>
+    
 
 
 
@@ -70,4 +52,4 @@
             <h3>{{artist.name}}</h3>
         </md-grid-tile-footer>
     </md-grid-tile>-->
-</md-grid-list>
+</div>

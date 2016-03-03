@@ -161,9 +161,9 @@ body {
 #info-container {
     width: 100%;
     display: flex;
-    flex-flow: column;
+    flex-flow: row;
     justify-content: center; /* align horizontal */
-    align-items: center; /* align vertical */ 
+    align-items: flex-start; /* align vertical */ 
 }
 
 #content-container {
@@ -177,9 +177,7 @@ body {
     align-items: center; /* align vertical */  
 }
 
-#festial-card-list-container {
-    width: 70%;
-}
+
 
 .artistTile md-grid-tile-footer h3 {
   margin: 0;
@@ -191,23 +189,3 @@ body {
   font-size: 15px;
 }
 
-
-.festival-card-image {
-    height: 250px;
-    background-size: cover;
-    background-position-y: 40%;
-}
-
-.md-headline {
-    font-size: 20px;
-}
-
-md-card-title {
-    margin-left: 16px;
-}
-
-md-card-actions{
-    height:60px;
-    justify-content: space-between !important;
-    margin: 0px 10px 0px 20px;
-}
