@@ -1,6 +1,6 @@
 angular.module('FestivalListView', ['ngMaterial'])
-    .controller('FestivalListCtrl', ['$scope', 'FestivalDataService', '$interval', '$q', '$timeout',
-        function ($scope, FestivalDataService, $interval, $q, $timeout) {
+    .controller('FestivalListCtrl', ['$scope', 'FestivalDataService', '$interval', '$q',
+        function ($scope, FestivalDataService, $interval, $q) {
 
         // Holds all info for all events we show in the events list
         $scope.eventList;
