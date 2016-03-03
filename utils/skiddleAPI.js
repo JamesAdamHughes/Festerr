@@ -31,30 +31,32 @@ var skiddleAPI = {
                     response = contents.results;
                     response.ok = true;
 
+                    // Attempt to replace skiddle images with ones from google search
                     var promises = response.map(function(event) {
-	                    // Example query for google image search
+
+	                    // Make google image search query
 						var query = imageSearch.buildImageQuery(event.eventname);
 						return imageSearch.makeRequest(query).then(function(res){
 						    event.largeimageurl = res[0].link;
+
 					    // Image search fails
 						}, function(reason) {
 							console.log('ERROR ' + reason.code + ': ' + reason.message);
 						});                  	
-                    })
+                    });
 
 	                q.all(promises).then(function(values) {
+	                	// If first value failed, then assuming they all did
 	                	if (!values[0]) {
 	                		console.log('ERROR: Google image search failed, falling back to Skiddle images');
+	                		// Return unaltered response
 	                		cachedEventData = response;
 	                		res.send(response);
 	                	} else {
+	                		// Success, return google image response
 		                	cachedEventData = values;
 		                	res.send(values);
 		                }
-	                }, function(reason) {
-	                	console.log(reason);
-	                	cachedEventData = response;
-	                	res.send(response);
 	                });
                 }
             });
