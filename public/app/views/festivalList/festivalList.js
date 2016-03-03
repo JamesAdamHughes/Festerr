@@ -142,6 +142,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             var events;
             var artists;
             var results; 
+
             events = query ? $scope.eventList.filter($scope.createEventFilterFor(query)) : [];
             events = events.map(function (event) {
                 //Allows HTML to display 'name' and 'type' values in chips
@@ -192,6 +193,7 @@ angular.module('FestivalListView', ['ngMaterial'])
             return ((now - $scope.lastSearch) < 300);
         };
 
+        // Seach completed, refresh debounce
         $scope.refreshDebounce = function () {
             $scope.lastSearch = 0;
             $scope.searching = false;
