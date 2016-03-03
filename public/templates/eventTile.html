@@ -35,25 +35,24 @@
 
     </md-grid-tile>-->
 
-    <md-card>
-        <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}')">
+    <md-card class="festival-card">
+        <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}'); height: {{displayHeight}}px" ng-click="selectEventTile(event.tileInfo)">
         </div>
         <md-card-actions layout="row" layout-align="end center">
             <div>
                 <md-card-title-text>
                     <span class="md-headline">{{event.eventname}}</span>
                 </md-card-title-text>
-
             </div>
             <div style="width:36%;margin-right: -6px;">
                 <md-button class="md-icon-button" aria-label="Favorite">
-                    <md-icon md-svg-icon="images/heart_black.svg"></md-icon>
+                    <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
                 </md-button>
                 <md-button class="md-icon-button" aria-label="Settings">
-                    <md-icon md-svg-icon="images/heart_black.svg"></md-icon>
+                    <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
                 </md-button>
                 <md-button class="md-icon-button" aria-label="Share">
-                    <md-icon md-svg-icon="images/heart_black.svg"></md-icon>
+                    <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
                 </md-button>
             </div>
         </md-card-actions>

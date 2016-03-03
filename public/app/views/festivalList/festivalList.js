@@ -19,37 +19,13 @@ angular.module('FestivalListView', ['ngMaterial'])
             for (var i = 0; i < res.length; i++) {
                 var tileInfo = {
                     ID: i,
-                    selected: false,
-                    defaultSpan: {
-                        cols: 8,
-                        rows: 3
-                    },
-                    expandedSpan: {
-                        cols: 8,
-                        rows: 5
-                    },
-                    displaySpan: {
-                        cols: 8,
-                        rows: 3
-                    }
+                    selected: false                                
                 };
                 res[i].tileInfo = tileInfo;
                 for (var j = 0; j < res[i].artists.length; j++) {
                     var artistTileInfo = {
                         ID: j,
-                        selected: false,
-                        defaultSpan: {
-                            cols: 2,
-                            rows: 2
-                        },
-                        expandedSpan: {
-                            cols: 4,
-                            rows: 4
-                        },
-                        displaySpan: {
-                            cols: 2,
-                            rows: 2
-                        }
+                        selected: false                        
                     };
                     res[i].artists[j].tileInfo = artistTileInfo;
                 }
@@ -168,13 +144,20 @@ angular.module('FestivalListView', ['ngMaterial'])
 
             // tell prev selected to close, unless it is same as the one selected
             // that is handled by the directive itself
-            if(prevEvent !== undefined && prevEvent.tileInfo.ID !== id){
+            if(prevEvent !== undefined){           
+                if(prevEvent.tileInfo.ID === id){
+                    // selected prev open, reset counter
+                    $scope.currentlySelectedEventTile = -1;
+                } else {
+                    $scope.currentlySelectedEventTile = id;
+                }
                 // collpase is a function defined in the festvial tile directive
                 prevEvent.collapse();
-                $scope.currentlySelectedEventTile = -1;
             }  else {
                 $scope.currentlySelectedEventTile = id;
-            }          
+            } 
+            
+            console.log($scope.currentlySelectedEventTile);         
 
         };
   

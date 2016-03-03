@@ -148,7 +148,7 @@ body {
 }
 
 #main-container {
-    background-color: #ECF0F1;
+    background-color: #F9F9F9;
 }
 
 #progress-container {
@@ -159,15 +159,26 @@ body {
 }
 
 #info-container {
-   width: 600px; 
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */ 
 }
 
 #content-container {
     margin-top: 110px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: inherit;
     display: flex;
     flex-flow: column;
     justify-content: center; /* align horizontal */
     align-items: center; /* align vertical */  
+}
+
+#festial-card-list-container {
+    width: 70%;
 }
 
 .artistTile md-grid-tile-footer h3 {

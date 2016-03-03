@@ -14,25 +14,24 @@ angular.module('festivalTileDirective', [])
             link: function (scope, element, attrs) {
 
                 scope.isExpanded = false;
+                scope.displayHeight = 250;
+                
+                var defaultHeight = 250;
+                var expandedHeight = 400;
+                
                 var prevSelectedArtistID = -1;
                 
-                // Handle user selecting the tile
+                // Handle user selecting the card
                 // Either move to expanded state, or return to normal if was already expanded
                 scope.selectEventTile = function () {
 
                     if (scope.isExpanded) {
                         // reduce the size to normal
-                        scope.event.tileInfo.displaySpan = {
-                            cols: scope.event.tileInfo.defaultSpan.cols,
-                            rows: scope.event.tileInfo.defaultSpan.rows
-                        };
+                        scope.displayHeight = defaultHeight;
                         scope.isExpanded = false;
                     } else {
                         // expand to big size
-                        scope.event.tileInfo.displaySpan = {
-                            cols: scope.event.tileInfo.expandedSpan.cols,
-                            rows: scope.event.tileInfo.expandedSpan.rows
-                        };
+                        scope.displayHeight = expandedHeight;
                         scope.isExpanded = true;
                         
                         // tell the parent controller this has expanded
@@ -74,10 +73,7 @@ angular.module('festivalTileDirective', [])
                 // Called by the parent controller when this tile should collapse
                 scope.collapse = function () {
                     console.log("collapsed");
-                    scope.event.tileInfo.displaySpan = {
-                        cols: scope.event.tileInfo.defaultSpan.cols,
-                        rows: scope.event.tileInfo.defaultSpan.rows
-                    };
+                    scope.displayHeight = defaultHeight;
                     scope.isExpanded = false;
                 };
             }

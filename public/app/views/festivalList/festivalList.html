@@ -11,7 +11,7 @@
 
     <!-- TILES CONTAINER -->
     <div id="info-container" ng-show="eventsLoaded">
-        <md-content flex="100" layout="column" md-scroll-y layout-padding class="gridListdemoDynamicTiles" style="background-color: #ECF0F1;">   
+        <md-content id="festial-card-list-container" flex="50" layout="column" md-scroll-y layout-padding class="gridListdemoDynamicTiles" style="background-color: #F9F9F9;">   
             <md-list>
                 <festival-tile event="event" selected="tileSelected(tileID)" collapse="event.collapse" ng-repeat="event in eventList | filter: displayEvent"> </festival-tile>
             </md-list>   

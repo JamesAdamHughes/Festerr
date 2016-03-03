@@ -1,0 +1,7 @@
+.festival-card{
+    background-color: red;
+}
+
+.festival-card-image{
+    transition: 300ms;
+}
