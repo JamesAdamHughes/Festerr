@@ -168,3 +168,19 @@ body {
 #content-container {
     margin-top: 110px;
 }
+
+.festival-card-image {
+    height: 250px;
+    background-size: cover;
+    background-position-y: 40%;
+}
+
+md-card-title {
+    margin-left: 16px;
+}
+
+md-card-actions{
+    height:60px;
+    justify-content: space-between !important;
+    margin: 0px 10px 0px 20px;
+}

@@ -1,19 +1,17 @@
- <!-- Each festival event is contained in a tileRow -->
-<md-grid-list
-    md-cols="8" md-row-height="1:1"
-    md-gutter="5px" >
-    
+<!-- Each festival event is contained in a tileRow -->
+<md-grid-list md-cols="8" md-row-height="1:1" md-gutter="5px">
+
     <!-- Festival tile is standalone -->
-    <md-grid-tile
+    <!--<md-grid-tile
         md-rowspan="{{event.tileInfo.displaySpan.rows}}"
         md-colspan="{{event.tileInfo.displaySpan.cols}}"
         md-colspan-sm="1"
         ng-click="selectEventTile(event.tileInfo)"
         class="eventTile">
 
-        <div class="festival-tile-container">
-             <!-- Festival header -->
-            <div class="festival-tile-header"
+        <div class="festival-tile-container">-->
+    <!-- Festival header -->
+    <!--<div class="festival-tile-header"
                 ng-style="{'background-image' :'url({{event.largeimageurl}})'}"
                 ng-class="isExpanded ? 'expanded-header' : 'closed-header'"> 
                 <div class="festival-name-container">
@@ -35,18 +33,39 @@
             </div>
         </div>       
 
-    </md-grid-tile>
+    </md-grid-tile>-->
+
+    <md-card>
+        <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}')">
+        </div>
+        <md-card-actions layout="row" layout-align="end center">
+            <div>
+                <md-card-title-text>
+                    <span class="md-headline">{{event.eventname}}</span>
+                </md-card-title-text>
+
+            </div>
+            <div>
+                <md-button class="md-icon-button" aria-label="Favorite">
+                    <md-icon md-svg-icon="images/heart_black.svg"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Settings">
+                    <md-icon md-svg-icon="images/heart_black.svg"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Share">
+                    <md-icon md-svg-icon="images/heart_black.svg"></md-icon>
+                </md-button>
+            </div>
+        </md-card-actions>
+    </md-card>
+
+
 
     <!-- Each artist is  a tile in the tileRow -->
-    <md-grid-tile
-        ng-repeat="artist in event.artists | limitTo:8"
-        md-rowspan="{{artist.tileInfo.displaySpan.rows}}"
-        md-colspan="{{artist.tileInfo.displaySpan.cols}}"
-        md-colspan-sm="1"
-        ng-click="selectArtistTile(event.tileInfo, artist.tileInfo)"
-        class="artistTile">
+    <md-grid-tile ng-repeat="artist in event.artists | limitTo:8" md-rowspan="{{artist.tileInfo.displaySpan.rows}}" md-colspan="{{artist.tileInfo.displaySpan.cols}}"
+    md-colspan-sm="1" ng-click="selectArtistTile(event.tileInfo, artist.tileInfo)" class="artistTile">
         <div style="width: 100%; height: 100%;background-size: cover;
-" ng-style="{'background-image' :'url({{artist.image}})', 'border' : artist.tileInfo.border}">                                           
+" ng-style="{'background-image' :'url({{artist.image}})', 'border' : artist.tileInfo.border}">
         </div>
         <md-grid-tile-footer>
             <h3>{{artist.name}}</h3>
