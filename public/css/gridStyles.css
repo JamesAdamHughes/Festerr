@@ -187,6 +187,10 @@ body {
     background-position-y: 40%;
 }
 
+.md-headline {
+    font-size: 20px;
+}
+
 md-card-title {
     margin-left: 16px;
 }
