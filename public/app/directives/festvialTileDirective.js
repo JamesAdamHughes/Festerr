@@ -15,10 +15,10 @@ angular.module('festivalTileDirective', [])
 
                 scope.isExpanded = false;
                 scope.displayHeight = 250;
-                
+
                 var defaultHeight = 250;
                 var expandedHeight = 400;
-                
+
                 var prevSelectedArtistID = -1;
                 
                 // Handle user selecting the card
@@ -29,6 +29,8 @@ angular.module('festivalTileDirective', [])
                         // reduce the size to normal
                         scope.displayHeight = defaultHeight;
                         scope.isExpanded = false;
+                        
+                        scope.selected({ tileID: scope.event.tileInfo.ID });
                     } else {
                         // expand to big size
                         scope.displayHeight = expandedHeight;
@@ -38,24 +40,22 @@ angular.module('festivalTileDirective', [])
                         // allows other tiles to close
                         scope.selected({ tileID: scope.event.tileInfo.ID });
                     }
-                    
-                    console.log(scope.isExpanded);
                 };
                 
                 // Handle an artist tile being selected
                 // Either move to expanded state, or return to normal if was already expanded
                 scope.selectArtistTile = function (eventTile, artistTile) {
-                    
+
                     var prevArtist = scope.event.artists[prevSelectedArtistID];
                     
                     // Reset the old selected one
-                    if(prevArtist !== undefined){
+                    if (prevArtist !== undefined) {
                         prevArtist.tileInfo.displaySpan = {
                             cols: prevArtist.tileInfo.defaultSpan.cols,
                             rows: prevArtist.tileInfo.defaultSpan.rows
                         };
                     }
-                    
+
                     if (prevSelectedArtistID === artistTile.ID) {
                         // if we selected an expanded, reset the prev counter
                         prevSelectedArtistID = -1;
@@ -72,7 +72,6 @@ angular.module('festivalTileDirective', [])
                 
                 // Called by the parent controller when this tile should collapse
                 scope.collapse = function () {
-                    console.log("collapsed");
                     scope.displayHeight = defaultHeight;
                     scope.isExpanded = false;
                 };

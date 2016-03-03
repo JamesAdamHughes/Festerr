@@ -155,10 +155,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                 prevEvent.collapse();
             }  else {
                 $scope.currentlySelectedEventTile = id;
-            } 
-            
-            console.log($scope.currentlySelectedEventTile);         
-
+            }          
         };
   
     }]);
