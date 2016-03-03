@@ -15,7 +15,10 @@ angular.module('festivalTileDirective', [])
 
                 scope.isExpanded = false;
                 scope.displayHeight = 250;
-
+                scope.topMargin = 0;
+                scope.bottomMargin = 0;
+                   
+                var margin = 60;
                 var defaultHeight = 250;
                 var expandedHeight = 400;
 
@@ -27,14 +30,17 @@ angular.module('festivalTileDirective', [])
 
                     if (scope.isExpanded) {
                         // reduce the size to normal
-                        scope.displayHeight = defaultHeight;
-                        scope.isExpanded = false;
-                        
+                        scope.collapse();                        
                         scope.selected({ tileID: scope.event.tileInfo.ID });
                     } else {
                         // expand to big size
                         scope.displayHeight = expandedHeight;
                         scope.isExpanded = true;
+                        scope.topMargin = margin;
+                        scope.bottomMargin = margin;
+                        
+                        // scroll the view to the card selected                        
+                        window.scrollTo(0, element[0].offsetTop - margin);
                         
                         // tell the parent controller this has expanded
                         // allows other tiles to close
@@ -67,13 +73,14 @@ angular.module('festivalTileDirective', [])
                         };
                         prevSelectedArtistID = artistTile.ID;
                     }
-
                 };
                 
                 // Called by the parent controller when this tile should collapse
                 scope.collapse = function () {
                     scope.displayHeight = defaultHeight;
                     scope.isExpanded = false;
+                    scope.topMargin = 0;
+                    scope.bottomMargin = 0;
                 };
             }
         };
