@@ -11,7 +11,7 @@
             <md-autocomplete id="search-autocomplete"
                 md-selected-item="selectedChip"
                 md-search-text="searchText"
-                md-items="item in chipSearch(searchText)"
+                md-items="item in asyncChipSearch(searchText)"
                 md-item-text="item.name"
                 placeholder="Search for a festival, artist or event">
                 <span
