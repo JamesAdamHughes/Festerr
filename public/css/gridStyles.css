@@ -155,6 +155,18 @@ body {
   align-items: center; /* align vertical */  
 }
 
+#info-container {
+   width: 600px; 
+}
+
+#content-container {
+    margin-top: 110px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */  
+}
+
 .artistTile md-grid-tile-footer h3 {
   margin: 0;
   font-weight: 700;
@@ -165,9 +177,6 @@ body {
   font-size: 15px;
 }
 
-#content-container {
-    margin-top: 110px;
-}
 
 .festival-card-image {
     height: 250px;
