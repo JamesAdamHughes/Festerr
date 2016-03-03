@@ -38,7 +38,7 @@ var googleImageSearch = {
         
         // Build the final query
         params.q = escapedSearch;
-        query = queryBuilder.buildQuery(process.env.google_url, params);
+        query = queryBuilder.buildQuery(process.env.google_search_url, params);
         
         return query;         
     },
