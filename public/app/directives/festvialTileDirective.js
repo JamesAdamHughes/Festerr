@@ -6,7 +6,6 @@ angular.module('festivalTileDirective', [])
         return {
             restrict: 'E',
             scope: {
-                setMargins: '=',
                 event: '=',
                 selected: '&',
                 collapse: '=',
@@ -70,10 +69,10 @@ angular.module('festivalTileDirective', [])
                     }
                 };
 
-                scope.setMargins = function (margins) {
-                    scope.topMargin = margins.top;
-                    scope.bottomMargin = margins.bottom;
-                };
+                // scope.setMargins = function (margins) {
+                //     scope.topMargin = margins.top;
+                //     scope.bottomMargin = margins.bottom;
+                // };
                 
                 // Called by the parent controller when this tile should collapse
                 scope.collapse = function () {
