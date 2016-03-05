@@ -17,14 +17,14 @@ angular.module('festivalTileDirective', [])
                 var margin = 100;
                 var defaultMargin = 10;
                 var defaultHeight = 300;
-                var expandedHeight = 500;
+                var expandedHeight = 550;
 
                 scope.isExpanded = false;
                 scope.displayHeight = 250;
                 scope.topMargin = defaultMargin;
                 scope.bottomMargin = defaultMargin;
                 scope.showDetails = false;
-
+                
                 var prevSelectedArtistID = -1;
                 
                 // Handle user selecting the card

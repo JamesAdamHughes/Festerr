@@ -10,12 +10,19 @@
                         <span class="md-headline">{{event.eventname}}</span>
                     </md-card-title-text>
                 </div>
-                <div style="width:36%;margin-right: -6px;">
+                <div>
                     <md-button class="md-icon-button" aria-label="Favorite">
                         <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
                     </md-button>
                 </div>
             </md-card-actions>
+            <div class="festival-card-details" ng-show="isExpanded">
+                <p> {{event.description}}</p>  
+                <p>{{event.venue.name}}</p>             
+                <p>{{event.venue.address}}</p>
+                <p>{{event.date}}</p>
+                <p>{{event.entryprice}}</p>                              
+            </div>
         </md-card>
     </div>
     

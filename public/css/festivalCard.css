@@ -19,6 +19,10 @@
     height: 100%;
 }
 
+.festival-card-details {
+    padding: 20px;
+}
+
 .festival-card-image {
     height: 250px;
     background-size: cover;
@@ -41,7 +45,7 @@ md-card-actions{
 
 .animate-show {
     width:50%;
-    height: 500px;
+    height: 550px;
 
 }
 
