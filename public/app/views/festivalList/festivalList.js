@@ -140,11 +140,12 @@ angular.module('FestivalListView', ['ngMaterial'])
         
         // When a tile is selected, tell the prev selected to collapse          
         $scope.tileSelected = function(id){               
-            var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];
-
+            var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];            
+           
             // tell prev selected to close, unless it is same as the one selected
             // that is handled by the directive itself
-            if(prevEvent !== undefined){           
+            if(prevEvent !== undefined){   
+                       
                 if(prevEvent.tileInfo.ID === id){
                     // selected prev open, reset counter
                     $scope.currentlySelectedEventTile = -1;
@@ -155,7 +156,11 @@ angular.module('FestivalListView', ['ngMaterial'])
                 prevEvent.collapse();
             }  else {
                 $scope.currentlySelectedEventTile = id;
-            }          
+            }    
+            
+           // set the margins of the cards above and below
+        //    $scope.eventList[$scope.currentlySelectedEventTile - 1].setMargins({top:0, bottom:100});
+                  
         };
   
     }]);

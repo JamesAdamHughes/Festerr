@@ -1,7 +1,4 @@
 .festival-container{
-    /*
-    
-    */
     display: flex;
     flex-flow: row;
     align-content: space-between;
@@ -11,16 +8,15 @@
     margin-bottom:20px;
 }
 
-.festival-details-container {
+/*.festival-details-container {
     height: 500px;
+}*/
+.festival-card-list-container {
+    width: 100%;
 }
 
 .festival-card{
     height: 100%;
-}
-
-#festial-card-list-container {
-    width: 100%;
 }
 
 .festival-card-image {
@@ -43,18 +39,14 @@ md-card-actions{
     margin: 0px 10px 0px 20px;
 }
 
-.translate-left {
-    transform: translateX(-25%);
-    transition: 1s;
-}
-
 .animate-show {
     width:50%;
     height: 500px;
+
 }
 
 .animate-show.ng-hide {
-    width:0%;
+    width: 0%;
     height: 0px;
 }
 

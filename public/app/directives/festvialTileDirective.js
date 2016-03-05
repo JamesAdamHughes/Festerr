@@ -6,25 +6,24 @@ angular.module('festivalTileDirective', [])
         return {
             restrict: 'E',
             scope: {
+                setMargins: '=',
                 event: '=',
                 selected: '&',
-                collapse: '='
+                collapse: '=',
             },
             templateUrl: 'templates/eventTile.html',
             link: function (scope, element, attrs) {
-                
-                var margin = 100;                
+
+                var margin = 100;
                 var defaultMargin = 10;
-                var defaultHeight = 250;
-                var expandedHeight = 400;
-                
+                var defaultHeight = 300;
+                var expandedHeight = 500;
+
                 scope.isExpanded = false;
                 scope.displayHeight = 250;
                 scope.topMargin = defaultMargin;
                 scope.bottomMargin = defaultMargin;
                 scope.showDetails = false;
-
-               
 
                 var prevSelectedArtistID = -1;
                 
@@ -67,6 +66,11 @@ angular.module('festivalTileDirective', [])
                         };
                         prevSelectedArtistID = artistTile.ID;
                     }
+                };
+
+                scope.setMargins = function (margins) {
+                    scope.topMargin = margins.top;
+                    scope.bottomMargin = margins.bottom;
                 };
                 
                 // Called by the parent controller when this tile should collapse
