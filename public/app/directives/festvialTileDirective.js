@@ -25,6 +25,8 @@ angular.module('festivalTileDirective', [])
                 scope.bottomMargin = defaultMargin;
                 scope.showDetails = false;
                 
+                scope.transform = 0;
+                
                 var prevSelectedArtistID = -1;
                 
                 // Handle user selecting the card
@@ -75,11 +77,12 @@ angular.module('festivalTileDirective', [])
                 
                 // Called by the parent controller when this tile should collapse
                 scope.collapse = function () {
-                    scope.displayHeight = defaultHeight;
                     scope.isExpanded = false;
+                    scope.displayHeight = defaultHeight;
                     scope.topMargin = defaultMargin;
                     scope.bottomMargin = defaultMargin;
                     scope.showDetails = false;
+
                 };
 
                 scope.expand = function () {

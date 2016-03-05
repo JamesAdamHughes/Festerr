@@ -37,6 +37,15 @@ md-card-title {
     margin-left: 16px;
 }
 
+.md-subheader.md-default-theme{
+    background-color: rgba(255,255,255, 0);
+}
+
+
+
+
+
+
 md-card-actions{
     height:60px;
     justify-content: space-between !important;
@@ -46,12 +55,13 @@ md-card-actions{
 .animate-show {
     width:50%;
     height: 550px;
-
+    /*transform: translateX(0%)*/
 }
 
 .animate-show.ng-hide {
     width: 0%;
     height: 0px;
+    /*transform: translateX(100%)*/
 }
 
 .animate-show.ng-hide-add, .animate-show.ng-hide-remove {
