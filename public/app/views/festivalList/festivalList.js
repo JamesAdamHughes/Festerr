@@ -1,5 +1,6 @@
 angular.module('FestivalListView', ['ngMaterial'])
-    .controller('FestivalListCtrl', ['$scope', 'FestivalDataService', '$interval', function ($scope, FestivalDataService, $interval) {
+    .controller('FestivalListCtrl', ['$scope', 'FestivalDataService', '$interval', '$q',
+        function ($scope, FestivalDataService, $interval, $q) {
 
         // Holds all info for all events we show in the events list
         $scope.eventList;
@@ -7,6 +8,12 @@ angular.module('FestivalListView', ['ngMaterial'])
         $scope.currentlySelectedEventTile = -1;
 
         $scope.eventsLoaded = false;
+
+        $scope.searchQuery = undefined;
+        $scope.pendingSearch;
+        $scope.searching = false;
+        $scope.cancelSearch = angular.noop;
+        $scope.lastSearch;
 
         $scope.selectedChips = [];
         $scope.selectedChip = null;
@@ -89,12 +96,31 @@ angular.module('FestivalListView', ['ngMaterial'])
             return display;
         };
 
+        // Performs chipSearch asynchronously so as not to hang the browser
+        $scope.asyncChipSearch = function (query) {
+
+            // Only perform a new search if there isn't one already happening
+            if ( !$scope.searching || !$scope.debounceSearch() ) {
+                $scope.cancelSearch();
+                // Run chipSearch async
+                return $scope.pendingSearch = $q(function(resolve, reject) {
+
+                    $scope.cancelSearch = reject;
+                    resolve( $scope.chipSearch(query) );
+                    $scope.refreshDebounce();
+                });
+            }
+            return $scope.pendingSearch;
+        };
+
         //Function to filter events and artist lists and show autocomplete suggestions for chip search
         $scope.chipSearch = function (query) {
+            $scope.searching = true;
+            $scope.searchQuery = query;
             var events;
             var artists;
             var results; 
-            
+
             events = query ? $scope.eventList.filter($scope.createEventFilterFor(query)) : [];
             events = events.map(function (event) {
                 //Allows HTML to display 'name' and 'type' values in chips
@@ -109,7 +135,9 @@ angular.module('FestivalListView', ['ngMaterial'])
             });
             results = events.concat(artists);
             //RESULTS COULD BE SORTED BY SOME VALUE HERE?
-            return results;
+
+            results.sort($scope.levenshteinSearch);
+            return results.slice(0,10);
         };
 
         //Filters the eventlist for events (or artists within that event) matching a query
@@ -137,6 +165,20 @@ angular.module('FestivalListView', ['ngMaterial'])
                 return (angular.lowercase(artist.name).indexOf(lowerCaseQuery) !== -1);
             }; 
         };
+
+        // Debounce search if querying faster than 300ms
+        $scope.debounceSearch = function () {
+            var now = new Date().getMilliseconds();
+            $scope.lastSearch = $scope.lastSearch || now;
+            return ((now - $scope.lastSearch) < 300);
+        };
+
+        // Seach completed, refresh debounce
+        $scope.refreshDebounce = function () {
+            $scope.lastSearch = 0;
+            $scope.searching = false;
+            $scope.cancelSearch = angular.noop;
+        };
         
         // When a tile is selected, tell the prev selected to collapse          
         $scope.tileSelected = function(id){               
@@ -162,5 +204,45 @@ angular.module('FestivalListView', ['ngMaterial'])
         //    $scope.eventList[$scope.currentlySelectedEventTile - 1].setMargins({top:0, bottom:100});
                   
         };
+
+        $scope.levenshteinSearch = function (a, b) {
+            var aDistance = $scope.levenshteinDistance ($scope.searchQuery, a.name);
+            var bDistance = $scope.levenshteinDistance ($scope.searchQuery, b.name);
+            return aDistance - bDistance;
+        }
+
+        $scope.levenshteinDistance = function (a, b) {
+            if(a.length == 0) return b.length; 
+            if(b.length == 0) return a.length; 
+  
+            var matrix = [];
+  
+            // increment along the first column of each row
+            var i;
+            for(i = 0; i <= b.length; i++){
+              matrix[i] = [i];
+            }
+  
+            // increment each column in the first row
+            var j;
+            for(j = 0; j <= a.length; j++){
+              matrix[0][j] = j;
+            }
+  
+            // Fill in the rest of the matrix
+            for(i = 1; i <= b.length; i++){
+              for(j = 1; j <= a.length; j++){
+                if(b.charAt(i-1) == a.charAt(j-1)){
+                  matrix[i][j] = matrix[i-1][j-1];
+                } else {
+                  matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
+                                          Math.min(matrix[i][j-1] + 1, // insertion
+                                                   matrix[i-1][j] + 1)); // deletion
+                }
+              }
+            }
+  
+            return matrix[b.length][a.length];
+        }
   
     }]);
