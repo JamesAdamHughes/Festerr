@@ -1,55 +1,60 @@
- <!-- Each festival event is contained in a tileRow -->
-<md-grid-list
-    md-cols="8" md-row-height="1:1"
-    md-gutter="5px" >
-    
-    <!-- Festival tile is standalone -->
-    <md-grid-tile
-        md-rowspan="{{event.tileInfo.displaySpan.rows}}"
-        md-colspan="{{event.tileInfo.displaySpan.cols}}"
-        md-colspan-sm="1"
-        ng-click="selectEventTile(event.tileInfo)"
-        class="eventTile">
-
-        <div class="festival-tile-container">
-             <!-- Festival header -->
-            <div class="festival-tile-header"
-                ng-style="{'background-image' :'url({{event.largeimageurl}})'}"
-                ng-class="isExpanded ? 'expanded-header' : 'closed-header'"> 
-                <div class="festival-name-container">
-                    <h3>{{event.eventname}}</h3>                                  
+<!-- Each festival event is contained in a tileRow -->
+<div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; transition: all 0.5s">
+    <div class="festival-card-container" style="transition: all 0.5s; width: 40%;height:{{displayHeight}}px;">
+        <md-card class="festival-card">
+            <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}');" ng-click="selectEventTile(event.tileInfo)">
+            </div>
+            <md-card-actions layout="row" layout-align="end center">
+                <div>
+                    <md-card-title-text>
+                        <span class="md-headline">{{event.eventname}}</span>
+                    </md-card-title-text>
+                </div>
+                <div>
+                    <md-button class="md-icon-button" aria-label="Favorite">
+                        <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
+                    </md-button>
+                </div>
+            </md-card-actions>
+            <div class="festival-card-details" ng-show="isExpanded">
+                <p style="width:100%"> {{event.description}}</p>
+                <div class="info-line">
+                    <md-icon class="icon" md-svg-src="images/place_gray.svg" aria-label="android "></md-icon>
+                    <p class="text">{{event.venue.name}}, {{event.venue.address}}</p>
+                </div>
+                <div class="info-line">
+                    <md-icon class="icon" md-svg-src="images/event_gray.svg" aria-label="android "></md-icon>
+                    <p class="text">{{event.date}}</p>
+                </div>
+                <div class="info-line">
+                    <md-icon class="icon" md-svg-src="images/event_gray.svg" aria-label="android "></md-icon>
+                    <p class="text">{{event.entryprice}}</p>
                 </div>
             </div>
+        </md-card>
+    </div>
 
-            <div class="festival-tile-body" 
-                ng-class="isExpanded ? 'expanded-body' : 'closed-body'">
-                <div class="festival-details-text">
-                    {{event.date}}
+    <div class="festival-details-container animate-show" ng-show="isExpanded" style="transition: all 0.5s">
+        <div class="festival-card" md-whiteframe="6" style="background-color: #446CB3 margin:10px; height:550px; box-shadow: 2px 2px 4px #AAAAAA;transition: all 0.5s;"
+        ng-show="isExpanded">
+            <md-toolbar class="md-warn">
+                <div class="md-toolbar-tools">
+                    <h2 class="md-flex">Event Toolbar</h2>
                 </div>
-                <div class="festival-details-text">
-                    {{event.entryprice}}
-                </div>
-                <div class="festival-details-text">
-                    {{event.venue.name}}
-                </div>
-            </div>
-        </div>       
-
-    </md-grid-tile>
-
-    <!-- Each artist is  a tile in the tileRow -->
-    <md-grid-tile
-        ng-repeat="artist in event.artists | limitTo:8"
-        md-rowspan="{{artist.tileInfo.displaySpan.rows}}"
-        md-colspan="{{artist.tileInfo.displaySpan.cols}}"
-        md-colspan-sm="1"
-        ng-click="selectArtistTile(event.tileInfo, artist.tileInfo)"
-        class="artistTile">
-        <div style="width: 100%; height: 100%;background-size: cover;
-" ng-style="{'background-image' :'url({{artist.image}})', 'border' : artist.tileInfo.border}">                                           
+            </md-toolbar>
+            <md-content flex layout-padding style="height: 486px;">
+                <md-list>
+                    <md-subheader class="md-sticky">Appearing Artists ({{event.artists.length}})</md-subheader>
+                    <md-list-item class="md-2-line" ng-repeat="artist in event.artists | limitTo:10">
+                        <img ng-src="{{artist.image}}?20" class="md-avatar" />
+                        <div class="md-list-item-text">
+                            <h3>{{ artist.name }}</h3>
+                            <p>Secondary text</p>
+                        </div>
+                    </md-list-item>
+                    <p ng-show="event.artists.length === 0">No artist data available, sorry!</p>
+                </md-list>
+                <md-content>
         </div>
-        <md-grid-tile-footer>
-            <h3>{{artist.name}}</h3>
-        </md-grid-tile-footer>
-    </md-grid-tile>
-</md-grid-list>
+    </div>
+</div>

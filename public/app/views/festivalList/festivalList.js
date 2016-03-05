@@ -26,37 +26,13 @@ angular.module('FestivalListView', ['ngMaterial'])
             for (var i = 0; i < res.length; i++) {
                 var tileInfo = {
                     ID: i,
-                    selected: false,
-                    defaultSpan: {
-                        cols: 8,
-                        rows: 3
-                    },
-                    expandedSpan: {
-                        cols: 8,
-                        rows: 5
-                    },
-                    displaySpan: {
-                        cols: 8,
-                        rows: 3
-                    }
+                    selected: false                                
                 };
                 res[i].tileInfo = tileInfo;
                 for (var j = 0; j < res[i].artists.length; j++) {
                     var artistTileInfo = {
                         ID: j,
-                        selected: false,
-                        defaultSpan: {
-                            cols: 2,
-                            rows: 2
-                        },
-                        expandedSpan: {
-                            cols: 4,
-                            rows: 4
-                        },
-                        displaySpan: {
-                            cols: 2,
-                            rows: 2
-                        }
+                        selected: false                        
                     };
                     res[i].artists[j].tileInfo = artistTileInfo;
                 }
@@ -206,18 +182,27 @@ angular.module('FestivalListView', ['ngMaterial'])
         
         // When a tile is selected, tell the prev selected to collapse          
         $scope.tileSelected = function(id){               
-            var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];
-
+            var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];            
+           
             // tell prev selected to close, unless it is same as the one selected
             // that is handled by the directive itself
-            if(prevEvent !== undefined && prevEvent.tileInfo.ID !== id){
+            if(prevEvent !== undefined){   
+                       
+                if(prevEvent.tileInfo.ID === id){
+                    // selected prev open, reset counter
+                    $scope.currentlySelectedEventTile = -1;
+                } else {
+                    $scope.currentlySelectedEventTile = id;
+                }
                 // collpase is a function defined in the festvial tile directive
                 prevEvent.collapse();
-                $scope.currentlySelectedEventTile = -1;
             }  else {
                 $scope.currentlySelectedEventTile = id;
-            }          
-
+            }    
+            
+           // set the margins of the cards above and below
+        //    $scope.eventList[$scope.currentlySelectedEventTile - 1].setMargins({top:0, bottom:100});
+                  
         };
 
         $scope.levenshteinSearch = function (a, b) {

@@ -8,55 +8,54 @@ angular.module('festivalTileDirective', [])
             scope: {
                 event: '=',
                 selected: '&',
-                collapse: '='
+                collapse: '=',
             },
             templateUrl: 'templates/eventTile.html',
             link: function (scope, element, attrs) {
 
+                var margin = 100;
+                var defaultMargin = 10;
+                var defaultHeight = 300;
+                var expandedHeight = 550;
+
                 scope.isExpanded = false;
+                scope.displayHeight = 250;
+                scope.topMargin = defaultMargin;
+                scope.bottomMargin = defaultMargin;
+                scope.showDetails = false;
+                
+                scope.transform = 0;
+                
                 var prevSelectedArtistID = -1;
                 
-                // Handle user selecting the tile
+                // Handle user selecting the card
                 // Either move to expanded state, or return to normal if was already expanded
                 scope.selectEventTile = function () {
-
                     if (scope.isExpanded) {
                         // reduce the size to normal
-                        scope.event.tileInfo.displaySpan = {
-                            cols: scope.event.tileInfo.defaultSpan.cols,
-                            rows: scope.event.tileInfo.defaultSpan.rows
-                        };
-                        scope.isExpanded = false;
+                        scope.collapse();
                     } else {
                         // expand to big size
-                        scope.event.tileInfo.displaySpan = {
-                            cols: scope.event.tileInfo.expandedSpan.cols,
-                            rows: scope.event.tileInfo.expandedSpan.rows
-                        };
-                        scope.isExpanded = true;
-                        
-                        // tell the parent controller this has expanded
-                        // allows other tiles to close
-                        scope.selected({ tileID: scope.event.tileInfo.ID });
-                    }
-                    
-                    console.log(scope.isExpanded);
+                        scope.expand();
+                    }                    
+                    // tell the parent controller this has expanded
+                    scope.selected({ tileID: scope.event.tileInfo.ID });
                 };
                 
                 // Handle an artist tile being selected
                 // Either move to expanded state, or return to normal if was already expanded
                 scope.selectArtistTile = function (eventTile, artistTile) {
-                    
+
                     var prevArtist = scope.event.artists[prevSelectedArtistID];
                     
                     // Reset the old selected one
-                    if(prevArtist !== undefined){
+                    if (prevArtist !== undefined) {
                         prevArtist.tileInfo.displaySpan = {
                             cols: prevArtist.tileInfo.defaultSpan.cols,
                             rows: prevArtist.tileInfo.defaultSpan.rows
                         };
                     }
-                    
+
                     if (prevSelectedArtistID === artistTile.ID) {
                         // if we selected an expanded, reset the prev counter
                         prevSelectedArtistID = -1;
@@ -68,17 +67,29 @@ angular.module('festivalTileDirective', [])
                         };
                         prevSelectedArtistID = artistTile.ID;
                     }
-
                 };
+
+                // scope.setMargins = function (margins) {
+                //     scope.topMargin = margins.top;
+                //     scope.bottomMargin = margins.bottom;
+                // };
                 
                 // Called by the parent controller when this tile should collapse
                 scope.collapse = function () {
-                    console.log("collapsed");
-                    scope.event.tileInfo.displaySpan = {
-                        cols: scope.event.tileInfo.defaultSpan.cols,
-                        rows: scope.event.tileInfo.defaultSpan.rows
-                    };
                     scope.isExpanded = false;
+                    scope.displayHeight = defaultHeight;
+                    scope.topMargin = defaultMargin;
+                    scope.bottomMargin = defaultMargin;
+                    scope.showDetails = false;
+
+                };
+
+                scope.expand = function () {
+                    scope.displayHeight = expandedHeight;
+                    scope.isExpanded = true;
+                    scope.topMargin = margin;
+                    scope.bottomMargin = margin;
+                    scope.showDetails = true;
                 };
             }
         };

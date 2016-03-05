@@ -1,0 +1,78 @@
+.festival-container{
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.festival-card-list-container {
+    width: 100%;
+}
+
+.festival-card{
+    height: 100%;
+}
+
+.festival-card-details {
+    padding: 20px;
+}
+
+.festival-card-image {
+    height: 250px;
+    background-size: cover;
+    background-position-y: 40%;
+}
+
+.md-headline {
+    font-size: large;
+}
+
+md-card-title {
+    margin-left: 16px;
+}
+
+.md-subheader.md-default-theme{
+    background-color: rgba(255,255,255, 0);
+}
+
+md-card-actions{
+    height:60px;
+    justify-content: space-between !important;
+    margin: 0px 10px 0px 20px;
+}
+
+.animate-show {
+    width:50%;
+    height: 550px;
+}
+
+.animate-show.ng-hide {
+    width: 0%;
+    height: 0px;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all ease-out 0.5s;
+}
+
+.info-line{
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 50px;
+    margin-left: -20px;
+}
+
+.info-line .text {
+    width: 80%;
+    margin-bottom: 0px;
+}
+
+.info-line .icon {
+    width: 10%;
+}

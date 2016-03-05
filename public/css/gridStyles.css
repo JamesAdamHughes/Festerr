@@ -147,6 +147,9 @@ body {
   align-items: center; /* align vertical */
 }
 
+#main-container {
+    background-color: #F9F9F9;
+}
 
 #progress-container {
   margin-top: 200px;
@@ -154,6 +157,27 @@ body {
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */  
 }
+
+#info-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: center; /* align horizontal */
+    align-items: flex-start; /* align vertical */ 
+}
+
+#content-container {
+    margin-top: 110px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: inherit;
+    display: flex;
+    flex-flow: column;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */  
+}
+
+
 
 .artistTile md-grid-tile-footer h3 {
   margin: 0;
@@ -165,6 +189,3 @@ body {
   font-size: 15px;
 }
 
-#content-container {
-    margin-top: 110px;
-}
