@@ -17,14 +17,14 @@ angular.module('festerrApp').factory('FestivalDataService', function($q, Network
             deferred.resolve(res);
         }).catch(function(err){
             deferred.reject(err);
-        })
+        });
 
         return deferred.promise;
-    }
+    };
 
     return {
         getFestivalData: getFestivalData
-    }
+    };
 
 
 

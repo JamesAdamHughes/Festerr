@@ -1,6 +1,6 @@
 angular.module('HeaderView', ['ngMaterial'])
     .controller('HeaderCtrl', ['$scope', '$mdDialog', HeaderController])
-    .controller('SignupController', ['$scope', '$mdDialog', SignupController]);
+    .controller('SignupController', ['$scope', '$mdDialog', 'SpotifyService', SignupController]);
 
 function HeaderController($scope, $mdDialog) {
     
@@ -19,7 +19,7 @@ function HeaderController($scope, $mdDialog) {
     };
 }
 
-function SignupController($scope, $mdDialog) {
+function SignupController($scope, $mdDialog, SpotifyService) {
     
     // Whether to show the sign in view on the signup dialog
     $scope.showSignin = false;
@@ -48,5 +48,9 @@ function SignupController($scope, $mdDialog) {
     // TODO acutally register the user
     $scope.register = function(user){
         console.log(user);
+    };
+    
+    $scope.spotifySignin = function(){
+        SpotifyService.login();
     };
 }
