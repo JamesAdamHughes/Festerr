@@ -2,7 +2,7 @@ angular.module('festivalTileDirective', [])
     .controller('festivalTileController', ['$scope', function ($scope) {
 
     }])
-    .directive('festivalTile', ['SpotifyService', function (SpotifyService) {
+    .directive('festivalTile', function () {
         return {
             restrict: 'E',
             scope: {
@@ -18,17 +18,23 @@ angular.module('festivalTileDirective', [])
                 var defaultMargin = 10;
                 var defaultHeight = 300;
                 var expandedHeight = 550;
+                var prevSelectedArtistID = -1;
 
                 scope.isExpanded = false;
                 scope.displayHeight = 250;
                 scope.topMargin = defaultMargin;
                 scope.bottomMargin = defaultMargin;
                 scope.showDetails = false;
+                scope.spotifyArtists = [];
                 
-                scope.transform = 0;
-                
-                var prevSelectedArtistID = -1;
-                
+                // watch artist list as retreived async from spotify
+                scope.$watch('artistList', function (newVal, oldVal) {
+                    if (newVal) {
+                        findSpotifyArtistsInFestival(newVal);
+                    }
+                }, true);
+               
+               
                 // Handle user selecting the card
                 // Either move to expanded state, or return to normal if was already expanded
                 scope.selectEventTile = function () {
@@ -69,12 +75,7 @@ angular.module('festivalTileDirective', [])
                         prevSelectedArtistID = artistTile.ID;
                     }
                 };
-
-                // scope.setMargins = function (margins) {
-                //     scope.topMargin = margins.top;
-                //     scope.bottomMargin = margins.bottom;
-                // };
-                
+               
                 // Called by the parent controller when this tile should collapse
                 scope.collapse = function () {
                     scope.isExpanded = false;
@@ -92,6 +93,15 @@ angular.module('festivalTileDirective', [])
                     scope.bottomMargin = margin;
                     scope.showDetails = true;
                 };
+                
+                // Find all spotify artists who are also in this events artist list
+                function findSpotifyArtistsInFestival(spotifyArtists) {
+                    if (spotifyArtists.length > 0) {
+                        scope.spotifyArtists = scope.event.artists.filter(function (eventArtist) {
+                            return (spotifyArtists.indexOf(eventArtist.name) !== -1);
+                        });
+                    }
+                }
             }
         };
-    }]);
+    });

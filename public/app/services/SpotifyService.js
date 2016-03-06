@@ -33,9 +33,8 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                 method: 'get',
                 credentials: 'include'
             }).then(function (res) {
-                console.log(res);
-                userArtists = res;
-                deferred.resolve(res);
+                userArtists = res.artists;
+                deferred.resolve(userArtists);
             }).catch(function (err) {
                 deferred.reject(err);
                 console.err("Error getting all artists");
