@@ -8,7 +8,7 @@ var spotifyAPI = require('../utils/SpotifyAPI.js');
 
 var client_id = process.env.spotify_client_id; // Your client id
 var client_secret = process.env.spotify_client_secret; // Your client secret
-var redirect_uri = 'http://localhost:3000/spotifyCallback'; // Your redirect uri
+var redirect_uri = process.env.spotify_redirect_uri; // Your redirect uri
 
 var stateKey = 'spotify_auth_state';
 
