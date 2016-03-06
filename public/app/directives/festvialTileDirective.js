@@ -2,13 +2,14 @@ angular.module('festivalTileDirective', [])
     .controller('festivalTileController', ['$scope', function ($scope) {
 
     }])
-    .directive('festivalTile', function () {
+    .directive('festivalTile', ['SpotifyService', function (SpotifyService) {
         return {
             restrict: 'E',
             scope: {
                 event: '=',
                 selected: '&',
                 collapse: '=',
+                artistList: '='
             },
             templateUrl: 'templates/eventTile.html',
             link: function (scope, element, attrs) {
@@ -93,4 +94,4 @@ angular.module('festivalTileDirective', [])
                 };
             }
         };
-    });
+    }]);

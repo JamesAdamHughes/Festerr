@@ -13,14 +13,15 @@ var spotifyAPI = {
         
         // Get all unique artists
         tracksItems.forEach(function(trackItem){
-            console.log(trackItem);
             var track = trackItem.track;
             track.artists.forEach(function (artist) {
-                artists.push(artist.name);
+                if(artists.indexOf(artist.name) === -1) {
+                    artists.push(artist.name);
+                }
             });
         });
         
-        console.log(artists);
+        return artists;        
     }
 };
 

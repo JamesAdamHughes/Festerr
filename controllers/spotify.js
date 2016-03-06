@@ -57,6 +57,7 @@ router.get('/spotifyLogin', function (req, res) {
 // Called by the spotify accounts service as the given redicted URI
 // Returns the auth code which we can use to ask for an access token
 // access token allows to to get user spotify information
+// TODO put this into spotify API file
 router.get('/spotifyCallback', function (req, res) {
 
     console.log("GET /spotifyCallback");
@@ -117,9 +118,10 @@ router.get('/spotifyCallback', function (req, res) {
 // Returns all artists contained in every playlist from the given user 
 router.get('/spotifyArtists', function (req, res) {
     
-    console.log(req.cookies);
     var accessToken = "";
     
+    // get the access token from cookie
+    // TODO put this into middlewear
     var cookies = req.headers.cookie.split(" ");
     for(var i=0; i < cookies.length; i++){
         var cookie = cookies[i];
@@ -133,8 +135,8 @@ router.get('/spotifyArtists', function (req, res) {
     var response = {};
 
     if (accessToken !== "" || userID === undefined) {
-        spotifyAPI.getAllArtists();
         response.ok = true;
+        response.artists = spotifyAPI.getAllArtists(accessToken, userID);
     } else {
         response.ok = false;
         response.error = "No Spotify access code in cookie or no userID given in query string";
