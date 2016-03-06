@@ -6,6 +6,8 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
 
     $scope.spotifyCodeExists = false;
     $scope.spotifyUserInfo = {};
+
+    var dialogOpen = false;
     
     // Handle user clicking the signup button Displays a signup dialogue
     // If spotify code exists don't need to do this again
@@ -13,15 +15,21 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
     var parentEl = angular.element(document.body);
     $scope.showSignupDialog = function ($event) {
 
-        // if (!$scope.spotifyCodeExists) {
+        if (!dialogOpen) {
+            dialogOpen = true;
             $mdDialog.show({
                 parent: parentEl,
                 clickOutsideToClose: true,
                 templateUrl: "app/views/header/signupDialog.html",
                 controller: SignupController,
                 // onComplete: afterShowAnimation,
+            }).finally(function(){
+                dialogOpen = false;
             });
-        // }
+        } else {
+            console.log("dialog already open");
+        }
+
     };
     
     // Check if spotify code exists, and get user info if true
@@ -29,44 +37,15 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
     if (accessCode) {
         console.log("already have a spotify code in cookies");
         $scope.spotifyCodeExists = true;
-        
-        SpotifyService.getUserInfo(accessCode).then(function(res){
+
+        SpotifyService.getUserInfo(accessCode).then(function (res) {
             console.log(res);
             $scope.spotifyUserInfo = res;
             $scope.spotifyUserInfo.short_name = res.display_name.split(" ")[0];
-        });      
+        });
     }
 }
 
 function SignupController($scope, $mdDialog) {
-    
-    // Whether to show the sign in view on the signup dialog
-    $scope.showSignin = false;
-    
-    // Model that containers the entered user informtion from the signup sheet
-    $scope.user = {
-        username: "",
-        email: "",
-        password: "",
-        password_conf: ""
-    };
-    
-    // Only enable the resgiter button if all the fields have been filled
-    $scope.registerEnabled = function () {
-        if ($scope.user.username !== "" && $scope.user.email !== "" && $scope.user.password !== "" && $scope.user.password_conf !== "") {
-            return true;
-        }
-        return false;
-    };
-
-       
-    // Show the signin view when clicking the sign in button
-    $scope.showSigninContainer = function () {
-        $scope.showSignin = true;
-    };
-       
-    // TODO acutally register the user
-    $scope.register = function (user) {
-        console.log(user);
-    };
+    // nothing to do here atm :)
 }
