@@ -117,7 +117,6 @@ router.get('/spotifyArtists', function (req, res) {
         spotifyAPI.getAllArtists(accessToken, userID).then(function (artists) {
             response.ok = true;
             response.artists = artists;
-            console.log(response);
             res.send(response);
         }).catch(function (err) {
             response.ok = false;

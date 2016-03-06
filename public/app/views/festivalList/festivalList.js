@@ -6,11 +6,9 @@ angular.module('FestivalListView', ['ngMaterial'])
             $scope.eventList;
             $scope.artistList;
             $scope.currentlySelectedEventTile = -1;
-
             $scope.userArtistList = [];
 
             $scope.eventsLoaded = false;
-
             $scope.searchQuery = undefined;
             $scope.pendingSearch;
             $scope.searching = false;
@@ -69,6 +67,10 @@ angular.module('FestivalListView', ['ngMaterial'])
                     $scope.eventsLoaded = true;
                 }, 500, 1);
 
+            }).catch(function (err) {
+                console.log("An error occured getting artist or festival data: %o", err);
+                // show events anyway
+                $scope.eventsLoaded = true;
             });
         
             //Fucntion to filter event tiles from the list based on search chips
