@@ -38,34 +38,5 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
 }
 
 function SignupController($scope, $mdDialog) {
-    
-    // Whether to show the sign in view on the signup dialog
-    $scope.showSignin = false;
-    
-    // Model that containers the entered user informtion from the signup sheet
-    $scope.user = {
-        username: "",
-        email: "",
-        password: "",
-        password_conf: ""
-    };
-    
-    // Only enable the resgiter button if all the fields have been filled
-    $scope.registerEnabled = function () {
-        if ($scope.user.username !== "" && $scope.user.email !== "" && $scope.user.password !== "" && $scope.user.password_conf !== "") {
-            return true;
-        }
-        return false;
-    };
-
-       
-    // Show the signin view when clicking the sign in button
-    $scope.showSigninContainer = function () {
-        $scope.showSignin = true;
-    };
-       
-    // TODO acutally register the user
-    $scope.register = function (user) {
-        console.log(user);
-    };
+    // nothing to do here atm :)
 }
