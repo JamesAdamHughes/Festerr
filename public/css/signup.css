@@ -1,5 +1,5 @@
 #signup-dialog {
-    height: 500px;
+    height: 350px;
     width: 400px;
 }
 
@@ -15,11 +15,24 @@ md-input-container{
         padding: 2px 2px 10px;
 }
 
+h3 {
+    font-size: x-large;
+    /*text-align: left;*/
+}
+p {
+    /*text-align: left;*/
+}
+
 #signup-dialog-container{
     height: 100%;
     display: flex;
     flex-flow: column;
     justify-content: space-between; /* align horizontal */
+}
+
+#signup-dialog-input-container{
+    text-align: left;
+    margin-bottom: -20px;
 }
 
 #signup-dialog-actions-container{
@@ -28,7 +41,7 @@ md-input-container{
     justify-content: space-between; /* align horizontal */
 }
 
-#signin-dialog-actions-container{
+#signin-dialog-spotify-container{
     display: flex;
     flex-flow: row;
     justify-content: space-around; /* align horizontal */

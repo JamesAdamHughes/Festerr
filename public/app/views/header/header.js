@@ -13,7 +13,6 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
     var parentEl = angular.element(document.body);
     $scope.showSignupDialog = function ($event) {
 
-        // if (!$scope.spotifyCodeExists) {
             $mdDialog.show({
                 parent: parentEl,
                 clickOutsideToClose: true,
