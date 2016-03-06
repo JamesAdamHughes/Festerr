@@ -1,19 +1,37 @@
+.festival-card-list-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .festival-container{
     display: flex;
     flex-flow: row;
     align-content: space-between;
     justify-content: space-around;
     align-items: center;
-    margin-top:20px;
-    margin-bottom:20px;
-}
-
-.festival-card-list-container {
-    width: 100%;
+    transition: margin 1s;
 }
 
 .festival-card{
     height: 100%;
+}
+
+.festival-card.festival-details{
+    /*height: 100%;*/
+    background-color: #446CB3;
+    margin:10px;
+    height:550px;
+    box-shadow: 2px 2px 4px #AAAAAA;
+    /*transition: all 2s;*/
+}
+
+.festival-card-container {
+    /*transition: all 2s;*/
 }
 
 .festival-card-details {
@@ -27,7 +45,7 @@
 }
 
 .md-headline {
-    font-size: large;
+    font-size: medium;
 }
 
 md-card-title {
@@ -55,7 +73,7 @@ md-card-actions{
 }
 
 .animate-show.ng-hide-add, .animate-show.ng-hide-remove {
-  transition: all ease-out 0.5s;
+  transition: all ease-out 1s;
 }
 
 .info-line{

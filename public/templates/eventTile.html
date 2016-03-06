@@ -1,13 +1,13 @@
-<!-- Each festival event is contained in a tileRow -->
-<div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; transition: all 0.5s">
-    <div class="festival-card-container" style="transition: all 0.5s; width: 40%;height:{{displayHeight}}px;">
+<div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; width:{{containerWidth}}%">
+    <div class="festival-card-container" style="height:{{displayHeight}}px; width:{{festivalCardWidth}}%">
         <md-card class="festival-card">
             <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}');" ng-click="selectEventTile(event.tileInfo)">
             </div>
             <md-card-actions layout="row" layout-align="end center">
-                <div>
+                <div style="width=80%">
                     <md-card-title-text>
-                        <span class="md-headline">{{event.eventname}}</span>
+                        <span class="md-headline" ng-hide="isExpanded">{{displayEventName}}</span>
+                        <span class="md-headline" ng-show="isExpanded">{{event.eventname}}</span>
                     </md-card-title-text>
                 </div>
                 <div>
@@ -35,9 +35,8 @@
         </md-card>
     </div>
 
-    <div class="festival-details-container animate-show" ng-show="isExpanded" style="transition: all 0.5s">
-        <div class="festival-card" md-whiteframe="6" style="background-color: #446CB3 margin:10px; height:550px; box-shadow: 2px 2px 4px #AAAAAA;transition: all 0.5s;"
-        ng-show="isExpanded">
+    <div class="festival-details-container animate-show" ng-show="isExpanded">
+        <div class="festival-card festival-details" md-whiteframe="6" ng-show="isExpanded">
             <md-toolbar class="md-warn">
                 <div class="md-toolbar-tools">
                     <h2 class="md-flex">Event Toolbar</h2>
