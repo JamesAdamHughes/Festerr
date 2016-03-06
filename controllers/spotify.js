@@ -118,31 +118,45 @@ router.get('/spotifyCallback', function (req, res) {
 // Returns all artists contained in every playlist from the given user 
 router.get('/spotifyArtists', function (req, res) {
     
+    console.log("GET /spotifyArtists");
     var accessToken = "";
     
     // get the access token from cookie
     // TODO put this into middlewear
     var cookies = req.headers.cookie.split(" ");
-    for(var i=0; i < cookies.length; i++){
+    for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i];
         var value = cookie.split('=');
-        if(value[0] === 'spotifyAccessCode'){
+        if (value[0] === 'spotifyAccessCode') {
             accessToken = value[1];
         }
     }
 
     var userID = req.query.userID;
     var response = {};
-
+    
+    // Get all the artists for the given user ID
     if (accessToken !== "" || userID === undefined) {
-        response.ok = true;
-        response.artists = spotifyAPI.getAllArtists(accessToken, userID);
+
+        spotifyAPI.getAllArtists(accessToken, userID).then(function (artists) {
+            response.ok = true;
+            response.artists = artists;
+            console.log(response);
+            res.send(response);
+        }).catch(function (err) {
+            response.ok = false;
+            response.message = "an error occured";
+            response.statusCode = "500";
+            response.err = err;
+            console.log(response);
+            res.send(response);
+        });
+
     } else {
         response.ok = false;
         response.error = "No Spotify access code in cookie or no userID given in query string";
+        res.send(response);
     }
-
-    res.send(response);
 });
 
 module.exports = router;
