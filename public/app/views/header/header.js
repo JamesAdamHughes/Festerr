@@ -14,8 +14,8 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
     // TODO some user auth to check if they are signed in already etc
     var parentEl = angular.element(document.body);
     $scope.showSignupDialog = function ($event) {
-
         if (!dialogOpen) {
+            // only open if not already open
             dialogOpen = true;
             $mdDialog.show({
                 parent: parentEl,
@@ -38,7 +38,7 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
         console.log("already have a spotify code in cookies");
         $scope.spotifyCodeExists = true;
 
-        SpotifyService.getUserInfo(accessCode).then(function (res) {
+        SpotifyService.getUserInfo().then(function (res) {
             console.log(res);
             $scope.spotifyUserInfo = res;
             $scope.spotifyUserInfo.short_name = res.display_name.split(" ")[0];

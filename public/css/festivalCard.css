@@ -14,7 +14,7 @@
     align-content: space-between;
     justify-content: space-around;
     align-items: center;
-    transition: margin 1s;
+    transition: margin 0.5s;
 }
 
 .festival-card{
@@ -73,7 +73,7 @@ md-card-actions{
 }
 
 .animate-show.ng-hide-add, .animate-show.ng-hide-remove {
-  transition: all ease-out 1s;
+  transition: all ease-out 0.5s;
 }
 
 .info-line{
