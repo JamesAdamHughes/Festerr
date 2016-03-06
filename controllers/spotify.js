@@ -3,9 +3,9 @@ var express = require('express'),
 var request = require('request');
 var querystring = require('querystring');
 
-// DO NOT COMMIT WITH THESE
-var client_id = '1cb843c0c45e4689831159175cf1d68f'; // Your client id
-var client_secret = 'f5e60c8329094613a77588675a5f5dee'; // Your client secret
+
+var client_id = process.env.spotify_client_id; // Your client id
+var client_secret = process.env.spotify_client_secret; // Your client secret
 var redirect_uri = 'http://localhost:3000/spotifyCallback'; // Your redirect uri
 
 var stateKey = 'spotify_auth_state';
@@ -41,7 +41,7 @@ router.get('/spotifyLogin', function (req, res) {
     res.cookie(stateKey, state);
         
     // your application requests authorization
-    var scope = 'user-read-private user-read-email';
+    var scope = 'user-read-private user-read-email user-library-read';
     res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({
             response_type: 'code',
@@ -96,7 +96,8 @@ router.get('/spotifyCallback', function (req, res) {
 
                 var access_token = body.access_token,
                     refresh_token = body.refresh_token;
-
+                    
+                // example of using the spotify api
                 var options = {
                     url: 'https://api.spotify.com/v1/me',
                     headers: { 'Authorization': 'Bearer ' + access_token },
@@ -107,13 +108,12 @@ router.get('/spotifyCallback', function (req, res) {
                 request.get(options, function (error, response, body) {
                     console.log(body);
                 });
-
+                
+                res.cookie('spotifyAccessCode', access_token);
+                res.cookie('spotifyRefreshToken', refresh_token);
                 // we can also pass the token to the browser to make requests from there
-                res.redirect('/#' +
-                    querystring.stringify({
-                        access_token: access_token,
-                        refresh_token: refresh_token
-                    }));
+                res.redirect('/#');
+                
             } else {
                 res.redirect('/#' +
                     querystring.stringify({
@@ -123,8 +123,5 @@ router.get('/spotifyCallback', function (req, res) {
         });
     }
 });
-
-
-
 
 module.exports = router;

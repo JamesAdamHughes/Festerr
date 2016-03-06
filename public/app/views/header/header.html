@@ -28,9 +28,14 @@
         </md-chips>
     </div> 
     
-    <div id="header-user-login-container">
+    <div id="header-user-login-container" ng-hide="spotifyCodeExists">
         <md-button class="md-raised" ng-click="showSignupDialog($event)">Register</md-button>
-    </div>    
+    </div>  
+    <div id="header-spotify-authed-container" ng-show="spotifyCodeExists">
+        {{spotifyUserInfo.short_name}}
+        <div id="header-spotify-user-profile" style="background-image:url({{spotifyUserInfo.images[0].url}})">            
+        </div>
+    </div>  
     
     <div id="header-tabs-container">
         <md-tabs md-dynamic-height md-border-bottom>

@@ -1,2 +1,2 @@
 angular.module('festerrApp', [
-    'FestivalListView', 'HeaderView', 'festivalTileDirective']);
+    'FestivalListView', 'HeaderView',  'festivalTileDirective']);
