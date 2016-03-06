@@ -1,6 +1,6 @@
 angular.module('festerrApp').factory('SpotifyService', function ($q, $location, $cookies) {
 
-    var userID = "";
+    var userID = undefined;
     var userInfo = {};
     var userArtists = [];
     
@@ -27,23 +27,28 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
     // Only make network request if not already retrived artists
     function getAllArtists() {
         var deferred = $q.defer();
-
-        if (userArtists.length === 0) {
-            call('/spotifyArtists?userID=' + userID, {
-                method: 'get',
-                credentials: 'include'
-            }).then(function (res) {
-                userArtists = res.artists;
+        
+        // check if the user has spotify authed
+        if (userID !== undefined) {
+            // only make request if we don't already have the data
+            if (userArtists.length === 0) {
+                call('/spotifyArtists?userID=' + userID, {
+                    method: 'get',
+                    credentials: 'include'
+                }).then(function (res) {
+                    userArtists = res.artists;
+                    deferred.resolve(userArtists);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                    console.err("Error getting all artists");
+                });
+            } else {
                 deferred.resolve(userArtists);
-            }).catch(function (err) {
-                deferred.reject(err);
-                console.err("Error getting all artists");
-            });
+            }
         } else {
-            deferred.resolve(userArtists);
+             deferred.resolve(userArtists);
         }
-
-
+        
         return deferred.promise;
     }
     
