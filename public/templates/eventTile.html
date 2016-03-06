@@ -1,6 +1,5 @@
-<!-- Each festival event is contained in a tileRow -->
-<div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; transition: all 0.5s">
-    <div class="festival-card-container" style="height:{{displayHeight}}px;">
+<div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; transition: all 0.5s; width:{{containerWidth}}%">
+    <div class="festival-card-container" style="height:{{displayHeight}}px;width:{{festivalCardWidth}}%">
         <md-card class="festival-card">
             <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}');" ng-click="selectEventTile(event.tileInfo)">
             </div>
