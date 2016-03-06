@@ -24,7 +24,12 @@ angular.module('festivalTileDirective', [])
                 scope.bottomMargin = defaultMargin;
                 scope.showDetails = false;
                 
-                scope.transform = 0;
+                // Trim the eventname to fit on the cards
+                if (scope.event.eventname.length > 20) {
+                    scope.displayEventName = scope.event.eventname.substring(0, 20) + "...";
+                } else {
+                    scope.displayEventName = scope.event.eventname;
+                }
                 
                 var prevSelectedArtistID = -1;
                 
