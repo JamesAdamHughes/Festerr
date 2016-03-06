@@ -1,3 +1,13 @@
+.festival-card-list-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .festival-container{
     display: flex;
     flex-flow: row;
@@ -8,12 +18,13 @@
     margin-bottom:20px;
 }
 
-.festival-card-list-container {
-    width: 100%;
-}
-
 .festival-card{
     height: 100%;
+}
+
+.festival-card-container {
+    transition: all 0.5s;
+    width: 100%;
 }
 
 .festival-card-details {
@@ -27,7 +38,7 @@
 }
 
 .md-headline {
-    font-size: large;
+    font-size: medium;
 }
 
 md-card-title {
