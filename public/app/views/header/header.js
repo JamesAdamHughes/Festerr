@@ -14,13 +14,12 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
     $scope.showSignupDialog = function ($event) {
 
         // if (!$scope.spotifyCodeExists) {
-            $mdDialog.show({
-                parent: parentEl,
-                clickOutsideToClose: true,
-                templateUrl: "app/views/header/signupDialog.html",
-                controller: SignupController,
-                // onComplete: afterShowAnimation,
-            });
+        $mdDialog.show({
+            parent: parentEl,
+            clickOutsideToClose: true,
+            templateUrl: "app/views/header/signupDialog.html",
+            controller: SignupController,
+        });
         // }
     };
     
@@ -28,13 +27,18 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
     var accessCode = $cookies.get('spotifyAccessCode');
     if (accessCode) {
         console.log("already have a spotify code in cookies");
-        $scope.spotifyCodeExists = true;
         
-        SpotifyService.getUserInfo(accessCode).then(function(res){
+        $scope.spotifyCodeExists = true;
+
+        SpotifyService.getUserInfo(accessCode).then(function (res) {
             console.log(res);
             $scope.spotifyUserInfo = res;
             $scope.spotifyUserInfo.short_name = res.display_name.split(" ")[0];
-        });      
+            
+            // TODO Remove this from here
+            SpotifyService.getAllArtists();
+
+        });
     }
 }
 

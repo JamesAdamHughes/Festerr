@@ -3,6 +3,8 @@ var express = require('express'),
 var request = require('request');
 var querystring = require('querystring');
 
+// Wrapper for the spotify API
+var spotifyAPI = require('../utils/SpotifyAPI.js');
 
 var client_id = process.env.spotify_client_id; // Your client id
 var client_secret = process.env.spotify_client_secret; // Your client secret
@@ -50,7 +52,6 @@ router.get('/spotifyLogin', function (req, res) {
             redirect_uri: redirect_uri,
             state: state
         }));
-
 });
 
 // Called by the spotify accounts service as the given redicted URI
@@ -96,24 +97,13 @@ router.get('/spotifyCallback', function (req, res) {
 
                 var access_token = body.access_token,
                     refresh_token = body.refresh_token;
-                    
-                // example of using the spotify api
-                var options = {
-                    url: 'https://api.spotify.com/v1/me',
-                    headers: { 'Authorization': 'Bearer ' + access_token },
-                    json: true
-                };
-
-                // use the access token to access the Spotify Web API
-                request.get(options, function (error, response, body) {
-                    console.log(body);
-                });
                 
+                // Return access token in cookie to client
                 res.cookie('spotifyAccessCode', access_token);
                 res.cookie('spotifyRefreshToken', refresh_token);
+                
                 // we can also pass the token to the browser to make requests from there
                 res.redirect('/#');
-                
             } else {
                 res.redirect('/#' +
                     querystring.stringify({
@@ -122,6 +112,35 @@ router.get('/spotifyCallback', function (req, res) {
             }
         });
     }
+});
+
+// Returns all artists contained in every playlist from the given user 
+router.get('/spotifyArtists', function (req, res) {
+    
+    console.log(req.cookies);
+    var accessToken = "";
+    
+    var cookies = req.headers.cookie.split(" ");
+    for(var i=0; i < cookies.length; i++){
+        var cookie = cookies[i];
+        var value = cookie.split('=');
+        if(value[0] === 'spotifyAccessCode'){
+            accessToken = value[1];
+        }
+    }
+
+    var userID = req.query.userID;
+    var response = {};
+
+    if (accessToken !== "" || userID === undefined) {
+        spotifyAPI.getAllArtists();
+        response.ok = true;
+    } else {
+        response.ok = false;
+        response.error = "No Spotify access code in cookie or no userID given in query string";
+    }
+
+    res.send(response);
 });
 
 module.exports = router;
