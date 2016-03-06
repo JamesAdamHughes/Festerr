@@ -19,6 +19,7 @@ angular.module('festivalTileDirective', [])
                 var defaultHeight = 250;
                 var defaultWidth = 30;
                 var expandedHeight = 550;
+                var expandedWidth = 40;
 
                 scope.isExpanded = false;
                 scope.displayHeight = defaultHeight;
@@ -96,7 +97,7 @@ angular.module('festivalTileDirective', [])
                     scope.bottomMargin = margin;
                     scope.showDetails = true;
                     scope.containerWidth = 100;
-                    scope.festivalCardWidth = 50;
+                    scope.festivalCardWidth = expandedWidth;
                 };
             }
         };
