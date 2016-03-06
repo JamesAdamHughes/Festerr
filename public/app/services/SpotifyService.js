@@ -36,6 +36,7 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                     method: 'get',
                     credentials: 'include'
                 }).then(function (res) {
+                    console.log("Got " + res.artists.length + " Spotify Artists ");
                     userArtists = res.artists;
                     deferred.resolve(userArtists);
                 }).catch(function (err) {

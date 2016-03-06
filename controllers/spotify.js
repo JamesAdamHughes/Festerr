@@ -73,51 +73,27 @@ router.get('/spotifyCallback', function (req, res) {
             querystring.stringify({
                 error: 'state_mismatch'
             }));
-    } else {
+    } else {        
+
+        res.clearCookie(stateKey);
         
         // Request the access key using the auth code
-        res.clearCookie(stateKey);
-        var authOptions = {
-            url: 'https://accounts.spotify.com/api/token',
-            form: {
-                code: code,
-                redirect_uri: redirect_uri,
-                grant_type: 'authorization_code'
-            },
-            headers: {
-                'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-            },
-            json: true
-        };
-        
-        // Send the request, then redirect the auth code to our client browser
-        // TODO store the user access code
-        // TODO handle refreshing access codes
-        request.post(authOptions, function (error, response, body) {
-            if (!error && response.statusCode === 200) {
-
-                var access_token = body.access_token,
-                    refresh_token = body.refresh_token;
+        spotifyAPI.getAccessToken(code, redirect_uri, client_id, client_secret).then(function (tokens) {
+            // Return access token in cookie to client
+            res.cookie('spotifyAccessCode', tokens.access_token);
+            res.cookie('spotifyRefreshToken', tokens.refresh_token);
                 
-                // Return access token in cookie to client
-                res.cookie('spotifyAccessCode', access_token);
-                res.cookie('spotifyRefreshToken', refresh_token);
-                
-                // we can also pass the token to the browser to make requests from there
-                res.redirect('/#');
-            } else {
-                res.redirect('/#' +
-                    querystring.stringify({
-                        error: 'invalid_token'
-                    }));
-            }
+            // we can also pass the token to the browser to make requests from there
+            res.redirect('/#');
+        }).catch(function(err){
+            res.redirect('/#' + querystring.stringify(err));
         });
     }
 });
 
 // Returns all artists contained in every playlist from the given user 
 router.get('/spotifyArtists', function (req, res) {
-    
+
     console.log("GET /spotifyArtists");
     var accessToken = "";
     
