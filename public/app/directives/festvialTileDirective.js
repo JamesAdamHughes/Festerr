@@ -5,6 +5,7 @@ angular.module('festivalTileDirective', [])
     .directive('festivalTile', function () {
         return {
             restrict: 'E',
+            replace: true,
             scope: {
                 event: '=',
                 selected: '&',
@@ -15,16 +16,25 @@ angular.module('festivalTileDirective', [])
 
                 var margin = 100;
                 var defaultMargin = 10;
-                var defaultHeight = 300;
+                var defaultHeight = 250;
+                var defaultWidth = 30;
                 var expandedHeight = 550;
+                var expandedWidth = 40;
 
                 scope.isExpanded = false;
-                scope.displayHeight = 250;
+                scope.displayHeight = defaultHeight;
                 scope.topMargin = defaultMargin;
                 scope.bottomMargin = defaultMargin;
                 scope.showDetails = false;
+                scope.containerWidth = defaultWidth;
+                scope.festivalCardWidth = 100;
                 
-                scope.transform = 0;
+                // Trim the eventname to fit on the cards
+                if (scope.event.eventname.length > 20) {
+                    scope.displayEventName = scope.event.eventname.substring(0, 20) + "...";
+                } else {
+                    scope.displayEventName = scope.event.eventname;
+                }
                 
                 var prevSelectedArtistID = -1;
                 
@@ -68,11 +78,6 @@ angular.module('festivalTileDirective', [])
                         prevSelectedArtistID = artistTile.ID;
                     }
                 };
-
-                // scope.setMargins = function (margins) {
-                //     scope.topMargin = margins.top;
-                //     scope.bottomMargin = margins.bottom;
-                // };
                 
                 // Called by the parent controller when this tile should collapse
                 scope.collapse = function () {
@@ -81,7 +86,8 @@ angular.module('festivalTileDirective', [])
                     scope.topMargin = defaultMargin;
                     scope.bottomMargin = defaultMargin;
                     scope.showDetails = false;
-
+                    scope.containerWidth = defaultWidth;
+                    scope.festivalCardWidth = 100;
                 };
 
                 scope.expand = function () {
@@ -90,6 +96,8 @@ angular.module('festivalTileDirective', [])
                     scope.topMargin = margin;
                     scope.bottomMargin = margin;
                     scope.showDetails = true;
+                    scope.containerWidth = 100;
+                    scope.festivalCardWidth = expandedWidth;
                 };
             }
         };
