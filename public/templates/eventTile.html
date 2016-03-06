@@ -1,4 +1,4 @@
-<div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; width:{{containerWidth}}%">
+<div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; width:{{containerWidth}}">
     <div class="festival-card-container" style="height:{{displayHeight}}px; width:{{festivalCardWidth}}%">
         <md-card class="festival-card">
             <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}');" ng-click="selectEventTile(event.tileInfo)">
@@ -45,7 +45,7 @@
             <md-content flex layout-padding style="height: 486px;">
                 <md-list>
                     <md-subheader class="md-sticky">Appearing Artists ({{event.artists.length}})</md-subheader>
-                    <md-list-item class="md-2-line" ng-repeat="artist in event.artists | limitTo:10">
+                    <md-list-item class="md-2-line" ng-repeat="artist in event.artists | limitTo:20">
                         <img ng-src="{{artist.image}}?20" class="md-avatar" />
                         <div class="md-list-item-text">
                             <h3>{{ artist.name }}</h3>

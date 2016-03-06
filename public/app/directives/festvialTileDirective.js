@@ -28,7 +28,7 @@ angular.module('festivalTileDirective', [])
                 scope.topMargin = defaultMargin;
                 scope.bottomMargin = defaultMargin;
                 scope.showDetails = false;
-                scope.containerWidth = defaultWidth;
+                scope.containerWidth = "300px";
                 scope.festivalCardWidth = 100;
                 scope.spotifyArtists = [];
                 
@@ -104,7 +104,7 @@ angular.module('festivalTileDirective', [])
                     scope.topMargin = margin;
                     scope.bottomMargin = margin;
                     scope.showDetails = true;
-                    scope.containerWidth = 100;
+                    scope.containerWidth = "100%";
                     scope.festivalCardWidth = expandedWidth;
                 };
                 

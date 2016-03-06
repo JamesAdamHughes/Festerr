@@ -19,7 +19,7 @@ function makeSpotifyRequest(resourceURL, accessToken) {
         if (!err && res.statusCode === 200) {
             deferred.resolve(JSON.parse(body));
         } else {
-            console.error("Error getting spotify resource " + resourceURL + ": " + JSON.parse(body));
+            console.error("Error getting spotify resource " + resourceURL + ": %o", body);
             deferred.reject(err);
         }
     });
