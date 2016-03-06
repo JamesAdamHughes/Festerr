@@ -55,6 +55,22 @@ input:focus::-webkit-input-placeholder { /* Only works on WebKit, Blink, Edge */
     height: 50%;
 }
 
+#header-spotify-authed-container{
+    width: 15%;
+    height: 50%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+#header-spotify-user-profile {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background-size: contain;
+}
+
 #header-search-box-container{
     width: 60%;
     height: 50%;

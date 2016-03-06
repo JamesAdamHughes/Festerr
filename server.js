@@ -26,7 +26,8 @@ app.get('/', function (req, res) {
 
 // Serve /event 
 app.get('/event', require("./controllers/events.js"));
-
+app.get('/spotifyLogin', require('./controllers/spotify'));
+app.get('/spotifyCallback', require('./controllers/spotify'));
 // Example query for google image search
 // var query = imageSearch.buildImageQuery("Strawberries and cream festival 2016");
 // var imageSearchResult = imageSearch.makeRequest(query).then(function(res){

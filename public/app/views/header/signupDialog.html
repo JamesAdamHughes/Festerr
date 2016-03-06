@@ -19,9 +19,12 @@
                     <input ng-model="user.password_conf" type="text">
                 </md-input-container>
             </div>
+            <a href="/spotifyLogin">
             <div id="signup-dialog-spotify-container">
+                <!--<a  >login</a>-->
                 <img src="images/log_in-desktop-large.png" id="signin-spotify">
-            </div>        
+            </div>
+            </a>        
             <div id="signup-dialog-actions-container">
                 <md-button ng-click="showSigninContainer()">Sign In</md-button>
                 <md-button class="md-primary" ng-disabled="!registerEnabled()" ng-click="register(user)">Register</md-button>
