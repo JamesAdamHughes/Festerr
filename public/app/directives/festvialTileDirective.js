@@ -29,15 +29,7 @@ angular.module('festivalTileDirective', [])
                 scope.bottomMargin = defaultMargin;
                 scope.showDetails = false;
                 scope.containerWidth = "300px";
-                scope.festivalCardWidth = 100;
-                scope.spotifyArtists = [];
-                
-                // watch artist list as retreived async from spotify
-                scope.$watch('artistList', function (newVal, oldVal) {
-                    if (newVal) {
-                        findSpotifyArtistsInFestival(newVal);
-                    }
-                }, true);             
+                scope.festivalCardWidth = 100;            
                 
                 // Trim the eventname to fit on the cards
                 if (scope.event.eventname.length > 20) {
@@ -107,15 +99,7 @@ angular.module('festivalTileDirective', [])
                     scope.containerWidth = "100%";
                     scope.festivalCardWidth = expandedWidth;
                 };
-                
-                // Find all spotify artists who are also in this events artist list
-                function findSpotifyArtistsInFestival(spotifyArtists) {
-                    if (spotifyArtists.length > 0) {
-                        scope.spotifyArtists = scope.event.artists.filter(function (eventArtist) {
-                            return (spotifyArtists.indexOf(eventArtist.name) !== -1);
-                        });
-                    }
-                }
+            
             }
         };
     });

@@ -8,7 +8,7 @@
                         <span class="md-headline" ng-hide="isExpanded">{{displayEventName}}</span>
                         <span class="md-headline" ng-show="isExpanded">{{event.eventname}}</span>
                     </md-card-title-text>
-                    {{spotifyArtists.length}}
+                    {{event.spotifyArtists.length}}
                     <md-button class="md-icon-button" aria-label="Favorite">
                         <md-icon md-svg-icon="images/heart_white.svg"></md-icon>
                     </md-button>
@@ -36,12 +36,20 @@
         <div class="festival-card festival-details" md-whiteframe="6" ng-show="isExpanded">
             <md-toolbar class="md-warn">
                 <div class="md-toolbar-tools">
-                    <h2 class="md-flex">Event Toolbar</h2>
+                    <h2 class="md-flex">Appearing Artists</h2>
                 </div>
             </md-toolbar>
             <md-content flex layout-padding style="height: 486px;">
                 <md-list>
-                    <md-subheader class="md-sticky">Appearing Artists ({{event.artists.length}})</md-subheader>
+                    <md-subheader ng-show="event.spotifyArtists.length" class="md-no-sticky">Your Artists ({{event.spotifyArtists.length}})</md-subheader>
+                    <md-list-item class="md-2-line" ng-repeat="artist in event.spotifyArtists | limitTo:20">
+                        <img ng-src="{{artist.image}}?20" class="md-avatar" />
+                        <div class="md-list-item-text">
+                            <h3>{{ artist.name }}</h3>
+                            <p>Secondary text</p>
+                        </div>
+                    </md-list-item>
+                    <md-subheader class="md-no-sticky">Other Artists ({{event.artists.length}})</md-subheader>
                     <md-list-item class="md-2-line" ng-repeat="artist in event.artists | limitTo:20">
                         <img ng-src="{{artist.image}}?20" class="md-avatar" />
                         <div class="md-list-item-text">
