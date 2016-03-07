@@ -30,10 +30,10 @@ var generateRandomString = function (length) {
 // Handle user wanting to auth with spotify
 // Requests auth token from spotity
 // Redirects user to spotify login page
-router.get('/spotifyLogin', function (req, res) {
+router.get('/spotify/login', function (req, res) {
 
     console.log("GET https://accounts.spotify.com/authorize?");
-    console.log("GET /spotifyLogin");
+    console.log("GET /spotify/login");
     
     // Generate a random state
     // The state can be useful for correlating requests and responses. Because your redirect_uri can
@@ -58,9 +58,9 @@ router.get('/spotifyLogin', function (req, res) {
 // Returns the auth code which we can use to ask for an access token
 // access token allows to to get user spotify information
 // TODO put this into spotify API file
-router.get('/spotifyCallback', function (req, res) {
+router.get('/spotify/callback', function (req, res) {
 
-    console.log("GET /spotifyCallback");
+    console.log("GET /spotify/callback");
     
     // your application requests refresh and access tokens
     // after checking the state parameter
@@ -73,7 +73,7 @@ router.get('/spotifyCallback', function (req, res) {
             querystring.stringify({
                 error: 'state_mismatch'
             }));
-    } else {        
+    } else {
 
         res.clearCookie(stateKey);
         
@@ -85,16 +85,33 @@ router.get('/spotifyCallback', function (req, res) {
                 
             // we can also pass the token to the browser to make requests from there
             res.redirect('/#');
-        }).catch(function(err){
+        }).catch(function (err) {
             res.redirect('/#' + querystring.stringify(err));
         });
     }
 });
 
-// Returns all artists contained in every playlist from the given user 
-router.get('/spotifyArtists', function (req, res) {
+// Get a new access token using refresh token
+// Previous one may have expired
+router.get('/spotify/refreshToken', function (req, res) {
+    console.log("GET /spotify/refreshToken");
+    var response = {};
+    response.ok = false;
+    
+    spotifyAPI.refreshAccessToken(res.query.refresh_token, client_id, client_secret).then(function(accessToken){
+        response.ok = true;
+        response.accessToken = accessToken;
+        res.send(response);
+    }).catch(function(err){
+        response.error = err;
+        res.send(response);
+    });
+});
 
-    console.log("GET /spotifyArtists");
+// Returns all artists contained in every playlist from the given user 
+router.get('/spotify/artists', function (req, res) {
+
+    console.log("GET /spotify/artists");
     var accessToken = "";
     
     // get the access token from cookie

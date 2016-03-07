@@ -44,13 +44,14 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
     // Only make network request if not already retrived artists
     function getAllArtists() {
         var deferred = $q.defer();
+        var methodURL = '/spotify/Artists?userID=';
         
         console.log("Getting spotify artists");
 
         getUserInfo().then(function (userInfo) {
             // only make request if we don't already have the data
             if (userArtists.length === 0) {
-                call('/spotifyArtists?userID=' + userInfo.id, {
+                call(methodURL + userInfo.id, {
                     method: 'get',
                     credentials: 'include'
                 }).then(function (res) {

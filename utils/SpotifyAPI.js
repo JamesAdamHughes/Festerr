@@ -78,7 +78,6 @@ var spotifyAPI = {
         
         // Send the request, then redirect the auth code to our client browser
         // TODO store the user access code
-        // TODO handle refreshing access codes
         request.post(authOptions, function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 var access_token = body.access_token,
@@ -96,6 +95,30 @@ var spotifyAPI = {
         });
 
         return deferred.promise;
+    },
+    
+    // Request a new access token
+    // Requires an existing fresh token
+    refreshAccessToken: function (refresh_token, client_id, client_secret) {
+        var deferred = q.defer();
+        
+        var authOptions = {
+            url: 'https://accounts.spotify.com/api/token',
+            headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+            form: {
+                grant_type: 'refresh_token',
+                refresh_token: refresh_token
+            },
+            json: true
+        };
+
+        request.post(authOptions, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                deferred.resolve(body.access_token);
+            } else {
+                deferred.rejct(body);
+            }
+        });
     }
 };
 
