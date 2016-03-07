@@ -1,9 +1,12 @@
 Louis Ditzel ld13280, James Hughes jh13293
+We would like this project to be marked as ongoing work on both the client and server.  
 
 # Festerr
-Festerr is a music festival discovery platform that combines data from mutliple 3rd party API's (Skiddle and Spotify) to provide users with a personalised event calendar. An event is ranked by our Festerr score; the number of artists playing at the event that are also in the user's Spotify library. The more artists, the higher the rank. This score will also be calculated using how soon an event is occuring and how many other people have 'favourited' that event. User's are also able to search for upcoming events and artists that they are interested in.
+Festerr is a music festival discovery platform that combines data from mutliple 3rd party API's (Skiddle and Spotify) to provide users with a personalised event calendar. 
 
-We would like this project to be marked as ongoing work on both the client and server.  
+An event is ranked by our Festerr score; the number of artists playing at the event that are also in the user's Spotify library. The more artists, the higher the rank. This score will also be calculated using how soon an event is occuring and how many other people have 'favourited' that event. 
+
+User's are also able to search for upcoming events and artists that they are interested in.
 
 # Technologies
 ## Stack
