@@ -1,22 +1,19 @@
 <div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; width:{{containerWidth}}">
     <div class="festival-card-container" style="height:{{displayHeight}}px; width:{{festivalCardWidth}}%">
         <md-card class="festival-card">
-            <div class="festival-card-image md-card-image" style="background-image: url('{{event.largeimageurl}}');" ng-click="selectEventTile(event.tileInfo)">
-            </div>
-            <md-card-actions layout="row" layout-align="end center">
-                <div style="width=80%">
+            <div class="festival-card-image md-card-image" style="background: linear-gradient(to top, rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 25%), url('{{event.largeimageurl}}'); background-size: cover;"
+            ng-click="selectEventTile(event.tileInfo)">
+                <div class='festival-card-image-text'>
                     <md-card-title-text>
                         <span class="md-headline" ng-hide="isExpanded">{{displayEventName}}</span>
                         <span class="md-headline" ng-show="isExpanded">{{event.eventname}}</span>
                     </md-card-title-text>
-                </div>
-                <div>
                     {{spotifyArtists.length}}
                     <md-button class="md-icon-button" aria-label="Favorite">
-                        <md-icon md-svg-icon="images/heart_gray.svg"></md-icon>
+                        <md-icon md-svg-icon="images/heart_white.svg"></md-icon>
                     </md-button>
                 </div>
-            </md-card-actions>
+            </div>
             <div class="festival-card-details" ng-show="isExpanded">
                 <p style="width:100%"> {{event.description}}</p>
                 <div class="info-line">
