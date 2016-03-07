@@ -80,7 +80,7 @@ router.get('/spotify/callback', function (req, res) {
         // Request the access key using the auth code
         spotifyAPI.getAccessToken(code, redirect_uri, client_id, client_secret).then(function (tokens) {
             // Return access token in cookie to client
-            res.cookie('spotifyAccessCode', tokens.access_token);
+            res.cookie('spotifyAccessToken', tokens.access_token);
             res.cookie('spotifyRefreshToken', tokens.refresh_token);
                 
             // we can also pass the token to the browser to make requests from there
@@ -122,7 +122,7 @@ router.get('/spotify/artists', function (req, res) {
     for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i];
         var value = cookie.split('=');
-        if (value[0] === 'spotifyAccessCode') {
+        if (value[0] === 'spotifyAccessToken') {
             accessToken = value[1];
         }
     }

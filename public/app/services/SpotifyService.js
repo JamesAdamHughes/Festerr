@@ -8,10 +8,10 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
     function getUserInfo() {
         var deferred = $q.defer();
 
-        var accessCode = $cookies.get('spotifyAccessCode');
+        var accessToken = $cookies.get('spotifyAccessToken');
 
         if (userID === undefined) {
-            if (accessCode === undefined) {
+            if (accessToken === undefined) {
                 // no access code given, user hasn't authed with spotify, return empty
                 deferred.reject({
                     message: "user not authed with Spotify, no access token given"
@@ -21,7 +21,7 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                 
                 // access code give, but no existing details, get user details
                 call('https://api.spotify.com/v1/me', {
-                    headers: new Headers({ 'Authorization': 'Bearer ' + accessCode }),
+                    headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }),
                     credentials: 'none'
                 }).then(function (json) {
                     userID = json.id;
@@ -45,7 +45,7 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
     function getAllArtists() {
         var deferred = $q.defer();
         var methodURL = '/spotify/Artists?userID=';
-        
+
         console.log("Getting spotify artists");
 
         getUserInfo().then(function (userInfo) {
@@ -87,20 +87,25 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
         var request = new Request(url, options);
 
         return fetch(request).then(function (res) {
-            if(res.ok){
+            if (res.ok) {
                 return res.json();
             } else {
-                if(res.status === 401) {
+                if (res.status === 401) {
                     console.error("Unath spotify access, getting new access token");  
-                    // get new access token
+                    
+                    // get new access token and try request again
                     var refeshToken = $cookies.get('spotifyRefreshToken');
                     var methodURL = '/spotify/refreshToken?refresh_token=' + refeshToken;
-                    call(methodURL, {}).then(function(res){
+                    return call(methodURL, {}).then(function (res) {
                         console.log(res);
+                        $cookies.put('spotifyAccessToken', res.accessToken);
+
+                        return call(url, options);
                     });
-                                      
+
+                } else {
+                    throw new Error(res)
                 }
-                throw new Error(res)
             }
         });
     }
