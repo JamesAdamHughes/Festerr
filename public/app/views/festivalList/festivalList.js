@@ -62,7 +62,9 @@ angular.module('FestivalListView', ['ngMaterial'])
                 // Set user artist list in directive
                 $scope.userArtistList = userArtists;
 
+                //Only need to calculate user artists if there are any
                 if (userArtists.length !== 0) {
+                    //Break event artist list into ones from the user's spotify and the rest
                     for (var i = $scope.eventList.length - 1; i >= 0; i--) {
                         $scope.eventList[i].spotifyArtists = $scope.eventList[i].artists.filter(function (eventArtist) {
                             return ($scope.userArtistList.indexOf(eventArtist.name) !== -1);
@@ -72,6 +74,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                         });
                     }
 
+                    //Sort the events list by number of spotify artists present
                     $scope.eventList.sort(function (a, b) {
                         return b.spotifyArtists.length - a.spotifyArtists.length;
                     });
