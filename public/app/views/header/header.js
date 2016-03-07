@@ -33,7 +33,7 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
     };
     
     // Check if spotify code exists, and get user info if true
-    var accessCode = $cookies.get('spotifyAccessCode');
+    var accessCode = $cookies.get('spotifyAccessToken');
     if (accessCode) {
         console.log("already have a spotify code in cookies");
         $scope.spotifyCodeExists = true;

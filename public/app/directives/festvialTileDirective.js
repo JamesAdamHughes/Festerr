@@ -33,7 +33,7 @@ angular.module('festivalTileDirective', [])
                 
                 // Trim the eventname to fit on the cards
                 if (scope.event.eventname.length > 20) {
-                    scope.displayEventName = scope.event.eventname.substring(0, 20) + "...";
+                    scope.displayEventName = scope.event.eventname.substring(0, 17) + "...";
                 } else {
                     scope.displayEventName = scope.event.eventname;
                 }          

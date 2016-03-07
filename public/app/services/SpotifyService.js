@@ -8,10 +8,10 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
     function getUserInfo() {
         var deferred = $q.defer();
 
-        var accessCode = $cookies.get('spotifyAccessCode');
+        var accessToken = $cookies.get('spotifyAccessToken');
 
         if (userID === undefined) {
-            if (accessCode === undefined) {
+            if (accessToken === undefined) {
                 // no access code given, user hasn't authed with spotify, return empty
                 deferred.reject({
                     message: "user not authed with Spotify, no access token given"
@@ -21,7 +21,7 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                 
                 // access code give, but no existing details, get user details
                 call('https://api.spotify.com/v1/me', {
-                    headers: new Headers({ 'Authorization': 'Bearer ' + accessCode }),
+                    headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }),
                     credentials: 'none'
                 }).then(function (json) {
                     userID = json.id;
@@ -44,13 +44,14 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
     // Only make network request if not already retrived artists
     function getAllArtists() {
         var deferred = $q.defer();
-        
+        var methodURL = '/spotify/Artists?userID=';
+
         console.log("Getting spotify artists");
 
         getUserInfo().then(function (userInfo) {
             // only make request if we don't already have the data
             if (userArtists.length === 0) {
-                call('/spotifyArtists?userID=' + userInfo.id, {
+                call(methodURL + userInfo.id, {
                     method: 'get',
                     credentials: 'include'
                 }).then(function (res) {
@@ -59,7 +60,9 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                     deferred.resolve(userArtists);
                 }).catch(function (err) {
                     deferred.reject(err);
-                    console.error("Error getting all artists");
+                    console.error("Error getting all artists: %o", err);
+                    
+                    // get new access token
                 });
             } else {
                 deferred.resolve(userArtists);
@@ -84,7 +87,26 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
         var request = new Request(url, options);
 
         return fetch(request).then(function (res) {
-            return res.json();
+            if (res.ok) {
+                return res.json();
+            } else {
+                if (res.status === 401) {
+                    console.error("Unath spotify access, getting new access token");  
+                    
+                    // get new access token and try request again
+                    var refeshToken = $cookies.get('spotifyRefreshToken');
+                    var methodURL = '/spotify/refreshToken?refresh_token=' + refeshToken;
+                    return call(methodURL, {}).then(function (res) {
+                        console.log(res);
+                        $cookies.put('spotifyAccessToken', res.accessToken);
+
+                        return call(url, options);
+                    });
+
+                } else {
+                    throw new Error(res)
+                }
+            }
         });
     }
 
