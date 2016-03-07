@@ -82,6 +82,7 @@ router.get('/spotify/callback', function (req, res) {
             // Return access token in cookie to client
             res.cookie('spotifyAccessToken', tokens.access_token);
             res.cookie('spotifyRefreshToken', tokens.refresh_token);
+            res.cookie('spotifyTokenExpireAt', tokens.expire_at);
                 
             // we can also pass the token to the browser to make requests from there
             res.redirect('/#');
