@@ -35,7 +35,7 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                     console.info('setting auth code refresh timeout for ' + timeout + " seconds");
                     $interval.cancel(refreshTokenTimer);
                     refreshTokenTimer = $interval(refreshAccessToken, timeout * 1000);
-                    
+
                     deferred.resolve(json);
                 }).catch(function (err) {
                     console.error("Error authorizing Spotify account %o", err);
@@ -56,7 +56,7 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
         $interval.cancel(refreshTokenTimer);
         return call(methodURL, {}).then(function (res) {
             console.info("Got new spotify access token");
-            $cookies.put('spotifyAccessToken', res.accessToken);  
+            $cookies.put('spotifyAccessToken', res.accessToken);
         });
     }
     
@@ -111,23 +111,9 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                 return res.json();
             } else {
                 if (res.status === 401) {
-                    console.error("Unath spotify access, getting new access token");  
-                    
-                    // get new access token and try request again
-                    // var refeshToken = $cookies.get('spotifyRefreshToken');
-                    // var methodURL = '/spotify/refreshToken?refresh_token=' + refeshToken;
-                    // return call(methodURL, {}).then(function (res) {
-                    //     console.log(res);
-                    //     $cookies.put('spotifyAccessToken', res.accessToken);
-
-                    //     return call(url, options);
-                    // });
-
-                } else {
-                   
+                    console.error("Unath spotify access, need new access token");
                 }
-                
-                 throw new Error(res)
+                throw new Error(res)
             }
         });
     }
