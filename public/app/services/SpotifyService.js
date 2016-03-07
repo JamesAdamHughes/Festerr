@@ -59,7 +59,7 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                     deferred.resolve(userArtists);
                 }).catch(function (err) {
                     deferred.reject(err);
-                    console.error("Error getting all artists");
+                    console.error("Error getting all artists: %o", err);
                 });
             } else {
                 deferred.resolve(userArtists);
@@ -84,7 +84,11 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
         var request = new Request(url, options);
 
         return fetch(request).then(function (res) {
-            return res.json();
+            if(res.ok){
+                return res.json();
+            } else {
+                throw new Error(res.statusText + ": " + res.status)
+            }
         });
     }
 
