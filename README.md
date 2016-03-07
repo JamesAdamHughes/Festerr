@@ -1,7 +1,7 @@
 Louis Ditzel ld13280, James Hughes jh13293
 
 # Festerr
-Festerr is a music festival discovery platform that combines data from mutliple 3rd party API's (Skiddle and Spotify) to provide users with a personalised event calendar. An event is ranked by our Festerr score; the number of artists playing at the event that are also in the user's Spotify library. The more artists, the higher the rank. User's are also able to search for upcoming events and artists that they are interested in.
+Festerr is a music festival discovery platform that combines data from mutliple 3rd party API's (Skiddle and Spotify) to provide users with a personalised event calendar. An event is ranked by our Festerr score; the number of artists playing at the event that are also in the user's Spotify library. The more artists, the higher the rank. This score will also be calculated using how soon an event is occuring and how many other people have 'favourited' that event. User's are also able to search for upcoming events and artists that they are interested in.
 
 We would like this project to be marked as ongoing work on both the client and server.  
 
@@ -26,9 +26,7 @@ We would like this project to be marked as ongoing work on both the client and s
  
  * Selecting an event expands the event card to show more details, such as when and where the event is happening. We also display all artists appearing in the event. We plan to show a Google Maps location on this card as well.
  
- * The toolbar contains a button allowing to user to login using an existing Spotify account. This takes them to a Spotify login page, allowing them to securly log in to Spotify servers without Festerr having to store usernames or passwords. When they agree to allow Festerr access to their playlist data, they are taken back to the front page. Now festivals are ranked by our Festerr ranking score (explained above). This score will also be calculated using how soon an event is occuring and how many other people have 'favourited' that event.
- 
- 
+ * The toolbar contains a button allowing to user to login using an existing Spotify account. This takes them to a Spotify login page, allowing them to securly log in to Spotify servers without Festerr having to store usernames or passwords. When they agree to allow Festerr access to their playlist data, they are taken back to the front page. Now festivals are ranked by our Festerr ranking score (explained above). 
  
  
  # Next Stage
