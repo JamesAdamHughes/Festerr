@@ -1,4 +1,5 @@
 Louis Ditzel ld13280, James Hughes jh13293
+
 We would like this project to be marked as ongoing work on both the client and server.  
 
 # Festerr
@@ -14,13 +15,34 @@ User's are also able to search for upcoming events and artists that they are int
     
  * [AngularJS](https://angularjs.org/) is a popular front end framework developed by Google, aiding the the creation of Single Page Apps (SPA). Angular provides an implementation of the Model, View, Controller (MVC) model. Two way bindings can be added to HTML templates, allowing data on the page to be updated in real time when background models are changed.
  
+ * [Angular Material](https://material.angularjs.org/latest/) is a CSS library that provides pre-built HTML components that as a 'reference implementation of Google's Material Design Specification.' These components are reusable and tested, and also integrate well with the AngularJS framework we are already using. 
+ 
  * The app gathers this data by hitting endpoints defined in the server. The client and server are designed to be stateless, to follow REST guidelines, and use access tokens to authorize user sessions.
     
 ## API    
  * All Events info is gathered from [Skiddle](http://www.skiddle.com), a Festival and Events finder website. We use the [API](http://www.skiddle.com/api/) to access this data about events happening in the UK. Other event API's exist, such as Songkink. However, skiddle provided the least restrictive data access, allowing us to search for any events in a given time frame. Skiddle also provides basic artist data, which we cross reference with Spotify data to provide tailored front page for every user.
     
- * [Spotify](https://www.spotify.com/uk/) is one of the largest music streaming services in the UK, offering both free and premium access. People interested in festivals and music events are likely to have Spotify accounts, which reveal their music tastes and preferences. Spotify provides an [API](https://developer.spotify.com/web-api/) allowing us to access this data allowing us to enrich the platform with a personal feel when used with Skiddle.
-     
+ * [Spotify](https://www.spotify.com/uk/) is one of the largest music streaming services in the UK, offering both free and premium access. People interested in festivals and music events are likely to have Spotify accounts, which reveal their music tastes and preferences. Spotify provides an [API](https://developer.spotify.com/web-api/) allowing us to access this data allowing us to enrich the platform with a personal feel when used with Skiddle. 
+
+## Technial Challnages
+caching data, prevent api throttling (google images)
+workflow, issiues, waffle, github, feature branch workflow
+mention cross browser compatability
+deploying in the wild
+responsive design 
+keeping access codes secret
+spotify auth flow
+lichenstein search (and search in general)
+animations
+Using GIMp to design logo
+Sepration of concers (both in client and server)
+
+## Running the Site
+    
+* `cd` to the festerr root level folder.
+* run `node server.js`.You should see the output `Festerr app listening at http://0.0.0.0:3000` on the prompt.
+* Navigate to `localhost:3000` and you should see the page.
+* We have provided a free spotify account to use for testing. This account has several playlists containing many unique artists, allowing us to see the impact of the Festerr score.
 
 ## Operating Overview
  * The main page shows a list of festivals, ranked by Skiddle as most popluar to least. We limit this to 20 events, but plan to add pagination or 'infinite scrolling' to show more than this. 
@@ -31,6 +53,8 @@ User's are also able to search for upcoming events and artists that they are int
  
  * The toolbar contains a button allowing to user to login using an existing Spotify account. This takes them to a Spotify login page, allowing them to securly log in to Spotify servers without Festerr having to store usernames or passwords. When they agree to allow Festerr access to their playlist data, they are taken back to the front page. Now festivals are ranked by our Festerr ranking score (explained above). 
  
+ 
+
  
  # Next Stage
  Data base 
@@ -43,25 +67,5 @@ User's are also able to search for upcoming events and artists that they are int
 
 * The events shown on the page when you first start the page are actully stored in the json_dump file, which I scraped from the skiddle api in June 2015, i.e it's not dynamically pulled from skiddle. This is something which obviosuly needs to be fixed
 
-## Running the Site
-    
-* `cd` to the festerr root level folder.
-* run `node server.js`.You should see the output `Festerr app listening at http://0.0.0.0:3000` on the prompt.
-* Navigate to `localhost:3000` and you should see the page.
-
 ## Deployed Site on Heroku
 Festerr is also delployed on the Heroku hosting service. This reflects the current state of the master branch of the project. Navigate to 
-
-
-# Technial Challnages
-caching data, prevent api throttling (google images)
-workflow, issiues, waffle, github, feature branch workflow
-mention cross browser compatability
-deploying in the wild
-responsive design 
-keeping access codes secret
-spotify auth flow
-lichenstein search (and search in general)
-animations
-Using GIMp to design logo
-Sepration of concers (both in client and server)
