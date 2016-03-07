@@ -94,6 +94,7 @@ router.get('/spotify/callback', function (req, res) {
 // Get a new access token using refresh token
 // Previous one may have expired
 router.get('/spotify/refreshToken', function (req, res) {
+    
     console.log("GET /spotify/refreshToken");
     var response = {};
     response.ok = false;
