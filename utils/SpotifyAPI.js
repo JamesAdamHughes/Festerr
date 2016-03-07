@@ -116,9 +116,11 @@ var spotifyAPI = {
             if (!error && response.statusCode === 200) {
                 deferred.resolve(body.access_token);
             } else {
-                deferred.rejct(body);
+                deferred.reject(body);
             }
         });
+        
+        return deferred.promise;
     }
 };
 

@@ -98,8 +98,9 @@ router.get('/spotify/refreshToken', function (req, res) {
     console.log("GET /spotify/refreshToken");
     var response = {};
     response.ok = false;
+    console.log(req.query.refresh_token);
     
-    spotifyAPI.refreshAccessToken(res.query.refresh_token, client_id, client_secret).then(function(accessToken){
+    spotifyAPI.refreshAccessToken(req.query.refresh_token, client_id, client_secret).then(function(accessToken){
         response.ok = true;
         response.accessToken = accessToken;
         res.send(response);

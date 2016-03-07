@@ -61,6 +61,8 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                 }).catch(function (err) {
                     deferred.reject(err);
                     console.error("Error getting all artists: %o", err);
+                    
+                    // get new access token
                 });
             } else {
                 deferred.resolve(userArtists);
@@ -88,7 +90,17 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
             if(res.ok){
                 return res.json();
             } else {
-                throw new Error(res.statusText + ": " + res.status)
+                if(res.status === 401) {
+                    console.error("Unath spotify access, getting new access token");  
+                    // get new access token
+                    var refeshToken = $cookies.get('spotifyRefreshToken');
+                    var methodURL = '/spotify/refreshToken?refresh_token=' + refeshToken;
+                    call(methodURL, {}).then(function(res){
+                        console.log(res);
+                    });
+                                      
+                }
+                throw new Error(res)
             }
         });
     }
