@@ -13,7 +13,11 @@ Users are also able to search for upcoming events and artists that they are inte
 ## Stack
  * Fester uses a nodeJS server to serve the html/css/js files to the client. The [ExpressJS](http://expressjs.com/) framework is used for route handling, serving the user the main app when they go to the base url. Other endpoints are used to provide a REST API service for the client to access data. For example, the `/spotify/artists/` endpoint provides the client with all of a user's Spotify artists. 
     
- * [AngularJS](https://angularjs.org/) is a popular frontend framework developed by Google, aiding the the creation of Single Page Apps (SPA). Angular provides an implementation of the Model, View, Controller (MVC) model. Two-way bindings can be added to HTML templates, allowing data on the page to be updated in real time when background models are changed.
+ * [AngularJS](https://angularjs.org/) is a popular frontend framework developed by Google, which we have used to aide in the creation of our Single Page App (SPA). Angular provides an implementation of the Model, View, Controller (MVC) pattern. A declarative user interface allows two-way bindings to be added to HTML templates, allowing data on the page to be updated in real time when background models are changed. The app is built with reusable components (services, directives, factories) which are injected into the required views. This allows the seperation of display/render logic (such as DOM manipulations) from the main logic (network requests, behind-the-scenes logic), which promotes DRY code, more so than with standard javascript. Finally, Angular comes with a powerful testing framework, Protractor, that provides unit and integration testing for the entire front end.
+ 
+ * We use vanilla CSS3 to provide styling to components. However, Angular also allows styles and classes to be applied dynamically, which results in some raw CSS on some components.  
+ 
+ * Festerr has a unique logo and favicon, created using GIMP and saved as .pngs and .ico files. Button icons use the .svg format to allow for rescaling.  
  
  * [Angular Material](https://material.angularjs.org/latest/) is a CSS library that provides pre-built HTML components that as a 'reference implementation of Google's Material Design Specification.' These components are reusable and tested, and also integrate well with the AngularJS framework we are already using. 
  
@@ -27,8 +31,11 @@ Users are also able to search for upcoming events and artists that they are inte
 ## Challenges
  * The first important hurdle to cross was the workflow implementation. When multiple people are working on a project with as many parts as this, it can be easy to lose track of what another person is doing. Both members of the team are well-versed in the use of git to manage a project and so the project was integrated into verson control before any code was written. GitHub was used to host the repository and keep track of issues, pull requests and code reviews. We used another service, [Waffle.io](https://waffle.io/) (which integrates heavily with GitHub) to organise our tasks, by separating them into 'Backlog', 'In Progress', 'In Review' and 'Done' lists. This eased development headaches dramatically as it clearly structures the work we had done and the work that remains to be done.
 
+ * Modern websites should be designed to be viewable and usable on many different screen sizes, be they desktop, tablet or phone. This can be done by using seperate desktop and mobile templates and serving the appropiate one, or using one, responsive, template, that dyanmcialy fits to any screen size. As mobile use of the web is growing, so too is it important for a site to be responsive. 
+    * To achive this, we designed the site mobile first, mocking up UI ideas in GIMP (which can be seen in the /dumpFiles folder) until we settled on a design which worked well on both small and large screens. We split the interface into 'modules' of seperate content, which can be reordered or flowed on the screen using CSS media queries to define screen size breakpoints. 
+
 Sepration of concers (both in client and server)
-responsive design 
+
 keeping access codes secret
  
  * Ongoing work is being done to integrate images taken from the Google Search API to provide more images for each event. Google has a restriction on it's API that prevents it from being called more than 100 times in any given day. This throttling proved to be somewhat crippling as for one page load, 20 separate calls had to be made (one for each event shown). In order to overcome this, and similar issues plaguing other APIs, we implemented a data caching scheme, which would simply call each API once when the relevent page is first loaded on the server. This not only alleviated those problems, but reduced our reliance on the stability of these external services whilst our platform is running.
