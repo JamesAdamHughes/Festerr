@@ -24,7 +24,7 @@
         <md-button class="md-raised" ng-click="showSignupDialog($event)">Register</md-button>
     </div>
     <div id="header-spotify-authed-container" ng-show="spotifyDetailsRetrieved">
-        {{spotifyUserInfo.short_name}}
+        <p id="header-spotify-authed-name">{{spotifyUserInfo.short_name}}</p>
         <div id="header-spotify-user-profile" >
             <div id="header-spotify-user-profile-circle" ng-style="{ 'background-image' : 'url(' + spotifyUserInfo.images[0].url + ')' }">                
             </div>
