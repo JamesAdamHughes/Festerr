@@ -1,5 +1,5 @@
-<div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; width:{{containerWidth}}">
-    <div class="festival-card-container" style="height:{{displayHeight}}px; width:{{festivalCardWidth}}%">
+<div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; width:{{containerWidth}};height:{{containerHeight}}; flex-flow:{{containerFlexFlow}}">
+    <div class="festival-card-container" style="height:{{festivalDisplayHeight}}; width:{{festivalCardWidth}}">
         <md-card class="festival-card">
             <div class="festival-card-image md-card-image" style="background: linear-gradient(to top, rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 25%), url('{{event.largeimageurl}}'); background-size: cover;"
             ng-click="selectEventTile(event.tileInfo)">
@@ -32,7 +32,7 @@
         </md-card>
     </div>
 
-    <div class="festival-details-container animate-show" ng-show="isExpanded">
+    <div class="festival-details-container animate-show" ng-show="isExpanded" style="width:{{detailsCardWidth}}">
         <div class="festival-card festival-details" md-whiteframe="6" ng-show="isExpanded">
             <md-toolbar class="md-warn">
                 <div class="md-toolbar-tools">
