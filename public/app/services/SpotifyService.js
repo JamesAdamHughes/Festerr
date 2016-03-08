@@ -28,14 +28,7 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                     credentials: 'none'
                 }).then(function (json) {
                     userID = json.id;
-                    userInfo = json;
-                    
-                    // set auth code refresh timeout from cookie
-                    var timeout = Math.floor($cookies.get('spotifyTokenExpireAt') - (Date.now() / 1000));
-                    console.info('setting auth code refresh timeout for ' + timeout + " seconds");
-                    $interval.cancel(refreshTokenTimer);
-                    refreshTokenTimer = $interval(refreshAccessToken, timeout * 1000);
-
+                    userInfo = json;                  
                     deferred.resolve(json);
                 }).catch(function (err) {
                     console.error("Error authorizing Spotify account %o", err);
@@ -49,14 +42,38 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
 
         return deferred.promise;
     }
-
+    
+    // returns number of seconds until spotify access token expires
+    function accessTokenTimeLeft() {
+        return Math.floor($cookies.get('spotifyTokenExpireAt') - (Date.now() / 1000));
+    }
+    
+    // Sets a timer to get new access token using expiry time in cookies
+    function setrefreshTokenTimer() {
+        // set auth code refresh timeout from cookie
+        var timeout = Math.floor($cookies.get('spotifyTokenExpireAt') - (Date.now() / 1000));
+        console.info('setting auth code refresh timeout for ' + timeout + " seconds");
+        // Cancel any exisiting one
+        $interval.cancel(refreshTokenTimer);
+        refreshTokenTimer = $interval(refreshAccessToken, timeout * 1000);
+    }
+    
+    // Gets a new access token from spotify api
     function refreshAccessToken() {
         var refeshToken = $cookies.get('spotifyRefreshToken');
         var methodURL = '/spotify/refreshToken?refresh_token=' + refeshToken;
+
         $interval.cancel(refreshTokenTimer);
+
         return call(methodURL, {}).then(function (res) {
+            
+            //reset the access token and expirey time
             console.info("Got new spotify access token");
             $cookies.put('spotifyAccessToken', res.accessToken);
+            $cookies.put('spotifyTokenExpireAt', res.expire_at);
+            
+            // set auth code refresh timeout from cookie
+           setrefreshTokenTimer();
         });
     }
     
@@ -113,14 +130,37 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
                 if (res.status === 401) {
                     console.error("Unath spotify access, need new access token");
                 }
-                throw new Error(res)
+                throw res;
             }
         });
     }
 
     return {
         getUserInfo: getUserInfo,
-        getAllArtists: getAllArtists
+        getAllArtists: getAllArtists,
+        refreshAccessToken: refreshAccessToken,
+        setup: function () {
+            var deferred = $q.defer();
+            var spotifyAccessToken = $cookies.get('spotifyAccessToken');
+
+            console.info("CHECKING SPOTIFY TOKEN");
+
+            if (spotifyAccessToken) {
+                // If token has run out or about to (5 mins), get new one
+                if (accessTokenTimeLeft() < (5 * 60)) {
+                    console.info("NEEDED NEW TOKEN");
+                    return refreshAccessToken().then(function (res) {
+                    });
+                } {
+                    deferred.resolve();
+                    return deferred.promise;
+                }
+            } else {
+                deferred.resolve();
+                return deferred.promise;
+            }
+
+        }
     };
 
 });
