@@ -12,7 +12,7 @@ Users are also able to search for upcoming events and artists that they are inte
  
 # Technologies 
 ## Stack 
- * Fester uses a nodeJS server to serve the html/css/js files to the client. The [ExpressJS](http://expressjs.com/) framework is used for route handling, serving the user the main app when they go to the base url. Other endpoints are used to provide a REST API service for the client to access data. For example, the `/spotify/artists/` endpoint provides the client with all of a user's Spotify artists.   
+ * Fester uses a NodeJS server to serve the html/css/js files to the client. The [ExpressJS](http://expressjs.com/) framework is used for route handling, serving the user the main app when they go to the base url. Other endpoints are used to provide a REST API service for the client to access data. For example, the `/spotify/artists/` endpoint provides the client with all of a user's Spotify artists.   
      
  * [AngularJS](https://angularjs.org/) is a popular frontend framework developed by Google, which we have used to aide in the creation of our Single Page App (SPA). Angular provides an implementation of the Model, View, Controller (MVC) pattern. A declarative user interface allows two-way bindings to be added to HTML templates, allowing data on the page to be updated in real time when background models are changed. The app is built with reusable components (services, directives, factories) which are injected into the required views. This allows the separation of display & render logic (such as DOM manipulations) from the main logic (network requests, behind-the-scenes logic), which promotes DRY code, more so than with standard JavaScript. Finally, Angular comes with a powerful testing framework, Protractor, that provides unit and integration testing for the entire front end. 
   
@@ -75,6 +75,7 @@ Users are also able to search for upcoming events and artists that they are inte
 ## Running the Site 
      
  * `cd` to the festerr root level folder. 
+ * run `npm install` to install the necessary NodeJS packages.
  * run `node server.js`.You should see the output `Festerr app listening at http://0.0.0.0:3000` on the prompt. 
  * Navigate to `localhost:3000` and you should see the page. 
  * We have provided a free Spotify account to use for testing. This account has several playlists containing many unique artists, allowing us to see the impact of the Festerr score. The account details are: 
