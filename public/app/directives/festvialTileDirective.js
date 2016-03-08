@@ -15,26 +15,26 @@ angular.module('festivalTileDirective', [])
             templateUrl: 'templates/eventTile.html',
             link: function(scope, element, attrs) {
 
-                var prevSelectedArtistID = -1;
-
+                var prevSelectedArtistID = -1;                
                 var margin = 100;
                 var defaultMargin = 10;
-                var breakPoint = 650; // value to use column layout over row
-
-                var defaultFestivalHeight = "250px";
-                var defaultFestivalWidth = "100%";
-
-                var defaultWidth = "30%";
                 
+                // value to use column layout over row
+                var breakPoint = 650;         
+                // Whether to show festival and details card as row or column                
                 var defaultContainerFlexFlow = window.innerWidth < breakPoint ? "column" : "row"
 
-                // defaullt size of festival container
+                // default size of festival container
                 var defaultContainerHeight = "250px";
                 var defaultContainerWidth = "300px";
 
                 // Size of festival container to expand to
                 var expandedContainerHeight = window.innerWidth < breakPoint ? "1060px" :  window.innerHeight - 200 + "px";
                 var expandedContainerWidth = window.innerWidth + "px";
+                  
+                // Default festival card size
+                var defaultFestivalHeight = "250px";
+                var defaultFestivalWidth = "100%";
                 
                 // Size for festival card to expand to
                 var expandedFestivalCardWidth = window.innerWidth < breakPoint ? "100%" : "40%";
@@ -42,7 +42,8 @@ angular.module('festivalTileDirective', [])
                 
                 scope.isExpanded = false;
                 scope.showDetails = false;
-
+                
+                // Scope variables to control the DOM sizes
                 scope.festivalDisplayHeight = defaultFestivalHeight;
                 scope.topMargin = defaultMargin;
                 scope.bottomMargin = defaultMargin;
