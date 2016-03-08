@@ -51,6 +51,7 @@ angular.module('festivalTileDirective', [])
                 scope.containerHeight = defaultContainerHeight;
                 scope.containerFlexFlow = defaultContainerFlexFlow;
                 scope.detailsCardWidth = window.innerWidth < breakPoint ? "100%" : "40%"
+                scope.festivalDetailsDisplayHeight = expandedFestvivalCardHeight.substring(0, expandedFestvivalCardHeight.length-2) - 64 + "px"; 
                  
                 // Trim the eventname to fit on the cards
                 if (scope.event.eventname.length > 20) {

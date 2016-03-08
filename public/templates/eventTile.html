@@ -32,14 +32,14 @@
         </md-card>
     </div>
 
-    <div class="festival-details-container animate-show" ng-show="isExpanded" style="width:{{detailsCardWidth}}">
-        <div class="festival-card festival-details" md-whiteframe="6" ng-show="isExpanded">
+    <div class="festival-details-container animate-show" ng-show="isExpanded" style="width:{{detailsCardWidth}};height:{{festivalDisplayHeight}};">
+        <div class="festival-card festival-details" md-whiteframe="6" ng-show="isExpanded" style="height: {{festivalDisplayHeight}};">
             <md-toolbar class="md-warn">
                 <div class="md-toolbar-tools">
                     <h2 class="md-flex">Appearing Artists</h2>
                 </div>
             </md-toolbar>
-            <md-content flex layout-padding style="height: 486px;">
+            <md-content flex layout-padding style="height: {{festivalDetailsDisplayHeight}};">
                 <md-list>
                     <md-subheader ng-show="event.spotifyArtists.length" class="md-no-sticky">Your Artists ({{event.spotifyArtists.length}})</md-subheader>
                     <md-list-item class="md-2-line" ng-repeat="artist in event.spotifyArtists | limitTo:20">
