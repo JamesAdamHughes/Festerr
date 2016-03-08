@@ -87,7 +87,7 @@ var spotifyAPI = {
                 // get the expiry time for the client to know when to get new one
                 // do it a bit earlier than needed to be safe
                 var expire_at = Math.floor(Date.now() / 1000) + (expires_in - (10 * 60));
-                
+
                 deferred.resolve({
                     access_token: access_token,
                     refresh_token: refresh_token,
@@ -107,7 +107,7 @@ var spotifyAPI = {
     // Requires an existing fresh token
     refreshAccessToken: function (refresh_token, client_id, client_secret) {
         var deferred = q.defer();
-        
+
         var authOptions = {
             url: 'https://accounts.spotify.com/api/token',
             headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
@@ -120,12 +120,23 @@ var spotifyAPI = {
 
         request.post(authOptions, function (error, response, body) {
             if (!error && response.statusCode === 200) {
-                deferred.resolve(body.access_token);
+                var access_token = body.access_token,
+                    expires_in = body.expires_in;
+                
+                // get the expiry time for the client to know when to get new one
+                // do it a bit earlier than needed to be safe
+                var expire_at = Math.floor(Date.now() / 1000) + (expires_in - (10 * 60));
+                
+                deferred.resolve({
+                    access_token: access_token,
+                    expire_at: expire_at
+                });
+
             } else {
                 deferred.reject(body);
             }
         });
-        
+
         return deferred.promise;
     }
 };
