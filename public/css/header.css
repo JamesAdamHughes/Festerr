@@ -64,12 +64,18 @@ input:focus::-webkit-input-placeholder { /* Only works on WebKit, Blink, Edge */
     align-items: center; /* align vertical */
 }
 
-#header-spotify-user-profile {
-    border-radius: 50%;
+#header-spotify-user-profile {   
     height: 40px;
     width: 40px;
-    background-size: contain;
 }
+
+#header-spotify-user-profile-circle {
+    border-radius: 50%;
+    background-size: contain;
+    width: 40px;
+    padding-top: 40px;
+}
+
 
 #header-search-box-container{
     width: 60%;

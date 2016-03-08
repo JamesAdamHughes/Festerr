@@ -25,7 +25,9 @@
     </div>
     <div id="header-spotify-authed-container" ng-show="spotifyDetailsRetrieved">
         {{spotifyUserInfo.short_name}}
-        <div id="header-spotify-user-profile" ng-style="{ 'background-image' : 'url(' + spotifyUserInfo.images[0].url + ')' }">
+        <div id="header-spotify-user-profile" >
+            <div id="header-spotify-user-profile-circle" ng-style="{ 'background-image' : 'url(' + spotifyUserInfo.images[0].url + ')' }">                
+            </div>
         </div>
     </div>
 
