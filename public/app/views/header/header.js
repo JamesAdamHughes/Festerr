@@ -51,7 +51,8 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
             console.log(res);
             $scope.spotifyDetailsRetrieved = true;
             $scope.spotifyUserInfo = res;
-               
+            
+            // TODO sort out these defaults in spotify Service
             // Display place holder if no user image given
             if(res.images.length === 0){
                 $scope.spotifyUserInfo.images[0]= {
