@@ -118,6 +118,11 @@ angular.module('FestivalListView', ['ngMaterial'])
                             //LOGIC FOR HIGHLIGHTING MATCHING ARTISTS CAN GO HERE, EG:
                             // event.artists[j].tileInfo.border = artistName  ===  chipName? 'solid 5px blue' : '';
                         }
+                        for (var j = event.spotifyArtists.length - 1; j >= 0; j--) {
+                            artistName = angular.lowercase(event.spotifyArtists[j].name);
+                            artistPresent = artistPresent || artistName === chipName;
+
+                        }
                         display = display && artistPresent;
                     }
                 }
@@ -180,6 +185,9 @@ angular.module('FestivalListView', ['ngMaterial'])
                     //Check if search query matches any artist within that event
                     for (var i = event.artists.length - 1; i >= 0; i--) {
                         artistName = artistName || (angular.lowercase(event.artists[i].name).indexOf(lowerCaseQuery || '') !== -1);
+                    };
+                    for (var i = event.spotifyArtists.length - 1; i >= 0; i--) {
+                        artistName = artistName || (angular.lowercase(event.spotifyArtists[i].name).indexOf(lowerCaseQuery || '') !== -1);
                     };
                     return eventName || artistName;
                 };
