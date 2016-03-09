@@ -1,8 +1,8 @@
 angular.module('HeaderView', ['ngMaterial', 'ngCookies'])
-    .controller('HeaderCtrl', ['$scope', '$mdDialog', '$cookies', 'SpotifyService', HeaderController])
+    .controller('HeaderCtrl', ['$scope', '$q', '$mdDialog', '$cookies', 'SpotifyService', 'SearchService', '$rootScope', HeaderController])
     .controller('SignupController', ['$scope', '$mdDialog', , SignupController]);
 
-function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
+function HeaderController($scope, $q, $mdDialog, $cookies, SpotifyService, SearchService, $rootScope) {
 
     $scope.spotifyCodeExists = false;
     $scope.spotifyDetailsRetrieved = false;
@@ -14,6 +14,15 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
             }
         ]
     };
+
+    $scope.selectedChips = [];
+    $scope.selectedChip = null;
+    $scope.searchText = null;
+    $scope.searchQuery = undefined;
+    $scope.pendingSearch;
+    $scope.searching = false;
+    $scope.cancelSearch = angular.noop;
+    $scope.lastSearch;
 
     var dialogOpen = false;
 
@@ -51,24 +60,66 @@ function HeaderController($scope, $mdDialog, $cookies, SpotifyService) {
             console.log(res);
             $scope.spotifyDetailsRetrieved = true;
             $scope.spotifyUserInfo = res;
-            
+
             // TODO sort out these defaults in spotify Service
             // Display place holder if no user image given
-            if(res.images.length === 0){
-                $scope.spotifyUserInfo.images[0]= {
+            if (res.images.length === 0) {
+                $scope.spotifyUserInfo.images[0] = {
                     url: "http://buira.org/assets/images/shared/default-profile.png"
                 }
             }
-            
+
             // Handle no display name given
             if (res.display_name !== null) {
                 $scope.spotifyUserInfo.short_name = res.display_name.split(" ")[0];
             } else {
-                $scope.spotifyUserInfo.short_name = "No Name Given" 
+                $scope.spotifyUserInfo.short_name = "No Name Given"
             }
 
         });
     }
+
+    // Performs chipSearch asynchronously so as not to hang the browser
+    $scope.asyncChipSearch = function(query) {
+
+        // Only perform a new search if there isn't one already happening
+        if (!$scope.searching || !$scope.debounceSearch()) {
+            $scope.cancelSearch();
+            // Run chipSearch async
+            return $scope.pendingSearch = $q(function(resolve, reject) {
+
+                $scope.cancelSearch = reject;
+
+                // Search the events and artists for the given query 
+                // Returns with possible suggestions that match the query, for autocomplete
+                resolve(SearchService.chipSearch(query, $scope.eventList, $scope.artistList));
+                // $rootScope.$emit('header searchOccured', $scope.selectedChips);
+                $scope.refreshDebounce();
+            });
+        }
+
+        return $scope.pendingSearch;
+    };
+
+    $scope.$watch('selectedChips', function(oldV, newV) {
+        if (newV) {
+            $rootScope.$emit('header searchItemsUpdated', $scope.selectedChips);
+        }
+    }, true);
+
+    // Debounce search if querying faster than 300ms
+    $scope.debounceSearch = function() {
+        var now = new Date().getMilliseconds();
+        $scope.lastSearch = $scope.lastSearch || now;
+        return ((now - $scope.lastSearch) < 300);
+    };
+
+    // Seach completed, refresh debounce
+    $scope.refreshDebounce = function() {
+        $scope.lastSearch = 0;
+        $scope.searching = false;
+        $scope.cancelSearch = angular.noop;
+    };
 }
 
 function SignupController($scope, $mdDialog) {
