@@ -93,7 +93,6 @@ function HeaderController($scope, $q, $mdDialog, $cookies, SpotifyService, Searc
                 // Search the events and artists for the given query 
                 // Returns with possible suggestions that match the query, for autocomplete
                 resolve(SearchService.chipSearch(query, $scope.eventList, $scope.artistList));
-                // $rootScope.$emit('header searchOccured', $scope.selectedChips);
                 $scope.refreshDebounce();
             });
         }
