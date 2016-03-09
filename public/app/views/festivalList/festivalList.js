@@ -1,6 +1,6 @@
 angular.module('FestivalListView', ['ngMaterial'])
-    .controller('FestivalListCtrl', ['$scope', '$rootScope', 'FestivalDataService', 'SpotifyService', 'SearchService', '$interval', '$q',
-        function($scope, $rootScope, FestivalDataService, SpotifyService, SearchService, $interval, $q) {
+    .controller('FestivalListCtrl', ['$scope', '$rootScope', 'FestivalDataService', 'SpotifyService', '$interval', '$q',
+        function($scope, $rootScope, FestivalDataService, SpotifyService, $interval, $q) {
 
             // Holds all info for all events we show in the events list
             $scope.eventList;
@@ -146,7 +146,6 @@ angular.module('FestivalListView', ['ngMaterial'])
                 } else {
                     $scope.currentlySelectedEventTile = id;
                 }
-
             };
 
         }]);
