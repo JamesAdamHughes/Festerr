@@ -1,6 +1,6 @@
 angular.module('FestivalListView', ['ngMaterial'])
     .controller('FestivalListCtrl', ['$scope', '$rootScope', 'FestivalDataService', 'SpotifyService', '$interval', '$q',
-        function($scope, $rootScope, FestivalDataService, SpotifyService, $interval, $q) {
+        function($scope, $rootScope, FestivalDataService, SpotifyService, $interval) {
 
             // Holds all info for all events we show in the events list
             $scope.eventList;
@@ -41,8 +41,8 @@ angular.module('FestivalListView', ['ngMaterial'])
                             results.push($scope.eventList[i].artists[j]);
                             names.push($scope.eventList[i].artists[j].name);
                         }
-                    };
-                };
+                    }
+                }
                 $scope.artistList = results;
 
                 // get user's artist list from spotify

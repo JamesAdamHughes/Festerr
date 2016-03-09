@@ -73,7 +73,7 @@ angular.module('festerrApp').factory('SpotifyService', function ($q, $location, 
             $cookies.put('spotifyTokenExpireAt', res.expire_at);
             
             // set auth code refresh timeout from cookie
-           setrefreshTokenTimer();
+            setrefreshTokenTimer();
         });
     }
     
