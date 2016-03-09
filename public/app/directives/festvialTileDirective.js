@@ -2,7 +2,7 @@ angular.module('festivalTileDirective', [])
     .controller('festivalTileController', ['$scope', function($scope) {
 
     }])
-    .directive('festivalTile', function() {
+    .directive('festivalTile', ['$window', function($window) {
         return {
             restrict: 'E',
             replace: true,
@@ -15,51 +15,59 @@ angular.module('festivalTileDirective', [])
             templateUrl: 'templates/eventTile.html',
             link: function(scope, element, attrs) {
 
-                var prevSelectedArtistID = -1;                
+                var prevSelectedArtistID = -1;
                 var margin = 100;
                 var defaultMargin = 10;
-                
+
                 // value to use column layout over row
-                var breakPoint = 650;         
+                var breakPoint = 650;
+
                 // Whether to show festival and details card as row or column                
-                var defaultContainerFlexFlow = window.innerWidth < breakPoint ? "column" : "row"
+                var defaultContainerFlexFlow;
 
                 // default size of festival container
-                var defaultContainerHeight = "250px";
-                var defaultContainerWidth = "300px";
+                var defaultContainerHeight;
+                var defaultContainerWidth;
 
                 // Size of festival container to expand to
-                var expandedContainerHeight = window.innerWidth < breakPoint ? "1060px" :  window.innerHeight - 200 + "px";
-                var expandedContainerWidth = window.innerWidth + "px";
-                  
+                var expandedContainerHeight;
+                var expandedContainerWidth;
+
                 // Default festival card size
-                var defaultFestivalHeight = "250px";
-                var defaultFestivalWidth = "100%";
-                
+                var defaultFestivalHeight;
+                var defaultFestivalWidth;
+
                 // Size for festival card to expand to
-                var expandedFestivalCardWidth = window.innerWidth < breakPoint ? "100%" : "40%";
-                var expandedFestvivalCardHeight =  window.innerWidth < breakPoint ? "500px" : expandedContainerHeight;
-                
+                var expandedFestivalCardWidth;
+                var expandedFestvivalCardHeight;
+
                 scope.isExpanded = false;
                 scope.showDetails = false;
-                
+
                 // Scope variables to control the DOM sizes
-                scope.festivalDisplayHeight = defaultFestivalHeight;
-                scope.topMargin = defaultMargin;
-                scope.bottomMargin = defaultMargin;
-                scope.containerWidth = defaultContainerWidth;
-                scope.festivalCardWidth = defaultFestivalWidth;
-                scope.containerHeight = defaultContainerHeight;
-                scope.containerFlexFlow = defaultContainerFlexFlow;
-                scope.detailsCardWidth = window.innerWidth < breakPoint ? "100%" : "40%"
-                scope.festivalDetailsDisplayHeight = expandedFestvivalCardHeight.substring(0, expandedFestvivalCardHeight.length-2) - 64 + "px"; 
-                 
+                scope.festivalDisplayHeight;
+                scope.topMargin;
+                scope.bottomMargin;
+                scope.containerWidth;
+                scope.festivalCardWidth;
+                scope.containerHeight;
+                scope.containerFlexFlow;
+                scope.detailsCardWidth;
+                scope.festivalDetailsDisplayHeight;
+
+                setElementSizes();
+
                 // Trim the eventname to fit on the cards
                 if (scope.event.eventname.length > 20) {
                     scope.displayEventName = scope.event.eventname.substring(0, 17) + "...";
                 } else {
                     scope.displayEventName = scope.event.eventname;
                 }
+
+                // Watch for window resizes, change element sizes to fit
+                angular.element($window).bind('resize', function() {
+                    setElementSizes();
+                });
 
                 // Handle user selecting the card
                 // Either move to expanded state, or return to normal if was already expanded
@@ -131,6 +139,40 @@ angular.module('festivalTileDirective', [])
                     scope.festivalCardWidth = expandedFestivalCardWidth;
                 };
 
+                function setElementSizes() {
+                    var screenWidth = $window.innerWidth;
+                    var screenHeight = $window.innerHeight;
+
+                    // Whether to show festival and details card as row or column                
+                    defaultContainerFlexFlow = screenWidth < breakPoint ? "column" : "row"
+
+                    // default size of festival container
+                    defaultContainerHeight = "250px";
+                    defaultContainerWidth = "300px";
+
+                    // Size of festival container to expand to
+                    expandedContainerHeight = screenWidth < breakPoint ? "1060px" : screenHeight - 200 + "px";
+                    expandedContainerWidth = screenWidth + "px";
+
+                    // Default festival card size
+                    defaultFestivalHeight = "250px";
+                    defaultFestivalWidth = "100%";
+
+                    // Size for festival card to expand to
+                    expandedFestivalCardWidth = screenWidth < breakPoint ? "100%" : "40%";
+                    expandedFestvivalCardHeight = screenWidth < breakPoint ? "500px" : expandedContainerHeight;
+
+                    scope.festivalDisplayHeight = defaultFestivalHeight;
+                    scope.topMargin = defaultMargin;
+                    scope.bottomMargin = defaultMargin;
+                    scope.containerWidth = defaultContainerWidth;
+                    scope.festivalCardWidth = defaultFestivalWidth;
+                    scope.containerHeight = defaultContainerHeight;
+                    scope.containerFlexFlow = defaultContainerFlexFlow;
+                    scope.detailsCardWidth = window.innerWidth < breakPoint ? "100%" : "40%"
+                    scope.festivalDetailsDisplayHeight = expandedFestvivalCardHeight.substring(0, expandedFestvivalCardHeight.length - 2) - 64 + "px";
+                }
+
             }
         };
-    });
+    }]);
