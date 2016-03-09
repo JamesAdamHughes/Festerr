@@ -64,12 +64,23 @@ input:focus::-webkit-input-placeholder { /* Only works on WebKit, Blink, Edge */
     align-items: center; /* align vertical */
 }
 
-#header-spotify-user-profile {
-    border-radius: 50%;
+#header-spotify-authed-name {
+    margin: 0;
+    margin-right: 10px;
+}
+
+#header-spotify-user-profile {   
     height: 40px;
     width: 40px;
-    background-size: contain;
 }
+
+#header-spotify-user-profile-circle {
+    border-radius: 50%;
+    background-size: contain;
+    width: 40px;
+    padding-top: 40px;
+}
+
 
 #header-search-box-container{
     width: 60%;
@@ -138,3 +149,12 @@ md-chips.md-default-theme .md-chips{
     justify-content: space-between; /* align horizontal */
     align-items: center; /* align vertical */
 }
+
+@media (max-width:600px) {
+
+    /* Hide the username on small sreens */
+    #header-spotify-authed-name {
+        display: none;
+    }
+}
+

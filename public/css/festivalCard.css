@@ -38,10 +38,6 @@
     /*transition: all 2s;*/
 }
 
-.festival-card-container {
-    /*transition: all 2s;*/
-}
-
 .festival-card-image-text {
     width: 100%;
     display: flex;
@@ -60,6 +56,7 @@
     height: 250px;
     background-size: cover;
     background-position-y: 40%;
+    background-size: cover;
 }
 
 .md-headline {
@@ -112,4 +109,9 @@ md-card-actions{
 
 .info-line .icon {
     width: 10%;
+}
+
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 970px) {
+    .festvial-card
 }
