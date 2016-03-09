@@ -1,23 +1,15 @@
 angular.module('FestivalListView', ['ngMaterial'])
-    .controller('FestivalListCtrl', ['$scope', 'FestivalDataService', 'SpotifyService', 'SearchService', '$interval', '$q',
-        function($scope, FestivalDataService, SpotifyService, SearchService, $interval, $q) {
+    .controller('FestivalListCtrl', ['$scope', '$rootScope', 'FestivalDataService', 'SpotifyService', 'SearchService', '$interval', '$q',
+        function($scope, $rootScope, FestivalDataService, SpotifyService, SearchService, $interval, $q) {
 
             // Holds all info for all events we show in the events list
             $scope.eventList;
             $scope.artistList;
             $scope.currentlySelectedEventTile = -1;
             $scope.userArtistList = [];
-
             $scope.eventsLoaded = false;
-            $scope.searchQuery = undefined;
-            $scope.pendingSearch;
-            $scope.searching = false;
-            $scope.cancelSearch = angular.noop;
-            $scope.lastSearch;
 
-            $scope.selectedChips = [];
-            $scope.selectedChip = null;
-            $scope.searchText = null;
+            var selectedChips = [];
 
             // Get the festival data from the server and display it
             FestivalDataService.getFestivalData().then(function(res) {
@@ -90,6 +82,12 @@ angular.module('FestivalListView', ['ngMaterial'])
                 $scope.eventsLoaded = true;
             });
 
+            // Listen for searches from the search box
+            // Update the list of selected items to the selected Chips
+            $rootScope.$on('header searchItemsUpdated', function(event, selected) {
+                selectedChips = selected;
+            });
+
             // Function to filter event tiles from the list based on search chips
             $scope.displayEvent = function(event) {
                 var display = true;
@@ -99,12 +97,12 @@ angular.module('FestivalListView', ['ngMaterial'])
                 var artistName = "";
 
                 //If there are no chips, display all results
-                if ($scope.selectedChips.length === 0) return true;
+                if (selectedChips.length === 0) return true;
 
-                for (var i = $scope.selectedChips.length - 1; i >= 0; i--) {
-                    chipName = angular.lowercase($scope.selectedChips[i].name);
+                for (var i = selectedChips.length - 1; i >= 0; i--) {
+                    chipName = angular.lowercase(selectedChips[i].name);
                     //Is this an event or an artist chip?
-                    if ($scope.selectedChips[i].eventname) {
+                    if (selectedChips[i].eventname) {
                         display = display && (eventName === chipName);
                     } else {
                         artistPresent = false;
@@ -127,40 +125,6 @@ angular.module('FestivalListView', ['ngMaterial'])
                     }
                 }
                 return display;
-            };
-
-            // Performs chipSearch asynchronously so as not to hang the browser
-            $scope.asyncChipSearch = function(query) {
-
-                // Only perform a new search if there isn't one already happening
-                if (!$scope.searching || !$scope.debounceSearch()) {
-                    $scope.cancelSearch();
-                    // Run chipSearch async
-                    return $scope.pendingSearch = $q(function(resolve, reject) {
-
-                        $scope.cancelSearch = reject;
-
-                        // Search the events and artists for the given query 
-                        resolve(SearchService.chipSearch(query, $scope.eventList, $scope.artistList));
-
-                        $scope.refreshDebounce();
-                    });
-                }
-                return $scope.pendingSearch;
-            };
-
-            // Debounce search if querying faster than 300ms
-            $scope.debounceSearch = function() {
-                var now = new Date().getMilliseconds();
-                $scope.lastSearch = $scope.lastSearch || now;
-                return ((now - $scope.lastSearch) < 300);
-            };
-
-            // Seach completed, refresh debounce
-            $scope.refreshDebounce = function() {
-                $scope.lastSearch = 0;
-                $scope.searching = false;
-                $scope.cancelSearch = angular.noop;
             };
 
             // When a tile is selected, tell the prev selected to collapse          
