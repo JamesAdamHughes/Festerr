@@ -57,10 +57,7 @@ angular.module('festivalTileDirective', [])
                 scope.festivalDetailsDisplayHeight;
                 
                 // Sets the default sizes
-                setElementSizes();           
-                
-                console.log(scope.event);     
-
+                setElementSizes();    
 
                 // Trim the eventname to fit on the cards
                 if (scope.event.eventname.length > 20) {
