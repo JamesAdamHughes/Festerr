@@ -1,5 +1,5 @@
 .festival-card-list-container {
-    width: 100%;
+    width: 750px;
     display: flex;
     flex-flow: row;
     align-content: space-between;
@@ -145,5 +145,7 @@ md-card-actions{
 
 /* Desktops and laptops ----------- */
 @media only screen  and (min-width : 970px) {
-    .festvial-card
+    .festival-card-list-container{
+            width: 1000px;
+    }
 }
