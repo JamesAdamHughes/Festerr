@@ -1,38 +1,40 @@
 <div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; width:{{containerWidth}};height:{{containerHeight}}; flex-flow:{{containerFlexFlow}}">
     <div class="festival-card-container" style="height:{{festivalDisplayHeight}}; width:{{festivalCardWidth}}">
         <md-card class="festival-card">
-            <div class="festival-card-image md-card-image" ng-style="{ 'background-image': 'linear-gradient(to top, rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 25%), url(' + event.largeimageurl + ')'}"
-            ng-click="selectEventTile(event.tileInfo)">
-                <div class='festival-card-image-text'>
+            <div class="festival-card-image md-card-image"  ng-style="{ 'background-image': 'url(' + event.largeimageurl + ')'}"
+            ng-click="selectEventTile(event.tileInfo)"
+            ng-mouseover="showMouseOver = true"
+            ng-mouseleave="showMouseOver = false">
+                <div class='festival-card-image-text' ng-class="showMouseOver ? 'expanded' : 'closed'">
                     <md-card-title-text>
-                        <span class="md-headline" ng-hide="isExpanded">{{displayEventName}}</span>
-                        <span class="md-headline" ng-show="isExpanded">{{event.eventname}}</span>
+                        <span class="md-headline" ng-hide="isExpanded">{{ ::displayEventName}}</span>
+                        <span class="md-headline" ng-show="isExpanded">{{ ::event.eventname}}</span>
                     </md-card-title-text>
-                    {{event.spotifyArtists.length}}
+                    {{ ::event.spotifyArtists.length}}
                     <md-button class="md-icon-button" aria-label="Favorite">
                         <md-icon md-svg-icon="images/heart_white.svg"></md-icon>
                     </md-button>
                 </div>
             </div>
             <div class="festival-card-details" ng-show="isExpanded">
-                <p style="width:100%"> {{event.description}}</p>
+                <p style="width:100%"> {{ ::event.description}}</p>
                 <div class="info-line">
                     <md-icon class="icon" md-svg-src="images/place_gray.svg" aria-label="android "></md-icon>
-                    <p class="text">{{event.venue.name}}, {{event.venue.address}}</p>
+                    <p class="text">{{ ::event.venue.name}}, {{ ::event.venue.address}}</p>
                 </div>
                 <div class="info-line">
                     <md-icon class="icon" md-svg-src="images/event_gray.svg" aria-label="android "></md-icon>
-                    <p class="text">{{event.date}}</p>
+                    <p class="text">{{ ::event.date}}</p>
                 </div>
                 <div class="info-line">
                     <md-icon class="icon" md-svg-src="images/event_gray.svg" aria-label="android "></md-icon>
-                    <p class="text">{{event.entryprice}}</p>
+                    <p class="text">{{ ::event.entryprice}}</p>
                 </div>
             </div>
         </md-card>
     </div>
 
-    <div class="festival-details-container animate-show" ng-show="isExpanded" style="width:{{detailsCardWidth}};height:{{festivalDisplayHeight}};">
+    <div class="festival-details-container animate-show" ng-if="isExpanded" style="width:{{detailsCardWidth}};height:{{festivalDisplayHeight}};">
         <div class="festival-card festival-details" md-whiteframe="6" ng-show="isExpanded" style="height: {{festivalDisplayHeight}};">
             <md-toolbar class="md-warn">
                 <div class="md-toolbar-tools">
@@ -43,17 +45,17 @@
                 <md-list>
                     <md-subheader ng-show="event.spotifyArtists.length" class="md-no-sticky">Your Artists ({{event.spotifyArtists.length}})</md-subheader>
                     <md-list-item class="md-2-line" ng-repeat="artist in event.spotifyArtists | limitTo:20">
-                        <img ng-src="{{artist.image}}?20" class="md-avatar" />
+                        <img ng-src="{{::artist.image}}?20" class="md-avatar" />
                         <div class="md-list-item-text">
-                            <h3>{{ artist.name }}</h3>
+                            <h3>{{ ::artist.name }}</h3>
                             <p>Secondary text</p>
                         </div>
                     </md-list-item>
-                    <md-subheader class="md-no-sticky">Other Artists ({{event.artists.length}})</md-subheader>
+                    <md-subheader class="md-no-sticky">Other Artists ({{ ::event.artists.length}})</md-subheader>
                     <md-list-item class="md-2-line" ng-repeat="artist in event.artists | limitTo:20">
-                        <img ng-src="{{artist.image}}?20" class="md-avatar" />
+                        <img ng-src="{{::artist.image}}?20" class="md-avatar" />
                         <div class="md-list-item-text">
-                            <h3>{{ artist.name }}</h3>
+                            <h3>{{ ::artist.name }}</h3>
                             <p>Secondary text</p>
                         </div>
                     </md-list-item>

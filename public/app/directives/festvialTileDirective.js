@@ -43,6 +43,7 @@ angular.module('festivalTileDirective', [])
 
                 scope.isExpanded = false;
                 scope.showDetails = false;
+                scope.showMouseOver = false;
 
                 // Scope variables to control the DOM sizes
                 scope.festivalDisplayHeight;
@@ -54,8 +55,10 @@ angular.module('festivalTileDirective', [])
                 scope.containerFlexFlow;
                 scope.detailsCardWidth;
                 scope.festivalDetailsDisplayHeight;
+                
+                // Sets the default sizes
+                setElementSizes();                
 
-                setElementSizes();
 
                 // Trim the eventname to fit on the cards
                 if (scope.event.eventname.length > 20) {
@@ -138,24 +141,30 @@ angular.module('festivalTileDirective', [])
                     scope.festivalDisplayHeight = expandedFestvivalCardHeight;
                     scope.festivalCardWidth = expandedFestivalCardWidth;
                 };
+                
+                function showMouseOver(){
+                   var imageText = element[0].getElementsByClassName('festival-card-image-test');
+                   angular.element(imageText).addClass("expanded-image-text");
+                    
+                }
 
                 function setElementSizes() {
                     var screenWidth = $window.innerWidth;
                     var screenHeight = $window.innerHeight;
 
                     // Whether to show festival and details card as row or column                
-                    defaultContainerFlexFlow = screenWidth < breakPoint ? "column" : "row"
+                    defaultContainerFlexFlow = screenWidth < breakPoint ? "column" : "row";
 
                     // default size of festival container
-                    defaultContainerHeight = "250px";
-                    defaultContainerWidth = "300px";
+                    defaultContainerHeight = "200px";
+                    defaultContainerWidth = "250px";
 
                     // Size of festival container to expand to
                     expandedContainerHeight = screenWidth < breakPoint ? "1060px" : screenHeight - 200 + "px";
                     expandedContainerWidth = screenWidth + "px";
 
                     // Default festival card size
-                    defaultFestivalHeight = "250px";
+                    defaultFestivalHeight = defaultContainerHeight;
                     defaultFestivalWidth = "100%";
 
                     // Size for festival card to expand to
@@ -169,7 +178,7 @@ angular.module('festivalTileDirective', [])
                     scope.festivalCardWidth = defaultFestivalWidth;
                     scope.containerHeight = defaultContainerHeight;
                     scope.containerFlexFlow = defaultContainerFlexFlow;
-                    scope.detailsCardWidth = window.innerWidth < breakPoint ? "100%" : "40%"
+                    scope.detailsCardWidth = screenWidth < breakPoint ? "100%" : "40%";
                     scope.festivalDetailsDisplayHeight = expandedFestvivalCardHeight.substring(0, expandedFestvivalCardHeight.length - 2) - 64 + "px";
                 }
 

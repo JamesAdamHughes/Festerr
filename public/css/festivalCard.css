@@ -19,6 +19,7 @@
 
 .festival-card{
     height: 100%;
+    position: relative;
 }
 
 .festival-card-image{
@@ -39,28 +40,54 @@
 }
 
 .festival-card-image-text {
-    width: 100%;
     display: flex;
     flex-flow: row;
     justify-content: space-around;
     align-items: center;
     color:white;
-    font-size: larger;
+    font-size: medium;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+
 }
+
+.festival-card-image-text.expanded{
+    height: 200px;
+    background: rgba(0,0,0,0.7);
+
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.festival-card-image-text.closed{
+    height: 40px;
+    background: rgba(0,0,0,0.5);
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+}
+
+
 
 .festival-card-details {
     padding: 20px;
 }
 
 .festival-card-image {
+    width: 100%;
     height: 250px;
     background-size: cover;
     background-position-y: 40%;
     background-size: cover;
 }
 
+.festival-card-image {
+    background-color: red;
+}
+
 .md-headline {
-    font-size: larger;
+    font-size: medium;
     /*color: white;*/
 }
 
