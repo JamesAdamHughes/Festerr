@@ -43,7 +43,7 @@
             </md-toolbar>
             <md-content flex layout-padding style="height: {{festivalDetailsDisplayHeight}};">
                 <md-list>
-                    <md-subheader ng-show="event.spotifyArtists.length" class="md-no-sticky">Your Artists ({{event.spotifyArtists.length}})</md-subheader>
+                    <md-subheader ng-show="event.spotifyArtists.length" class="md-no-sticky">Your Artists ({{ ::event.spotifyArtists.length}})</md-subheader>
                     <md-list-item class="md-2-line" ng-repeat="artist in event.spotifyArtists | limitTo:20">
                         <img ng-src="{{::artist.image}}?20" class="md-avatar" />
                         <div class="md-list-item-text">

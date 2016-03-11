@@ -1,8 +1,8 @@
 angular.module('HeaderView', ['ngMaterial', 'ngCookies'])
-    .controller('HeaderCtrl', ['$scope', '$q', '$mdDialog', '$cookies', 'SpotifyService', 'SearchService', '$rootScope', HeaderController])
+    .controller('HeaderCtrl', ['$scope', '$q', '$window', '$interval', '$mdDialog', '$cookies', 'SpotifyService', 'SearchService', '$rootScope', HeaderController])
     .controller('SignupController', ['$scope', '$mdDialog', , SignupController]);
 
-function HeaderController($scope, $q, $mdDialog, $cookies, SpotifyService, SearchService, $rootScope) {
+function HeaderController($scope, $q, $window, $interval, $mdDialog, $cookies, SpotifyService, SearchService, $rootScope) {
 
     $scope.spotifyCodeExists = false;
     $scope.spotifyDetailsRetrieved = false;
@@ -16,8 +16,8 @@ function HeaderController($scope, $q, $mdDialog, $cookies, SpotifyService, Searc
     };
 
     $scope.selectedChips = [];
-    $scope.selectedChip = null;
-    $scope.searchText = null;
+    $scope.selectedChip = undefined;
+    $scope.searchText = undefined;
     $scope.searchQuery = undefined;
     $scope.pendingSearch;
     $scope.searching = false;
@@ -25,6 +25,10 @@ function HeaderController($scope, $q, $mdDialog, $cookies, SpotifyService, Searc
     $scope.lastSearch;
 
     var dialogOpen = false;
+    var didScroll = false;
+    var lastScrollTop = 0;
+    var delta = 5;
+    var navbarHeight = document.getElementById('tabs-header-bar').offsetHeight;
 
     // Handle user clicking the signup button Displays a signup dialogue
     // If spotify code exists don't need to do this again
@@ -70,7 +74,7 @@ function HeaderController($scope, $q, $mdDialog, $cookies, SpotifyService, Searc
             }
 
             // Handle no display name given
-            if (res.display_name !== null) {
+            if (res.display_name !== undefined) {
                 $scope.spotifyUserInfo.short_name = res.display_name.split(" ")[0];
             } else {
                 $scope.spotifyUserInfo.short_name = "No Name Given"
@@ -119,6 +123,56 @@ function HeaderController($scope, $q, $mdDialog, $cookies, SpotifyService, Searc
         $scope.searching = false;
         $scope.cancelSearch = angular.noop;
     };
+    
+    /*
+        Scrolling Logic to hide the tabs bar
+    */
+
+    angular.element($window).bind("scroll", function() {
+        didScroll = true;
+    }); 
+    
+    // Only update every .25seconds   
+    $interval(function() {
+        if (didScroll) {
+            hasScrolled();
+            didScroll = false;
+        }
+    }, 250);
+    
+    // Hide or show the bar on scrolling
+    function hasScrolled() {
+        var st = $window.pageYOffset;
+
+        // Make sure they scroll more than delta
+        if (Math.abs(lastScrollTop - st) <= delta)
+            return;
+
+        // If they scrolled down and are past the navbar, add class .nav-up.
+        // This is necessary so you never see what is "behind" the navbar.
+        if (st > lastScrollTop && st > navbarHeight) {
+            // Scroll Down
+            angular.element(document.getElementById('tabs-header-bar')).removeClass('nav-down').addClass('nav-up');
+        } else {
+            // Scroll Up
+            var B = document.body,
+                H = document.documentElement,
+                height
+
+            if (typeof document.height !== 'undefined') {
+                height = document.height // For webkit browsers
+            } else {
+                height = Math.max(B.scrollHeight, B.offsetHeight, H.clientHeight, H.scrollHeight, H.offsetHeight);
+            }
+            if (st + $window.innerHeight < height) {
+                angular.element(document.getElementById('tabs-header-bar')).removeClass('nav-up').addClass('nav-down');
+            }
+        }
+
+        lastScrollTop = st;
+    }
+
+
 }
 
 function SignupController($scope, $mdDialog) {
