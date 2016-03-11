@@ -68,10 +68,19 @@
     transition: all 0.5s ease-out;
 }
 
-
+md-card-actions{
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
 
 .festival-card-details {
     padding: 20px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: flex-start;
 }
 
 .festival-card-image {

@@ -162,7 +162,7 @@ angular.module('festivalTileDirective', [])
                     defaultContainerWidth = "250px";
 
                     // Size of festival container to expand to
-                    expandedContainerHeight = screenWidth < breakPoint ? "1060px" : screenHeight - 200 + "px";
+                    expandedContainerHeight = screenWidth < breakPoint ? "1060px" : screenHeight - 150 + "px";
                     expandedContainerWidth = screenWidth + "px";
 
                     // Default festival card size

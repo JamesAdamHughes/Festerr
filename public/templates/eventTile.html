@@ -1,10 +1,8 @@
 <div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; width:{{containerWidth}};height:{{containerHeight}}; flex-flow:{{containerFlexFlow}}">
     <div class="festival-card-container" style="height:{{festivalDisplayHeight}}; width:{{festivalCardWidth}}">
         <md-card class="festival-card">
-            <div class="festival-card-image md-card-image"  ng-style="{ 'background-image': 'url(' + event.largeimageurl + ')'}"
-            ng-click="selectEventTile(event.tileInfo)"
-            ng-mouseover="showMouseOver = true"
-            ng-mouseleave="showMouseOver = false">
+            <div class="festival-card-image md-card-image" ng-style="{ 'background-image': 'url(' + event.largeimageurl + ')'}" ng-click="selectEventTile(event.tileInfo)"
+            ng-mouseover="showMouseOver = true" ng-mouseleave="showMouseOver = false">
                 <div class='festival-card-image-text' ng-class="showMouseOver ? 'expanded' : 'closed'">
                     <md-card-title-text>
                         <span class="md-headline" ng-hide="isExpanded">{{ ::displayEventName}}</span>
@@ -30,6 +28,10 @@
                     <md-icon class="icon" md-svg-src="images/ticket_gray.svg" aria-label="android "></md-icon>
                     <p class="text">{{ ::event.entryprice}}</p>
                 </div>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button>Favourite</md-button>
+                    <md-button class="md-primary">Visit Site</md-button>
+                </md-card-actions>
             </div>
         </md-card>
     </div>
