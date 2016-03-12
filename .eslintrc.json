@@ -33,6 +33,7 @@
         "angular/controller-as": 0,
         "angular/controller-name": 0,
         "angular/definedundefined": 0,
+        "angular/document-service": 0,
         "angular/log": 0,
         "angular/di": 0
     },

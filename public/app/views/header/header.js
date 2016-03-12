@@ -1,11 +1,10 @@
 angular.module('HeaderView', ['ngMaterial', 'ngCookies'])
-    .controller('HeaderCtrl', ['$scope', '$q', '$window', '$interval', '$mdDialog', '$cookies', 'SpotifyService', 'SearchService', '$rootScope', HeaderController])
-    .controller('SignupController', ['$scope', '$mdDialog', , SignupController]);
+    .controller('HeaderCtrl', ['$scope', '$q', '$window', '$interval', '$mdDialog', 'SpotifyService', 'SearchService', '$rootScope', HeaderController])
+    .controller('SignupController', ['$scope', '$mdDialog', SignupController]);
 
-function HeaderController($scope, $q, $window, $interval, $mdDialog, $cookies, SpotifyService, SearchService, $rootScope) {
+function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyService, SearchService, $rootScope) {
 
-    $scope.spotifyCodeExists = false;
-    $scope.spotifyDetailsRetrieved = false;
+    $scope.spotifyLoggedIn = false;
     $scope.spotifyUserInfo = {
         short_name: "No Name Available",
         images: [
@@ -23,7 +22,8 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, $cookies, S
     $scope.searching = false;
     $scope.cancelSearch = angular.noop;
     $scope.lastSearch;
-
+    
+    // Variables for the scrolling header bar
     var dialogOpen = false;
     var didScroll = false;
     var lastScrollTop = 0;
@@ -53,35 +53,30 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, $cookies, S
 
     };
 
-    // Check if spotify code exists, and get user info if true
-    var accessCode = $cookies.get('spotifyAccessToken');
-    if (accessCode) {
-        console.log("already have a spotify code in cookies");
-        $scope.spotifyCodeExists = true;
+    // Get user info then set it for the header to display
+    SpotifyService.getUserInfo().then(function(res) {
+        console.log(res);
+        $scope.spotifyLoggedIn = true;
+        $scope.spotifyUserInfo = res;
 
-        // Get user info then set it for the header to display
-        SpotifyService.getUserInfo().then(function(res) {
-            console.log(res);
-            $scope.spotifyDetailsRetrieved = true;
-            $scope.spotifyUserInfo = res;
+        // TODO sort out these defaults in spotify Service
+        // Display place holder if no user image given
+        if (res.images.length === 0) {
+            $scope.spotifyUserInfo.images[0] = {
+                url: "http://buira.org/assets/images/shared/default-profile.png"
+            };
+        }
 
-            // TODO sort out these defaults in spotify Service
-            // Display place holder if no user image given
-            if (res.images.length === 0) {
-                $scope.spotifyUserInfo.images[0] = {
-                    url: "http://buira.org/assets/images/shared/default-profile.png"
-                }
-            }
+        // Handle no display name given
+        if (res.display_name !== undefined) {
+            $scope.spotifyUserInfo.short_name = res.display_name.split(" ")[0];
+        } else {
+            $scope.spotifyUserInfo.short_name = "Anon";
+        }
 
-            // Handle no display name given
-            if (res.display_name !== undefined) {
-                $scope.spotifyUserInfo.short_name = res.display_name.split(" ")[0];
-            } else {
-                $scope.spotifyUserInfo.short_name = "No Name Given"
-            }
-
-        });
-    }
+    }).catch(function(err){
+        console.log(err);
+    });
 
     // Performs chipSearch asynchronously so as not to hang the browser
     $scope.asyncChipSearch = function(query) {
@@ -157,7 +152,7 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, $cookies, S
             // Scroll Up
             var B = document.body,
                 H = document.documentElement,
-                height
+                height;
 
             if (typeof document.height !== 'undefined') {
                 height = document.height // For webkit browsers
