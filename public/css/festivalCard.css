@@ -95,12 +95,12 @@ md-card-actions{
     background-color: red;
 }
 
-.md-headline {
+.festival-card .md-headline {
     font-size: medium;
     /*color: white;*/
 }
 
-md-card-title {
+.festival-card .md-card-title {
     margin-left: 16px;
 }
 

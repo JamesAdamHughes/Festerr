@@ -155,7 +155,7 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
                 height;
 
             if (typeof document.height !== 'undefined') {
-                height = document.height // For webkit browsers
+                height = document.height; // For webkit browsers
             } else {
                 height = Math.max(B.scrollHeight, B.offsetHeight, H.clientHeight, H.scrollHeight, H.offsetHeight);
             }

@@ -1,5 +1,5 @@
 angular.module('festerrApp', [
-    'MainView', 'FestivalListView', 'HeaderView', 'ngRoute', 'festivalTileDirective']).config(function ($routeProvider) {
+    'MainView', 'FestivalListView', 'HeaderView', 'EventDetailView', 'ngRoute', 'festivalTileDirective']).config(function ($routeProvider) {
         
         $routeProvider.when('/', {
             controller: 'MainCtrl',
@@ -11,6 +11,9 @@ angular.module('festerrApp', [
                     return SpotifyService.setup();
                 }
             }
+        }).when('/event', {
+            controller: 'EventDetailCtrl',
+            templateUrl: '/app/views/eventDetail/eventDetail.html'            
         });
 
     });

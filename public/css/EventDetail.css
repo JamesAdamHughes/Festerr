@@ -1,16 +1,56 @@
-.circle {
-	width : 80px;
-	height : 80px;
-	-moz-border-radius: 50%; 
-    -webkit-border-radius: 50%; 
-    border-radius: 50%;
-    background: #4679BD;
-    padding-top: 10px; 
+#event-container {
+	width:100%;    
+	height : 100%;	
+    background-color: #f5f5f5;   
 }
 
-.circle p {
-	font-size: large;
-	color: #FFFFFF;
-	padding-top: 18px;
-	padding-left:  13px;
+#event-image {
+    width: 100%;
+    height: 70%;
+    background-image: url(http://news.skiddlecdn.co.uk/4/20904_2_creamfields-2014-line-up_ban.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#event-details-container {
+    position:relative;
+    width: 100%;
+    height: 100%;
+    margin-top: 350px;
+    z-index: 1000;
+    padding: 30px;
+    background-color: rgba(0,0,0,0);
+    display: flex;
+    flex-flow: column;
+    align-items: center; 
+}
+
+#event-header-container {
+    min-height: 200px;
+    width: 100%;
+    background-color: white;
+    border-radius: 2px;
+    margin-bottom: 40px;
+    padding : 30px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+
+}
+
+#event-header-container .md-headline {
+    font-size: xx-large;
+    font-weight: 200;
+    display: flex;
+    flex-flow: column;
+    align-items: center; 
+}
+
+#event-info-container{
+    min-height: 80%;
+    width: 80%;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 2px 2px 4px #AAAAAA;
 }
