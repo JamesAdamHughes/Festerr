@@ -1,6 +1,6 @@
 angular.module('FestivalListView', ['ngMaterial'])
-    .controller('FestivalListCtrl', ['$scope', '$rootScope', 'FestivalDataService', 'SpotifyService', '$interval', '$q',
-        function($scope, $rootScope, FestivalDataService, SpotifyService, $interval) {
+    .controller('FestivalListCtrl', ['$scope', '$rootScope', 'FestivalDataService', 'SpotifyService', 'DateFormatService', '$interval', '$q',
+        function($scope, $rootScope, FestivalDataService, SpotifyService,DateFormatService, $interval) {
 
             // Holds all info for all events we show in the events list
             $scope.eventList;
@@ -20,7 +20,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                         ID: i,
                         selected: false
                     };
-                    res[i].tileInfo = tileInfo;
+                    res[i].tileInfo = tileInfo;              
                     for (var j = 0; j < res[i].artists.length; j++) {
                         var artistTileInfo = {
                             ID: j,
@@ -35,6 +35,9 @@ angular.module('FestivalListView', ['ngMaterial'])
                 var names = [];
                 // Create list of available list
                 for (var i = $scope.eventList.length - 1; i >= 0; i--) {
+                    
+                    $scope.eventList[i].formattedDate = DateFormatService.format($scope.eventList[i].date);
+      
                     for (var j = $scope.eventList[i].artists.length - 1; j >= 0; j--) {
                         // Uses separate list of artist names so as to be able to quickly check their presence
                         if (names.indexOf($scope.eventList[i].artists[j].name) === -1) {

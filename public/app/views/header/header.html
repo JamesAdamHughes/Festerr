@@ -1,37 +1,41 @@
 <div id="top-header" ng-controller="HeaderCtrl">
-    <div id="header-text-container">
-        <h1>Festerr</h1>
-    </div>
 
-    <div id="header-search-box-container">
-        <md-chips ng-model="selectedChips" md-autocomplete-snap="" md-require-match="true">
-            <md-autocomplete id="search-autocomplete" md-selected-item="selectedChip" md-search-text="searchText" md-items="item in asyncChipSearch(searchText)"
-            md-item-text="item.name" placeholder="Search for a festival, artist or event">
-                <span md-highlight-text="searchText">
+    <div id="main-header-bar">
+        <div id="header-text-container">
+            <h1>Festerr</h1>
+        </div>
+
+        <div id="header-search-box-container">
+            <md-chips ng-model="selectedChips" md-autocomplete-snap="" md-require-match="true">
+                <md-autocomplete id="search-autocomplete" md-selected-item="selectedChip" md-search-text="searchText" md-items="item in asyncChipSearch(searchText)"
+                md-item-text="item.name" placeholder="Search for a festival, artist or event">
+                    <span md-highlight-text="searchText">
                     {{item.name}}
                 </span>
-            </md-autocomplete>
-            <md-chip-template>
-                <span>
+                </md-autocomplete>
+                <md-chip-template>
+                    <span>
                     <strong>{{$chip.name}}</strong>
                     <em>({{$chip.type}})</em>
                 </span>
-            </md-chip-template>
-        </md-chips>
-    </div>
+                </md-chip-template>
+            </md-chips>
+        </div>
 
-    <div id="header-user-login-container" ng-hide="spotifyCodeExists">
-        <md-button class="md-raised" ng-click="showSignupDialog($event)">Register</md-button>
-    </div>
-    <div id="header-spotify-authed-container" ng-show="spotifyDetailsRetrieved">
-        <p id="header-spotify-authed-name">{{spotifyUserInfo.short_name}}</p>
-        <div id="header-spotify-user-profile" >
-            <div id="header-spotify-user-profile-circle" ng-style="{ 'background-image' : 'url(' + spotifyUserInfo.images[0].url + ')' }">                
+        <div id="header-user-login-container" ng-hide="spotifyLoggedIn">
+            <md-button class="md-raised" ng-click="showSignupDialog($event)">Register</md-button>
+        </div>
+        <div id="header-spotify-authed-container" ng-show="spotifyLoggedIn">
+            <p id="header-spotify-authed-name">{{spotifyUserInfo.short_name}}</p>
+            <div id="header-spotify-user-profile">
+                <div id="header-spotify-user-profile-circle" ng-style="{ 'background-image' : 'url(' + spotifyUserInfo.images[0].url + ')' }">
+                </div>
             </div>
         </div>
     </div>
-
-    <div id="header-tabs-container">
+    
+    <div id="tabs-header-bar" class="nav-down">
+        <div id="header-tabs-container">
         <md-tabs md-dynamic-height md-border-bottom>
             <md-tab label="What's Hot">
             </md-tab>
@@ -41,4 +45,7 @@
             </md-tab>
         </md-tabs>
     </div>
+    </div>
+
+    
 </div>
