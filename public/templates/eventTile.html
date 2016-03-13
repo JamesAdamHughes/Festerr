@@ -25,12 +25,16 @@
                 </div>
                 <div class="info-line">
                     <md-icon class="icon" md-svg-src="images/event_gray.svg" aria-label="android "></md-icon>
-                    <p class="text">{{ ::event.date}}</p>
+                    <p class="text">{{ ::event.formattedDate}}</p>
                 </div>
                 <div class="info-line">
-                    <md-icon class="icon" md-svg-src="images/event_gray.svg" aria-label="android "></md-icon>
+                    <md-icon class="icon" md-svg-src="images/ticket_gray.svg" aria-label="android "></md-icon>
                     <p class="text">{{ ::event.entryprice}}</p>
                 </div>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button>Favourite</md-button>
+                    <md-button href="{{::event.link}}" target="_blank" class="md-primary">Buy Tickets</md-button>
+                </md-card-actions>
             </div>
         </md-card>
     </div>
