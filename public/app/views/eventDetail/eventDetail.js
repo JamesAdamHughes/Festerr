@@ -22,7 +22,6 @@ function EventDetailController($scope, $q, SpotifyService) {
     
     // Remove animation class
     function removeAnimationClass(e){       
-            console.log("animaton ended");
             likeElement.classList.remove("animate-like-button");     
     }
 
