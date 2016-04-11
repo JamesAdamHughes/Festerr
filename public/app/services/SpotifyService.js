@@ -47,9 +47,7 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
     function getAllArtists() {
         var deferred = $q.defer();
         var methodURL = '/spotify/Artists?userID=';
-
-        console.log("Getting spotify artists");
-
+        
         getUserInfo().then(function(userInfo) {
             // only make request if we don't already have the data
             if (userArtists.length === 0) {
@@ -57,7 +55,7 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
                     method: 'get',
                     credentials: 'include'
                 }).then(function(res) {
-                    console.log("Got " + res.artists.length + " Spotify Artists ");
+                    console.log("Got " + res.artists.length + " Spotify Artists %o", res.artists);
                     userArtists = res.artists;
                     deferred.resolve(userArtists);
                 }).catch(function(err) {
@@ -74,38 +72,36 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
 
         return deferred.promise;
     }
-    
+
     // Takes a list of artists, returns 2 filtered arrays
     // One with artists in the user's list, one with artists who don't appear in the user's list
     function filterUserArtists(allArtistsInEvent) {
         var userArtistsInEvent = [];
         var otherArtistsInEvent = [];
-        
+
         var deferred = $q.defer();
 
         getAllArtists().then(function(userArtists) {
             //Only need to calculate user artists if there are any
             if (userArtists.length !== 0) {
-                
+
                 //Break event artist list into ones from the user's spotify and the rest
-                for (var i = allArtistsInEvent.length - 1; i >= 0; i--) {
-                    userArtistsInEvent = allArtistsInEvent.filter(function(eventArtist) {
-                        return (userArtists.indexOf(eventArtist.name) !== -1);
-                    });
-                    otherArtistsInEvent = allArtistsInEvent.filter(function(eventArtist) {
-                        return (userArtists.indexOf(eventArtist.name) === -1);
-                    });
-                }
-                
-                deferred.resolve({user: userArtistsInEvent, other: otherArtistsInEvent});                           
-            } else {                
-                deferred.resolve({user: [], other: allArtistsInEvent});
+                userArtistsInEvent = allArtistsInEvent.filter(function(eventArtist) {
+                    return (userArtists.indexOf(eventArtist.name) !== -1);
+                });
+                otherArtistsInEvent = allArtistsInEvent.filter(function(eventArtist) {
+                    return (userArtists.indexOf(eventArtist.name) === -1);
+                });
+
+                deferred.resolve({ user: userArtistsInEvent, other: otherArtistsInEvent });
+            } else {
+                deferred.resolve({ user: [], other: allArtistsInEvent });
             }
-        }).catch(function(err){
+        }).catch(function(err) {
             // problem logging in, just return all the artists as other artists
-            deferred.resolve({user: [], other:allArtistsInEvent});
+            deferred.resolve({ user: [], other: allArtistsInEvent });
         });
-        
+
         return deferred.promise;
     }
 

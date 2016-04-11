@@ -1,6 +1,6 @@
 angular.module('FestivalListView', ['ngMaterial'])
-    .controller('FestivalListCtrl', ['$scope', '$rootScope', 'FestivalDataService', 'SpotifyService', 'DateFormatService', '$interval', '$q', 
-        function($scope, $rootScope, FestivalDataService, SpotifyService,DateFormatService, $interval) {
+    .controller('FestivalListCtrl', ['$scope', '$rootScope', 'FestivalDataService', 'SpotifyService', 'DateFormatService', '$interval', '$q',
+        function($scope, $rootScope, FestivalDataService, SpotifyService, DateFormatService, $interval, $q) {
 
             // Holds all info for all events we show in the events list
             $scope.eventList;
@@ -20,7 +20,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                         ID: i,
                         selected: false
                     };
-                    res[i].tileInfo = tileInfo;              
+                    res[i].tileInfo = tileInfo;
                     for (var j = 0; j < res[i].artists.length; j++) {
                         var artistTileInfo = {
                             ID: j,
@@ -35,9 +35,9 @@ angular.module('FestivalListView', ['ngMaterial'])
                 var names = [];
                 // Create list of available list
                 for (var i = $scope.eventList.length - 1; i >= 0; i--) {
-                    
+
                     $scope.eventList[i].formattedDate = DateFormatService.format($scope.eventList[i].date);
-      
+
                     for (var j = $scope.eventList[i].artists.length - 1; j >= 0; j--) {
                         // Uses separate list of artist names so as to be able to quickly check their presence
                         if (names.indexOf($scope.eventList[i].artists[j].name) === -1) {
@@ -59,20 +59,21 @@ angular.module('FestivalListView', ['ngMaterial'])
                 //Only need to calculate user artists if there are any
                 if (userArtists.length !== 0) {
                     //Break event artist list into ones from the user's spotify and the rest
+                    var promises = [];
                     for (var i = $scope.eventList.length - 1; i >= 0; i--) {
-                        $scope.eventList[i].spotifyArtists = $scope.eventList[i].artists.filter(function(eventArtist) {
-                            return ($scope.userArtistList.indexOf(eventArtist.name) !== -1);
-                        });
-                        $scope.eventList[i].artists = $scope.eventList[i].artists.filter(function(eventArtist) {
-                            return ($scope.userArtistList.indexOf(eventArtist.name) === -1);
-                        });
+                        var promise = filterEventArtists(i);
+                        promises.push(promise);
                     }
+                    // return when all the events have been filtered
+                    return $q.all(promises);
 
-                    //Sort the events list by number of spotify artists present
-                    $scope.eventList.sort(function(a, b) {
-                        return b.spotifyArtists.length - a.spotifyArtists.length;
-                    });
                 }
+            }).then(function(res) {
+                
+                // Sort the events by how many spotufy artist are in it
+                $scope.eventList.sort(function(a, b) {
+                    return b.spotifyArtists.length - a.spotifyArtists.length;
+                });
 
                 // Show the loading icon for 0.5s before showing content
                 $interval(function() {
@@ -90,6 +91,13 @@ angular.module('FestivalListView', ['ngMaterial'])
             $rootScope.$on('header searchItemsUpdated', function(event, selected) {
                 selectedChips = selected;
             });
+
+            function filterEventArtists(i) {
+                return SpotifyService.filterUserArtists($scope.eventList[i].artists).then(function(filtered) {
+                    $scope.eventList[i].spotifyArtists = filtered.user;
+                    $scope.eventList[i].artists = filtered.other;
+                });
+            }
 
             // Function to filter event tiles from the list based on search chips
             $scope.displayEvent = function(event) {
@@ -150,10 +158,10 @@ angular.module('FestivalListView', ['ngMaterial'])
             //         $scope.currentlySelectedEventTile = id;
             //     }
             // };
-            
-            $scope.tileSelected = function(event){
-                window.location.href = "#/event/?id=" + event.id;               
-                
+
+            $scope.tileSelected = function(event) {
+                window.location.href = "#/event/?id=" + event.id;
+
             };
 
         }]);
