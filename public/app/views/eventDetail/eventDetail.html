@@ -7,10 +7,10 @@
         </div>
         <div id="event-details-container">
             <div id="event-header-container" class="panel">
-                <div id="event-like-circle">
+                <div id="event-like-circle" ng-click="likeClicked()" >
                     <md-icon ng-if="!eventLiked" md-svg-src="/images/fav_white_border.svg" aria-label="Date" style="width: 48px;height: 48px;">
                     </md-icon>
-                    <md-icon ng-if="eventLiked" md-svg-src="/images/fav_white.svg" aria-label="Date" style="width: 48px;height: 48px;">
+                    <md-icon ng-if="eventLiked"md-svg-src="/images/fav_white.svg" aria-label="Date" style="width: 48px;height: 48px;">
                     </md-icon>
                 </div>
                 <span class="md-headline">Creamfields 2016</span>

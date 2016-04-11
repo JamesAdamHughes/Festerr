@@ -91,11 +91,18 @@
    color: #DB0A5B
 } 
 
-#event-date-circle p{
-    color: white;
-    margin: 0;
-    height: 45px;
-    width: 30px;
+#event-like-circle:focus {outline:0;}
+
+
+.animate-like-button {
+    animation-name: animateLikeButton;
+    animation-duration: 1s;
+}
+
+@keyframes animateLikeButton {
+    0% {transform: scale(1,1);}
+    50%  {transform: scale(0.5,0.5);}
+    100% {transform: scale(1,1);}
 }
 
 .event-info-container {
