@@ -3,6 +3,8 @@ angular.module('EventDetailView', ['ngMaterial'])
     
 
 function EventDetailController($scope, $q, SpotifyService) {
+    $scope.eventLiked = true;
+    
    $scope.tiles = [
         {
           "artistid": "123501866",
