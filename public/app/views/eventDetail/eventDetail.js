@@ -3,44 +3,49 @@ angular.module('EventDetailView', ['ngMaterial'])
 
 
 function EventDetailController($scope, $q, NetworkService, $location) {
-    
+
     $scope.eventLiked = true;
     $scope.event = {};
-    
-    var likeElement  = document.getElementById('event-like-circle');
+
+    var likeElement = document.getElementById('event-like-circle');
     var eventID = $location.search().id; // get the event ID from the query string
-    
+
     getEventDetails(eventID);
-    
-    function getEventDetails(eventID){
+
+    function getEventDetails(eventID) {
         var query = {
             url: "/event?type=single&id=" + eventID,
             method: "GET"
         };
-        
-        NetworkService.callAPI(query).then(function(res){
-            console.log(res);
+
+        NetworkService.callAPI(query).then(function(res) {
+            if (res.ok) {
+                $scope.event = res.event;
+                console.log($scope.event);
+            } else {
+                console.error(res);
+            }
         });
     }
-    
+
     // Toggle the user liking or un-liking an event
     // Saves it for the user to the server, and does a little animation
-    $scope.likeClicked = function(){
+    $scope.likeClicked = function() {
         likeElement.classList.add("animate-like-button");
-        
+
         //toggle liked
         $scope.eventLiked = !$scope.eventLiked;
-        
+
         //Send the like change to the server to save it
         //TODO 
-        
+
         // Remove the animate class when finished
-        likeElement.addEventListener("animationend", removeAnimationClass);        
+        likeElement.addEventListener("animationend", removeAnimationClass);
     };
-    
+
     // Remove animation class
-    function removeAnimationClass(e){       
-            likeElement.classList.remove("animate-like-button");     
+    function removeAnimationClass(e) {
+        likeElement.classList.remove("animate-like-button");
     }
 
     $scope.tiles = [
