@@ -1,7 +1,7 @@
 <div class="festival-container" style="margin-top:{{topMargin}}px; margin-bottom:{{bottomMargin}}px; width:{{containerWidth}};height:{{containerHeight}}; flex-flow:{{containerFlexFlow}}">
     <div class="festival-card-container" style="height:{{festivalDisplayHeight}}; width:{{festivalCardWidth}}">
         <md-card class="festival-card">
-            <div class="festival-card-image md-card-image" ng-style="{ 'background-image': 'url(' + event.largeimageurl + ')'}" ng-click="selectEventTile(event.tileInfo)"
+            <div class="festival-card-image md-card-image" ng-style="{ 'background-image': 'url(' + event.largeimageurl + ')'}" ng-click="selectEventTileToDetail()"
             ng-mouseover="showMouseOver = true" ng-mouseleave="showMouseOver = false">
                 <div class='festival-card-image-text' ng-class="(showMouseOver && !isExpanded) ? 'expanded' : 'closed'">
                     <md-card-title-text>

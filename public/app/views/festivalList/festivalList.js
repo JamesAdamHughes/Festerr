@@ -1,5 +1,5 @@
 angular.module('FestivalListView', ['ngMaterial'])
-    .controller('FestivalListCtrl', ['$scope', '$rootScope', 'FestivalDataService', 'SpotifyService', 'DateFormatService', '$interval', '$q',
+    .controller('FestivalListCtrl', ['$scope', '$rootScope', 'FestivalDataService', 'SpotifyService', 'DateFormatService', '$interval', '$q', 
         function($scope, $rootScope, FestivalDataService, SpotifyService,DateFormatService, $interval) {
 
             // Holds all info for all events we show in the events list
@@ -131,24 +131,29 @@ angular.module('FestivalListView', ['ngMaterial'])
             };
 
             // When a tile is selected, tell the prev selected to collapse          
-            $scope.tileSelected = function(id) {
-                var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];
+            // $scope.tileSelected = function(id) {
+            //     var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];
 
-                // tell prev selected to close, unless it is same as the one selected
-                // that is handled by the directive itself
-                if (prevEvent !== undefined) {
+            //     // tell prev selected to close, unless it is same as the one selected
+            //     // that is handled by the directive itself
+            //     if (prevEvent !== undefined) {
 
-                    if (prevEvent.tileInfo.ID === id) {
-                        // selected prev open, reset counter
-                        $scope.currentlySelectedEventTile = -1;
-                    } else {
-                        $scope.currentlySelectedEventTile = id;
-                    }
-                    // collpase is a function defined in the festvial tile directive
-                    prevEvent.collapse();
-                } else {
-                    $scope.currentlySelectedEventTile = id;
-                }
+            //         if (prevEvent.tileInfo.ID === id) {
+            //             // selected prev open, reset counter
+            //             $scope.currentlySelectedEventTile = -1;
+            //         } else {
+            //             $scope.currentlySelectedEventTile = id;
+            //         }
+            //         // collpase is a function defined in the festvial tile directive
+            //         prevEvent.collapse();
+            //     } else {
+            //         $scope.currentlySelectedEventTile = id;
+            //     }
+            // };
+            
+            $scope.tileSelected = function(event){
+                window.location.href = "#/event/?id=" + event.id;               
+                
             };
 
         }]);

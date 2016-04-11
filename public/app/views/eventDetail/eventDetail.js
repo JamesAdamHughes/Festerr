@@ -1,12 +1,26 @@
 angular.module('EventDetailView', ['ngMaterial'])
-    .controller('EventDetailCtrl', ['$scope', '$q', 'SpotifyService', EventDetailController]);
+    .controller('EventDetailCtrl', ['$scope', '$q', 'NetworkService', "$location", EventDetailController]);
 
 
-function EventDetailController($scope, $q, SpotifyService) {
+function EventDetailController($scope, $q, NetworkService, $location) {
     $scope.eventLiked = true;
     
     var likeElement  = document.getElementById('event-like-circle');
-
+    var eventID = $location.search().id; // get the event ID from the query string
+    
+    function getEventDetails(eventID){
+        var query = {
+            url: "/event?id=" + eventID,
+            method: "GET"
+        };
+        
+        NetworkService.callAPI(query).then(function(res){
+            
+        });
+    }
+    
+    // Toggle the user liking or un-liking an event
+    // Saves it for the user to the server, and does a little animation
     $scope.likeClicked = function(){
         likeElement.classList.add("animate-like-button");
         
