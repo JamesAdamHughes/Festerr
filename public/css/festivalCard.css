@@ -1,5 +1,5 @@
 .festival-card-list-container {
-    width: 100%;
+    width: 750px;
     display: flex;
     flex-flow: row;
     align-content: space-between;
@@ -54,7 +54,7 @@
 .festival-card-image-text.expanded{
     height: 200px;
     background: rgba(0,0,0,0.7);
-
+    flex-flow: column;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     transition: all 0.5s;
@@ -62,6 +62,7 @@
 
 .festival-card-image-text.closed{
     height: 40px;
+    flex-flow: row;
     background: rgba(0,0,0,0.5);
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
@@ -100,12 +101,16 @@ md-card-actions{
     /*color: white;*/
 }
 
-.festival-card .md-card-title {
-    margin-left: 16px;
-}
-
 .md-subheader.md-default-theme{
     background-color: rgba(255,255,255, 0);
+}
+
+.md-button.md-icon-button{
+    margin: 0;
+}
+
+md-card-title-text{
+    text-align: center;
 }
 
 md-card-actions{
@@ -149,5 +154,7 @@ md-card-actions{
 
 /* Desktops and laptops ----------- */
 @media only screen  and (min-width : 970px) {
-    .festvial-card
+    .festival-card-list-container{
+            width: 1000px;
+    }
 }

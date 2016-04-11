@@ -3,15 +3,18 @@
         <md-card class="festival-card">
             <div class="festival-card-image md-card-image" ng-style="{ 'background-image': 'url(' + event.largeimageurl + ')'}" ng-click="selectEventTile(event.tileInfo)"
             ng-mouseover="showMouseOver = true" ng-mouseleave="showMouseOver = false">
-                <div class='festival-card-image-text' ng-class="showMouseOver ? 'expanded' : 'closed'">
+                <div class='festival-card-image-text' ng-class="(showMouseOver && !isExpanded) ? 'expanded' : 'closed'">
                     <md-card-title-text>
-                        <span class="md-headline" ng-hide="isExpanded">{{ ::displayEventName}}</span>
-                        <span class="md-headline" ng-show="isExpanded">{{ ::event.eventname}}</span>
+                        <span class="md-headline" ng-hide="isExpanded || showMouseOver">{{ ::displayEventName}}</span>
+                        <span class="md-headline" ng-show="isExpanded || showMouseOver">{{ ::event.eventname}}</span>
                     </md-card-title-text>
-                    {{ ::event.spotifyArtists.length}}
-                    <md-button class="md-icon-button" aria-label="Favorite">
-                        <md-icon md-svg-icon="images/heart_white.svg"></md-icon>
-                    </md-button>
+                    <div ng-if="event.spotifyArtists.length">
+                        {{ ::event.spotifyArtists.length}}
+                        <md-button class="md-icon-button" aria-label="Favorite">
+                            <md-icon md-svg-icon="images/heart_white.svg"></md-icon>
+                        </md-button>
+                    </div>
+
                 </div>
             </div>
             <div class="festival-card-details" ng-show="isExpanded">
