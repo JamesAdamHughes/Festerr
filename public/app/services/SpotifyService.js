@@ -63,8 +63,6 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
                 }).catch(function(err) {
                     deferred.reject(err);
                     console.error("Error getting all artists: %o", err);
-
-                    // get new access token
                 });
             } else {
                 deferred.resolve(userArtists);
@@ -74,6 +72,40 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
             deferred.reject(err);
         });
 
+        return deferred.promise;
+    }
+    
+    // Takes a list of artists, returns 2 filtered arrays
+    // One with artists in the user's list, one with artists who don't appear in the user's list
+    function filterUserArtists(allArtistsInEvent) {
+        var userArtistsInEvent = [];
+        var otherArtistsInEvent = [];
+        
+        var deferred = $q.defer();
+
+        getAllArtists().then(function(userArtists) {
+            //Only need to calculate user artists if there are any
+            if (userArtists.length !== 0) {
+                
+                //Break event artist list into ones from the user's spotify and the rest
+                for (var i = allArtistsInEvent.length - 1; i >= 0; i--) {
+                    userArtistsInEvent = allArtistsInEvent.filter(function(eventArtist) {
+                        return (userArtists.indexOf(eventArtist.name) !== -1);
+                    });
+                    otherArtistsInEvent = allArtistsInEvent.filter(function(eventArtist) {
+                        return (userArtists.indexOf(eventArtist.name) === -1);
+                    });
+                }
+                
+                deferred.resolve({user: userArtistsInEvent, other: otherArtistsInEvent});                           
+            } else {                
+                deferred.resolve({user: [], other: allArtistsInEvent});
+            }
+        }).catch(function(err){
+            // problem logging in, just return all the artists as other artists
+            deferred.resolve({user: [], other:allArtistsInEvent});
+        });
+        
         return deferred.promise;
     }
 
@@ -162,6 +194,7 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
     return {
         getUserInfo: getUserInfo,
         getAllArtists: getAllArtists,
+        filterUserArtists: filterUserArtists,
         refreshAccessToken: refreshAccessToken,
         setup: setup
     };

@@ -1,18 +1,23 @@
 angular.module('EventDetailView', ['ngMaterial'])
-    .controller('EventDetailCtrl', ['$scope', '$q', 'NetworkService', "$location", EventDetailController]);
+    .controller('EventDetailCtrl', ['$scope', '$q', 'NetworkService', "$location", "SpotifyService", EventDetailController]);
 
 
-function EventDetailController($scope, $q, NetworkService, $location) {
+function EventDetailController($scope, $q, NetworkService, $location, SpotifyService) {
 
     $scope.eventLiked = true;
     $scope.event = {};
+    $scope.userArtists;
+    $scope.otherArtists;
 
     var likeElement = document.getElementById('event-like-circle');
     var eventID = $location.search().id; // get the event ID from the query string
 
     getEventDetails(eventID);
-
+    
+    // Get the infomation about the event from the server
+    // Filter the artist data into two groups
     function getEventDetails(eventID) {
+        
         var query = {
             url: "/event?type=single&id=" + eventID,
             method: "GET"
@@ -21,10 +26,14 @@ function EventDetailController($scope, $q, NetworkService, $location) {
         NetworkService.callAPI(query).then(function(res) {
             if (res.ok) {
                 $scope.event = res.event;
-                console.log($scope.event);
+                // filter the artists in the event 
+                return SpotifyService.filterUserArtists(res.event.artists);
             } else {
                 console.error(res);
             }
+        }).then(function(filteredArtists){
+            $scope.userArtists = filteredArtists.user;
+            $scope.otherArtists = filteredArtists.other;
         });
     }
 
