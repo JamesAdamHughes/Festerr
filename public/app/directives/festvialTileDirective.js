@@ -84,6 +84,12 @@ angular.module('festivalTileDirective', [])
                     // tell the parent controller this has expanded
                     scope.selected({ tileID: scope.event.tileInfo.ID });
                 };
+                
+                // NEW Selected Event, moves user to event detail page
+                // Will replace the old selected code
+                scope.selectEventTileToDetail = function() {
+                    scope.selected({event: scope.event});
+                };
 
                 // Handle an artist tile being selected
                 // Either move to expanded state, or return to normal if was already expanded

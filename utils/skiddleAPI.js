@@ -1,4 +1,5 @@
 var request = require('request');
+var q = require('q');
 
 var cachedEventData = undefined;
 
@@ -35,6 +36,35 @@ var skiddleAPI = {
             res.send(response);
         }
 
+    },
+    
+    // Returns the details of a given event
+    // Takes event id as argument
+    getSingleEvent: function (id){
+        var deferred = q.defer();
+        var event;
+        
+        // Check against the cache
+        if(!cachedEventData){
+            // this shouldn't happen because we have to get here from the main page
+            // TODO call this against skiddle
+            deferred.reject({ok:false, error:"No event data cached"});
+        } else{
+            for(var i = 0; i < cachedEventData.length; i++){
+                if(cachedEventData[i].id === id){
+                    event = cachedEventData[i];
+                    break;
+                }
+            }
+            
+            if(event === undefined){
+                deferred.reject({ok:false, error: "Cannot find event in cache"});
+            } else {
+                deferred.resolve({ok:true, event: event});
+            }
+        }
+        
+        return deferred.promise;
     }
 };
 
