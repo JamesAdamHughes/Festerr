@@ -3,19 +3,23 @@ angular.module('EventDetailView', ['ngMaterial'])
 
 
 function EventDetailController($scope, $q, NetworkService, $location) {
+    
     $scope.eventLiked = true;
+    $scope.event = {};
     
     var likeElement  = document.getElementById('event-like-circle');
     var eventID = $location.search().id; // get the event ID from the query string
     
+    getEventDetails(eventID);
+    
     function getEventDetails(eventID){
         var query = {
-            url: "/event?id=" + eventID,
+            url: "/event?type=single&id=" + eventID,
             method: "GET"
         };
         
         NetworkService.callAPI(query).then(function(res){
-            
+            console.log(res);
         });
     }
     

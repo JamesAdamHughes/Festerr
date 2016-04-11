@@ -18,8 +18,17 @@ router.get('/event', function(req, res){
 
             skiddleAPI.getAllEvents(res);
 
-        // Unknown query type
-        } else {
+       
+        } // just return a single events detail
+        else if (req.query.type= "single") { 
+            skiddleAPI.getSingleEvent(req.query.id).then(function(response){
+                res.send(response);
+            }).catch(function(err){
+                console.log("ERROR " + err);
+                res.send(err);
+            });
+                
+        } else {  // Unknown query type
             res.send(response);
         }
         
