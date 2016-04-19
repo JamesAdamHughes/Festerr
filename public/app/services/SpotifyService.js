@@ -144,8 +144,7 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
             // If token has run out or about to (5 mins), get new one
             if (accessTokenTimeLeft() < (5 * 60)) {
                 console.info("NEEDED NEW TOKEN");
-                return refreshAccessToken().then(function(res) {
-                });
+                refreshAccessToken();
             } {
                 deferred.resolve();
                 return deferred.promise;

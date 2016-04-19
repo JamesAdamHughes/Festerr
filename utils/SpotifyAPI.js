@@ -147,7 +147,6 @@ var spotifyAPI = {
         var resourceURL = 'me';
         
         return makeSpotifyRequest(resourceURL, access_token).then(function(userData){
-            console.log(userData);
             return userData;
         });
     }

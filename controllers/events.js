@@ -18,7 +18,8 @@ router.get('/event', function(req, res) {
         // just return a single events detail
         else if (req.query.type = "single") {
             
-            console.log(req.session.userID);
+            // We can now access the user session if it exists
+            // console.log(req.session.userID);
             
             // Use event id from the query string
             if (req.query.id !== undefined) {
