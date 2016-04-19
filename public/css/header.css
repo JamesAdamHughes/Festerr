@@ -1,0 +1,189 @@
+#top-header {
+    width: 100%;
+    background-color: #446CB3;
+    position: fixed;
+    top: 0px;
+    left: 0px; 
+    z-index: 10000;
+    color: white;
+    box-shadow: 0px 5px 5px rgba(51, 51, 51, 0.4);
+}
+
+.md-autocomplete-suggestions{
+    z-index: 10000;
+}
+
+.nav-up {
+    margin-top: 0px;
+}
+
+.nav-down {
+    margin-top: 60px;
+}
+
+#main-header-bar {
+    background-color: #446CB3;
+    position: fixed;
+    top: 0px;
+    left: 0px; 
+    padding: 10px 40px 0px 40px;   
+    width: 100%;  
+    z-index: 100;
+    display: flex;
+    flex-flow: row;   
+    flex-wrap: wrap;
+    justify-content: space-between; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+#tabs-header-bar{
+    /*margin-top: 60px;*/
+    z-index: 99;
+
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+#search-box {
+    background-color: #4183D7;
+    color: white;
+    height: 80%;
+    font-size: medium; 
+    border-radius: 2px;
+    border: 1px solid #4183D7;
+}
+
+#header-search-box-container{
+    background-color: #4183D7;
+    border-radius: 4px;
+}
+
+.md-chips .md-chip-input-container md-autocomplete {
+    box-shadow: none;
+}
+
+input::-webkit-input-placeholder { /* Only works on WebKit, Blink, Edge */
+    color: rgba(255,255,255,0.6);
+}
+
+input:focus::-webkit-input-placeholder { /* Only works on WebKit, Blink, Edge */
+    color: rgba(255,255,255,0.4);
+}
+
+#search-autocomplete{
+        width: 300px;
+}
+
+#header-text-container h1{
+    margin: 0px;
+}
+
+#header-text-container small{
+    color: white;
+    font-size: medium;
+}
+
+#header-text-container {
+    width: 80px;
+    height: 50%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+#header-text-container h1 {
+    font-size: x-large;
+}
+
+#header-user-login-container {
+    width: 100px;
+    height: 50%;
+}
+
+#header-spotify-authed-container{
+    width: 15%;
+    height: 50%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+#header-spotify-authed-name {
+    margin: 0;
+    margin-right: 10px;
+}
+
+#header-spotify-user-profile {   
+    height: 40px;
+    width: 40px;
+}
+
+#header-spotify-user-profile-circle {
+    border-radius: 50%;
+    background-size: contain;
+    width: 40px;
+    padding-top: 40px;
+}
+
+
+#header-search-box-container{
+    width: 60%;
+    height: 50%;
+}
+
+#header-tabs-container {
+    width:80%;
+    margin-top: 20px;
+}
+
+md-tabs.md-default-theme .md-tab {
+    color: rgba(255,255,255,0.6);
+}
+
+md-tabs.md-default-theme .md-tab.md-active, md-tabs.md-default-theme .md-tab.md-focused{
+    color:white;
+}
+
+md-tabs.md-default-theme md-ink-bar {
+    color: white;
+    background-color: #DB0A5B;
+}
+
+md-tabs.md-default-theme md-tabs-wrapper {
+    border: none;
+}
+
+md-chips.md-default-theme .md-chips.md-focused {
+    box-shadow: none;
+}
+
+md-chips.md-default-theme .md-chips{
+    box-shadow: none;
+    margin-left: 20px;
+}
+
+.md-button.md-default-theme.md-raised:not([disabled]) {
+    color: white;
+    background-color: #DB0A5B;
+}
+
+.md-button.md-default-theme.md-raised:not([disabled]):hover {
+    color: white;
+    background-color: #f63c83; /* Slightly lighter highlight */
+}
+
+.form-control{
+    padding: 6px 30px;
+    box-shadow: none;
+}
+
+@media (max-width:600px) {
+
+    /* Hide the username on small sreens */
+    #header-spotify-authed-name {
+        display: none;
+    }
+}
+

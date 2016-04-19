@@ -1,50 +1,46 @@
 var express = require('express');
 var request = require('request');
 var fs = require('fs');
-// var User = require('./utils/databaseManager.js');
+
+var secretString = "9t6aHMrAauERxkR";
+var sessions = require("client-sessions");
+
 var app = express();
 
-var models = require("./models");
-
-// API keys to access the skiddle festival database
-var contents = fs.readFileSync(__dirname + '/config/api_keys.json');
-var api_keys = JSON.parse(contents);
+if(process.env.mode === "PROD"){
+    // the env vars are already set
+} else {
+    // else in dev enviroment, so add the env variables
+    var init = require('./config/setEnvVars.js');  
+}
 
 // All static filss are in the public folder
 app.use(express.static(__dirname + '/public'));
+
+// Set session middlewear configuration
+app.use(sessions({
+  cookieName: 'session',
+  secret: secretString,
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+}));
 
 //used to display the html files
 app.engine('.html', require('ejs').renderFile);
 
 // Serve requests to the / url and respond with the file 'test.html'
 app.get('/', function (req, res) {
-    res.render('festivalMap.html');
+  res.render('index.html');
 });
 
+// Serve /event 
 app.get('/event', require("./controllers/events.js"));
+app.get('/spotify/*', require('./controllers/spotify'));
 
-app.get('/create', require('./controllers/testEvents.js'));
-
-// Serve requests to 'event' 
-// // Returns a given events data from the Skiddle database using event_id
-// app.get('/event', function (req, res) {
-	
-// 	var event_id = req.query.event_id;
-// 	var response;
-
-// 	res.contentType('json');
-
-//     // Call skiddle api and return the response
-// 	request(api_keys.skiddle.url + "events/" + event_id + api_keys.skiddle.key, function (error, request, body) {
-// 		if(!error && request.statusCode == 200){
-// 			response = body;
-// 			res.send(response)
-// 		}
-// 		else{
-// 			response ={"error": "couldnt get data"};
-// 			res.send(response);
-// 		}
-// 	});
+// Example query for google image search
+// var query = imageSearch.buildImageQuery("Strawberries and cream festival 2016");
+// var imageSearchResult = imageSearch.makeRequest(query).then(function(res){
+//     console.log(res);
 // });
 
 /* 

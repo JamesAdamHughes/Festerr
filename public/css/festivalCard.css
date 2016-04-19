@@ -1,0 +1,160 @@
+.festival-card-list-container {
+    width: 750px;
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.festival-container{
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    transition: margin 0.5s;
+}
+
+.festival-card{
+    height: 100%;
+    position: relative;
+}
+
+.festival-card-image{
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.festival-card.festival-details{
+    /*height: 100%;*/
+    background-color: #446CB3;
+    margin:10px;
+    height:550px;
+    box-shadow: 2px 2px 4px #AAAAAA;
+    /*transition: all 2s;*/
+}
+
+.festival-card-image-text {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    align-items: center;
+    color:white;
+    font-size: medium;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+
+}
+
+.festival-card-image-text.expanded{
+    height: 200px;
+    background: rgba(0,0,0,0.7);
+    flex-flow: column;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.festival-card-image-text.closed{
+    height: 40px;
+    flex-flow: row;
+    background: rgba(0,0,0,0.5);
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+}
+
+md-card-actions{
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.festival-card-details {
+    padding: 20px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.festival-card-image {
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-position-y: 40%;
+    background-size: cover;
+}
+
+.festival-card-image {
+    background-color: red;
+}
+
+.festival-card .md-headline {
+    font-size: medium;
+    /*color: white;*/
+}
+
+.md-subheader.md-default-theme{
+    background-color: rgba(255,255,255, 0);
+}
+
+.md-button.md-icon-button{
+    margin: 0;
+}
+
+md-card-title-text{
+    text-align: center;
+}
+
+md-card-actions{
+    height:60px;
+    justify-content: space-between !important;
+    margin: 0px 10px 0px 20px;
+}
+
+.animate-show {
+    width:50%;
+    height: 550px;
+}
+
+.animate-show.ng-hide {
+    width: 0%;
+    height: 0px;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all ease-out 0.5s;
+}
+
+.info-line{
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 50px;
+    margin-left: -20px;
+}
+
+.info-line .text {
+    width: 80%;
+    margin-bottom: 0px;
+}
+
+.info-line .icon {
+    width: 10%;
+}
+
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 970px) {
+    .festival-card-list-container{
+            width: 1000px;
+    }
+}

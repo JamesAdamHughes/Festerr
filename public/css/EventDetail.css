@@ -1,16 +1,154 @@
-.circle {
-	width : 80px;
-	height : 80px;
-	-moz-border-radius: 50%; 
-    -webkit-border-radius: 50%; 
-    border-radius: 50%;
-    background: #4679BD;
-    padding-top: 10px; 
+#event-container {
+	width:100%;    
+	height : 100%;	
+    background-color: #f5f5f5;   
 }
 
-.circle p {
-	font-size: large;
-	color: #FFFFFF;
-	padding-top: 18px;
-	padding-left:  13px;
+#event-image {
+    width: 100%;
+    height: 70%;
+    background-image: url(http://news.skiddlecdn.co.uk/4/20904_2_creamfields-2014-line-up_ban.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#event-details-container {
+    position:relative;
+    width: 100%;
+    height: 100%;
+    margin-top: 50vh;
+    z-index: 100;
+    padding: 0px 100px 0px 100px;
+    background-color: rgba(0,0,0,0);
+    display: flex;
+    flex-flow: column;
+    align-items: center; 
+}
+
+#event-details-container .md-headline {
+    font-size: xx-large;
+    font-weight: 200;
+}
+
+.panel {
+    width: 100%;
+    min-height: 280px;
+    border-radius: 2px;
+    margin-bottom: 40px;
+    padding : 40px 80px 40px 80px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    display: flex;
+    flex-flow: column;
+    align-items: center; 
+    text-align: center;
+    justify-content: space-around;
+    background-color: white;  
+}
+
+#event-header-container{
+    padding-bottom: 20px;
+    padding-top: 20px;    
+}
+
+#event-header-container .divider {
+    width: 80%;
+    height: 1px;
+    background-color: #e5e5e5;
+}
+
+#event-header-container p {
+    font-size: medium;
+    font-weight: 200;    
+}
+
+#event-like-circle {
+    background: #DB0A5B;
+    padding-top: 5px;
+    height: 80px;
+    width: 80px;
+    top: -40px;
+    right: 150px;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+#event-header-actions {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: flex-end; 
+    justify-content: space-around;
+}
+
+#event-header-actions .md-primary {
+   color: #DB0A5B
+} 
+
+#event-like-circle:focus {outline:0;}
+
+
+.animate-like-button {
+    animation-name: animateLikeButton;
+    animation-duration: 1s;
+}
+
+@keyframes animateLikeButton {
+    0% {transform: scale(1,1);}
+    50%  {transform: scale(0.5,0.5);}
+    100% {transform: scale(1,1);}
+}
+
+.event-info-container {
+    padding-left: 40px;
+    padding-right: 40px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start; 
+    justify-content: space-around;
+}
+
+.event-info-container .md-headline{
+    width:100px;
+    margin-bottom: 30px; 
+}
+
+.event-info-container .artist-grid{
+    width:600px
+}
+
+.event-info-container md-grid-list {
+    width: 570px;
+}
+
+/* Desktops and laptops ----------- */
+@media (min-width : 970px) {
+    .event-info-container .md-headline{
+        width:200px;
+    }
+    
+    .event-info-container .artist-grid{
+        width:800px
+    }
+}
+/* Desktops and laptops ----------- */
+@media (max-width : 970px) {
+    .event-info-container .md-headline{
+        width:400px;
+    }
+}
+
+
+#event-header-info-bar{
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: center; 
+    justify-content: space-around;
 }

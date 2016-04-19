@@ -10,9 +10,16 @@ lib-cov
 *.gz
 *.xcf
 *.db
+node.d.ts
+.vscode/*
+public/json_dump/*
+config/*
+typings
 pids
 logs
 results
 build
-
+*.crt
+*.key
+*.csr
 node_modules
