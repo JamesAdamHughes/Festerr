@@ -19,5 +19,7 @@ pids
 logs
 results
 build
-
+*.crt
+*.key
+*.csr
 node_modules
