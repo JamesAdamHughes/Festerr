@@ -32,8 +32,10 @@ var spotifyAPI = {
     // Returns all promise that gives artists in every playlist for a given user    
     getAllArtists: function (accessToken, userID) {
         var artists = [];
+        var resourceURL;
+        
         // Get user playlists
-        var resourceURL = 'users/' + userID + '/playlists';
+        resourceURL = 'users/' + userID + '/playlists';
         
         // get playlists first, then gets artists from each
         return makeSpotifyRequest(resourceURL, accessToken).then(function (playlists) {
@@ -138,6 +140,16 @@ var spotifyAPI = {
         });
 
         return deferred.promise;
+    },
+    
+    // Gets the spotify user info for a user identified by the access token
+    getUserInfo: function(access_token){
+        var resourceURL = 'me';
+        
+        return makeSpotifyRequest(resourceURL, access_token).then(function(userData){
+            console.log(userData);
+            return userData;
+        });
     }
 };
 

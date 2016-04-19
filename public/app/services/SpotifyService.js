@@ -4,6 +4,14 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
     var userInfo = {};
     var userArtists = [];
     var refreshTokenTimer;
+    
+    return {
+        getUserInfo: getUserInfo,
+        getAllArtists: getAllArtists,
+        filterUserArtists: filterUserArtists,
+        refreshAccessToken: refreshAccessToken,
+        setup: setup
+    };
 
     // Returns user's spotify info
     function getUserInfo() {
@@ -186,13 +194,5 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
             setrefreshTokenTimer();
         });
     }
-
-    return {
-        getUserInfo: getUserInfo,
-        getAllArtists: getAllArtists,
-        filterUserArtists: filterUserArtists,
-        refreshAccessToken: refreshAccessToken,
-        setup: setup
-    };
 
 });

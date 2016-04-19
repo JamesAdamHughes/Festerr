@@ -19,9 +19,5 @@ angular.module('festerrApp').factory('NetworkService', function($q) {
 
     return {
         callAPI: callAPI
-    }
-
-
- 
-
+    };
 });

@@ -1,6 +1,5 @@
 var express = require('express'),
     router = express.Router();
-var request = require('request');
 var querystring = require('querystring');
 
 // Wrapper for the spotify API
@@ -42,7 +41,7 @@ router.get('/spotify/login', function (req, res) {
     var state = generateRandomString(16);
     res.cookie(stateKey, state);
         
-    // your application requests authorization
+    // our application requests authorization
     var scope = 'user-read-private user-read-email user-library-read';
     res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({
@@ -77,15 +76,22 @@ router.get('/spotify/callback', function (req, res) {
 
         res.clearCookie(stateKey);
         
-        // Request the access key using the auth code
+        // Request the access key using the auth code and return to the client        
         spotifyAPI.getAccessToken(code, redirect_uri, client_id, client_secret).then(function (tokens) {
             // Return access token in cookie to client
             res.cookie('spotifyAccessToken', tokens.access_token);
             res.cookie('spotifyRefreshToken', tokens.refresh_token);
             res.cookie('spotifyTokenExpireAt', tokens.expire_at);
-                
-            // we can also pass the token to the browser to make requests from there
-            res.redirect('/#');
+            
+            // Set the session id as the provided spotify user id
+            // this is all encrypted by the library    
+            spotifyAPI.getUserInfo(tokens.access_token).then(function(userData){
+                req.session.userID = userData.id;
+               
+                // we can also pass the token to the browser to make requests from there
+                res.redirect('/#');
+            });            
+            
         }).catch(function (err) {
             res.redirect('/#' + querystring.stringify(err));
         });
