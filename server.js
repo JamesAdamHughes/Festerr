@@ -1,7 +1,6 @@
 var express = require('express');
-var request = require('request');
 var fs = require('fs');
-var imageSearch = require('./utils/googleImageSearch');
+var https = require('https');
 
 if(process.env.mode === "PROD"){
     // the env vars are already set
@@ -10,6 +9,10 @@ if(process.env.mode === "PROD"){
     var init = require('./config/setEnvVars.js');  
 }
 
+var options = {
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.crt')
+};
 
 var app = express();
 
@@ -28,20 +31,8 @@ app.get('/', function (req, res) {
 app.get('/event', require("./controllers/events.js"));
 app.get('/spotify/*', require('./controllers/spotify'));
 
-// Example query for google image search
-// var query = imageSearch.buildImageQuery("Strawberries and cream festival 2016");
-// var imageSearchResult = imageSearch.makeRequest(query).then(function(res){
-//     console.log(res);
-// });
-
-
-
+console.log("starting server");
 // Start the server listening on port 3000
-var server = app.listen(process.env.PORT || 3000, function () {
-
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('Fester app listening at http://%s:%s', host, port);
-
+https.createServer(options, app).listen(process.env.PORT || 3000, function(){
+    console.log("Server listening on port 3000");
 });
