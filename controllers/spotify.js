@@ -95,7 +95,7 @@ router.get('/spotify/callback', function(req, res) {
                         spotifyID: userData.id
                     },
                     defaults: {
-                        name: "Spotify User"
+                        email: userData.email
                     }
                 }).spread(function(user, created) {
                     console.log(user.get({
