@@ -1,11 +1,13 @@
 var express = require('express');
 var request = require('request');
 var fs = require('fs');
-
-var secretString = "9t6aHMrAauERxkR";
+var models = require("./models"); // Database models
 var sessions = require("client-sessions");
 
 var app = express();
+
+// Secret string for sessions cookie
+var secretString = "9t6aHMrAauERxkR";
 
 if(process.env.mode === "PROD"){
     // the env vars are already set
@@ -28,7 +30,7 @@ app.use(sessions({
 //used to display the html files
 app.engine('.html', require('ejs').renderFile);
 
-// Serve requests to the / url and respond with the file 'test.html'
+// Serve requests to the / url
 app.get('/', function (req, res) {
   res.render('index.html');
 });

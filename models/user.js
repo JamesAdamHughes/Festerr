@@ -1,21 +1,19 @@
 module.exports = function (sequelize, DataTypes) {
-    var Event = sequelize.define("Event", {
-        skiddleID: {type: DataTypes.INTEGER, unique: true},
-        name: DataTypes.STRING,
-        description: DataTypes.TEXT
+    var User = sequelize.define("User", {
+        spotifyID: {type: DataTypes.STRING, unique: true},
+        name: DataTypes.STRING
     }, {
             classMethods: {
                 associate: function (models) {
-                    Event.belongsToMany(models.User, {
+                    User.belongsToMany(models.Event, {
                         through: 'UserEvent',
                         foreignKey: {
                             allowNull: false
                         }
                     });
                 }
-            },
+            }, 
             timestamps: false,
         });
-
-    return Event;
+    return User;
 };

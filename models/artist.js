@@ -4,12 +4,12 @@ module.exports = function (sequelize, DataTypes) {
     }, {
             classMethods: {
                 associate: function (models) {
-                    Artist.belongsTo(models.Event, {
-                        onDelete: "CASCADE",
-                        foreignKey: {
-                            allowNull: false
-                        }
-                    });
+                    // Artist.belongsTo(models.Event, {
+                    //     onDelete: "CASCADE",
+                    //     foreignKey: {
+                    //         allowNull: false
+                    //     }
+                    // });
                 }
             }, 
             timestamps: false,
