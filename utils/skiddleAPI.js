@@ -13,8 +13,10 @@ var defaultOptions = {
 
 var skiddleAPI = {
 
-	getAllEvents: function (res) {
-
+	getAllEvents: function () {
+        var deferred = q.defer();
+        var response;
+        
         // Check to see if we've already cached the event data
         if (!cachedEventData) {
 
@@ -27,15 +29,17 @@ var skiddleAPI = {
             console.log("GET " + options.url);
 
             //Send the request
-            apiRequest(options, res);
-
+            apiRequest(options).then(function(data){
+                deferred.resolve(data);
+            });
         // Cached data present
         } else {
             response = cachedEventData;
             response.ok = true;
-            res.send(response);
+            deferred.resolve(response);
         }
-
+        
+        return deferred.promise;
     },
     
     // Returns the details of a given event
@@ -69,19 +73,27 @@ var skiddleAPI = {
 };
 
 // Function to call api with given options and endpoint
-function apiRequest(options, res) {
+function apiRequest(options) {
+    var deferred = q.defer();
+    
     request(options, function (error, reqResponse, body) {
-        if (error) throw new Error(error);
-        var contents = JSON.parse(body);
-        if (contents.error !== 0) {
+        if (error) {
             console.log('ERROR ' + contents.errorcode + ': ' + contents.errormessage);
+             deferred.reject(error);
         } else {
-            cachedEventData = contents.results;
+            var contents = JSON.parse(body);
+            var response;
+
             response = contents.results;
             response.ok = true;
+            deferred.resolve(response);
+            
+            // save the cached data
+            cachedEventData = contents.results;
         }
-        res.send(response);
     });
+    
+    return deferred.promise;
 }
 
 module.exports = skiddleAPI;

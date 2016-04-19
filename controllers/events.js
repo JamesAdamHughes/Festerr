@@ -13,7 +13,9 @@ router.get('/event', function(req, res) {
 
         // 'All' returns the entire events list
         if (req.query.type === "all") {
-            skiddleAPI.getAllEvents(res);
+            skiddleAPI.getAllEvents().then(function(response){
+                res.send(response);
+            });
         }
         // just return a single events detail
         else if (req.query.type = "single") {

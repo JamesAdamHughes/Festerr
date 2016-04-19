@@ -98,6 +98,7 @@ router.get('/spotify/callback', function(req, res) {
                         email: userData.email
                     }
                 }).spread(function(user, created) {
+                    // Print the new user details, can remove this when done testing
                     console.log(user.get({
                         plain: true
                     }));
@@ -108,6 +109,7 @@ router.get('/spotify/callback', function(req, res) {
                 }).catch(function(err){
                     console.log("An error occured...");
                     console.log(err);
+                    res.send("An error occured finding or creating user profile");
                 });
             });
 
