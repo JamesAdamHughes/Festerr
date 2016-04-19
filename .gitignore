@@ -9,8 +9,8 @@ lib-cov
 *.pid
 *.gz
 *.xcf
-node.d.ts
 *.db
+node.d.ts
 .vscode/*
 public/json_dump/*
 config/*

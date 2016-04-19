@@ -1,6 +1,7 @@
 var express = require('express');
 var request = require('request');
 var fs = require('fs');
+
 var secretString = "9t6aHMrAauERxkR";
 var sessions = require("client-sessions");
 
@@ -42,14 +43,20 @@ app.get('/spotify/*', require('./controllers/spotify'));
 //     console.log(res);
 // });
 
+/* 
+    Start the server listening on port 3000
+    All database logic in models,
+    Sequelize will sync the models with database and then start the server
+*/
+models.sequelize.sync().then(function () {
+    var server = app.listen(process.env.PORT || 3000, function () {
 
+        var host = server.address().address;
+        var port = server.address().port;
 
-// Start the server listening on port 3000
-var server = app.listen(process.env.PORT || 3000, function () {
+        console.log('Fester app listening at http://%s:%s', host, port);
 
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('Fester app listening at http://%s:%s', host, port);
-
+    });
 });
+
+
