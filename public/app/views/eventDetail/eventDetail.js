@@ -18,13 +18,15 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
     // Filter the artist data into two groups
     function getEventDetails(eventID) {
         
-        var query = {
-            url: "/event?type=single&id=" + eventID,
-            method: "GET"
+        // Create the request
+        var url = "/event?type=single&id=" + eventID;
+        var options = {
+            method: 'GET',
+            credentials: 'include'
         };
         
         // Get artist data then filter it
-        NetworkService.callAPI(query).then(function(res) {
+        NetworkService.callAPI(url, options).then(function(res) {
             if (res.ok) {
                 $scope.event = res.event;
                 // filter the artists in the event 

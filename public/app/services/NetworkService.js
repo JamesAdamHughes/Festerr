@@ -2,12 +2,12 @@ angular.module('festerrApp').factory('NetworkService', function($q) {
     
     // Calls the api with a given request
     // Returns the josn of the response
-    function callAPI(request){
+    function callAPI(url, options){
         var deferred = $q.defer();
+        
+        var request = new Request(url, options);        
 
-        fetch(request.url, {
-            method: request.method
-        }).then(function(response){
+        fetch(request).then(function(response){
             deferred.resolve(response.json());
         }).catch(function(err){
             console.error(err);
