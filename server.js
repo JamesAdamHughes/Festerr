@@ -1,7 +1,10 @@
 var express = require('express');
 var request = require('request');
 var fs = require('fs');
-var imageSearch = require('./utils/googleImageSearch');
+var secretString = "9t6aHMrAauERxkR";
+var sessions = require("client-sessions");
+
+var app = express();
 
 if(process.env.mode === "PROD"){
     // the env vars are already set
@@ -10,11 +13,16 @@ if(process.env.mode === "PROD"){
     var init = require('./config/setEnvVars.js');  
 }
 
-
-var app = express();
-
 // All static filss are in the public folder
 app.use(express.static(__dirname + '/public'));
+
+// Set session middlewear configuration
+app.use(sessions({
+  cookieName: 'session',
+  secret: secretString,
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+}));
 
 //used to display the html files
 app.engine('.html', require('ejs').renderFile);

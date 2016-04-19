@@ -1,7 +1,5 @@
 var express = require('express'),
     router = express.Router();
-var request = require('request');
-var fs = require('fs');
 var skiddleAPI = require(__dirname + '/../utils/skiddleAPI');
 
 // Serve requests to the event endpoint
@@ -19,6 +17,10 @@ router.get('/event', function(req, res) {
         }
         // just return a single events detail
         else if (req.query.type = "single") {
+            
+            // We can now access the user session if it exists
+            // console.log(req.session.userID);
+            
             // Use event id from the query string
             if (req.query.id !== undefined) {
                 skiddleAPI.getSingleEvent(req.query.id).then(function(response) {

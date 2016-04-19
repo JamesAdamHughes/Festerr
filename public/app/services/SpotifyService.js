@@ -1,9 +1,17 @@
-angular.module('festerrApp').factory('SpotifyService', function($q, $location, $cookies, $interval) {
+angular.module('festerrApp').factory('SpotifyService', function($q, $location, $cookies, $interval, NetworkService) {
 
     var userID = undefined;
     var userInfo = {};
     var userArtists = [];
     var refreshTokenTimer;
+
+    return {
+        getUserInfo: getUserInfo,
+        getAllArtists: getAllArtists,
+        filterUserArtists: filterUserArtists,
+        refreshAccessToken: refreshAccessToken,
+        setup: setup
+    };
 
     // Returns user's spotify info
     function getUserInfo() {
@@ -47,7 +55,7 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
     function getAllArtists() {
         var deferred = $q.defer();
         var methodURL = '/spotify/Artists?userID=';
-        
+
         getUserInfo().then(function(userInfo) {
             // only make request if we don't already have the data
             if (userArtists.length === 0) {
@@ -105,27 +113,23 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
         return deferred.promise;
     }
 
-
-
-    // Calls a given url with opens
-    // Returns the json response
+    /* 
+        Calls a given url with options
+        Returns the json response
+    */
     function call(url, options) {
-
+        
         // Add cookies only when no other cookie options set
         if (options.credentials === undefined) {
             options.credentials = 'include'; //send the cookies with spotify access code
         }
 
-        var request = new Request(url, options);
-
-        return fetch(request).then(function(res) {
-            if (res.ok) {
-                return res.json();
-            } else {
-                if (res.status === 401) {
-                    console.error("Unath spotify access, need new access token");
-                }
+        return NetworkService.callAPI(url, options).then(function(res) {
+            if (res.status === 401 || res.ok === false) {
+                console.error("Unath spotify access, need new access token");
                 throw res;
+            } else {
+                return res;
             }
         });
     }
@@ -140,8 +144,7 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
             // If token has run out or about to (5 mins), get new one
             if (accessTokenTimeLeft() < (5 * 60)) {
                 console.info("NEEDED NEW TOKEN");
-                return refreshAccessToken().then(function(res) {
-                });
+                refreshAccessToken();
             } {
                 deferred.resolve();
                 return deferred.promise;
@@ -186,13 +189,5 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
             setrefreshTokenTimer();
         });
     }
-
-    return {
-        getUserInfo: getUserInfo,
-        getAllArtists: getAllArtists,
-        filterUserArtists: filterUserArtists,
-        refreshAccessToken: refreshAccessToken,
-        setup: setup
-    };
 
 });

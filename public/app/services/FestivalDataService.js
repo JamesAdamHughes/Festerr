@@ -10,12 +10,11 @@ angular.module('festerrApp').factory('FestivalDataService', function($q, Network
     var getFestivalData = function() {
         var deferred = $q.defer();
 
-        NetworkService.callAPI({
-            url: '/event/?type=all',
+        NetworkService.callAPI('/event/?type=all', {
             method: 'GET'
-        }).then(function(res){
+        }).then(function(res) {
             deferred.resolve(res);
-        }).catch(function(err){
+        }).catch(function(err) {
             deferred.reject(err);
         });
 
