@@ -19,7 +19,7 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
     function getEventDetails(eventID) {
         
         // Create the request
-        var url = "/event?type=single&id=" + eventID;
+        var url = "/event/?type=single&id=" + eventID;
         var options = {
             method: 'GET',
             credentials: 'include'
@@ -50,7 +50,8 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
 
         //Send the like change to the server to save it
         //TODO 
-
+        NetworkService.callAPI('/event/' + eventID + '/like', {method:'GET', credentials: 'include'});
+        
         // Remove the animate class when finished
         likeElement.addEventListener("animationend", removeAnimationClass);
     };
