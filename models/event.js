@@ -6,7 +6,7 @@ module.exports = function (sequelize, DataTypes) {
             classMethods: {
                 associate: function (models) {
                     Event.belongsToMany(models.User, {
-                        through: 'UserEvent',
+                        through: 'UserEventLikes',
                         foreignKey: {
                             allowNull: false
                         }
