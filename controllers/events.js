@@ -86,7 +86,7 @@ router.get('/event/', function(req, res) {
                        }); 
                     }                    
                 }).then(function(userEvents){                    
-                    if(userEvents){
+                    if(userEvents.length !== 0){
                         // The user has liked this previously!
                         response.liked = true;
                     }            
