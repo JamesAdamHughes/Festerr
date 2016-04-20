@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 });
 
 // Serve /event 
-app.get('/event', require("./controllers/events.js"));
+app.get('/event/*', require("./controllers/events.js"));
 app.get('/spotify/*', require('./controllers/spotify'));
 
 // Example query for google image search

@@ -43,7 +43,7 @@ var skiddleAPI = {
                                 return models.Event.create({ skiddleID: event.id, name: "event " + event.id });
                             } else {
                                 // Event was in the DB, no need to add it
-                                console.debug("EVENT " + e.id + "already in db");
+                                console.log("EVENT " + e.id + "already in db");
                             }
                         }).catch(function(err){
                             console.log(err);
