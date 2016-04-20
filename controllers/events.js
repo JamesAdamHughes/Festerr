@@ -11,19 +11,20 @@ router.get('/event/:eventid/like', function(req, res) {
     var user;
     var event;
     console.log("POST /event/id/like");
-
+    
+    // Get the user and event, join together
     if (req.session.userID && req.params.eventid) {
-        return models.User.findOne({ where: { spotifyID: req.session.userID } }).then(function(u) {
-            return models.Event.findOne({ where: { skiddleID: req.params.eventid } }).then(function(e) {
-                user = u;
-                event = e;
-            });
-        }).then(function() {
-            if (user && event) {
-                console.log(user);
-                console.log(event);
-                user.addEvent(event);
-                console.log("Added event {} to user {}".format(req.params.eventid, req.session.userID));
+        models.User.findOne(
+            { where: { spotifyID: req.session.userID } 
+        }).then(function(u) {
+            user = u;
+            return models.Event.findOne({ where: { skiddleID: req.params.eventid }}); 
+        }).then(function(e) {
+            event = e;           
+        
+            if (user && event) {               
+                // Add the user to the event in the UserEvent table
+                return user.addEvent(event);    
             } else {
                 var error = "";
                 if (user) {
@@ -32,9 +33,12 @@ router.get('/event/:eventid/like', function(req, res) {
                     error = "Could not find user " + req.session.userID;
                 } else {
                     error = "Could not find event or user";
-                }      
+                }     
+                console.error(error); 
                 res.send(error);          
             }
+        }).then(function(){
+           console.log("Added event " + req.params.eventid +" to user " + req.session.userID);
         }).catch(function(err){
             console.error(err);
         });
