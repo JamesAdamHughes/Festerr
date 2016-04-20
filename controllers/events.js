@@ -36,6 +36,7 @@ router.get('/event/:eventid/like', function(req, res) {
                 }     
                 console.error(error); 
                 res.send(error);          
+                throw new Error(error);
             }
         }).then(function(){
            console.log("Added event " + req.params.eventid +" to user " + req.session.userID);
@@ -69,12 +70,26 @@ router.get('/event/', function(req, res) {
         // just return a single events detail
         else if (req.query.type = "single") {
 
-            // We can now access the user session if it exists
-            // console.log(req.session.userID);
-
-            // Use event id from the query string
+            // Get the event data, and see if the user has liked it already
             if (req.query.id !== undefined) {
-                skiddleAPI.getSingleEvent(req.query.id).then(function(response) {
+                skiddleAPI.getSingleEvent(req.query.id).then(function(data) {
+                    // If a logged in user requests this, see if they have liked this event
+                    if(data.ok){
+                       response = data;
+                       return models.User.findOne({where: {spotifyID: req.session.userID}}).then(function(user){
+                           if(!user){
+                               // If not logged in, just send normal data with no like info
+                               res.send(response);
+                           } else {
+                               return user.getEvents({where: {skiddleID: data.event.id}});
+                           }
+                       }); 
+                    }                    
+                }).then(function(userEvents){                    
+                    if(userEvents){
+                        // The user has liked this previously!
+                        response.liked = true;
+                    }            
                     res.send(response);
                 }).catch(function(err) {
                     console.log("ERROR " + err);

@@ -40,10 +40,9 @@ var skiddleAPI = {
                         return models.Event.findOne({ where: { skiddleID: event.id } }, { transaction: t }).then(function(e) {
                             if (!e) {
                                 // Event was not in the DB, so add it
-                                return models.Event.create({ skiddleID: event.id, name: "event " + event.id });
+                                return models.Event.create({ skiddleID: event.id, name: event.eventname });
                             } else {
                                 // Event was in the DB, no need to add it
-                                console.log("EVENT " + e.id + "already in db");
                             }
                         }).catch(function(err){
                             console.log(err);
@@ -87,10 +86,11 @@ var skiddleAPI = {
                     break;
                 }
             }
-
+            
+            // Return event data 
             if (event === undefined) {
                 deferred.reject({ ok: false, error: "Cannot find event in cache" });
-            } else {
+            } else {              
                 deferred.resolve({ ok: true, event: event });
             }
         }
