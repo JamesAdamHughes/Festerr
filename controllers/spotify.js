@@ -91,12 +91,8 @@ router.get('/spotify/callback', function(req, res) {
 
                 // Check if this user in the db, otherwise create them
                 models.User.findOrCreate({
-                    where: {
-                        spotifyID: userData.id
-                    },
-                    defaults: {
-                        email: userData.email
-                    }
+                    where: {spotifyID: userData.id},
+                    defaults: {email: userData.email}
                 }).spread(function(user, created) {
                     // Print the new user details, can remove this when done testing
                     console.log(user.get({
