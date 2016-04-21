@@ -6,8 +6,6 @@ var sessions = require("client-sessions");
 
 var app = express();
 
-// Secret string for sessions cookie
-var secretString = "9t6aHMrAauERxkR";
 
 if(process.env.mode === "PROD"){
     // the env vars are already set
@@ -15,6 +13,9 @@ if(process.env.mode === "PROD"){
     // else in dev enviroment, so add the env variables
     var init = require('./config/setEnvVars.js');  
 }
+
+// Secret string for sessions cookie
+var secretString = process.env.session_secret;
 
 // All static filss are in the public folder
 app.use(express.static(__dirname + '/public'));
