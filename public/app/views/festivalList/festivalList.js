@@ -14,21 +14,6 @@ angular.module('FestivalListView', ['ngMaterial'])
             // Get the festival data from the server and display it
             FestivalDataService.getFestivalData().then(function(res) {
 
-                // // add tile information to each festival we get
-                // for (var i = 0; i < res.length; i++) {
-                //     var tileInfo = {
-                //         ID: i,
-                //         selected: false
-                //     };
-                //     res[i].tileInfo = tileInfo;
-                //     for (var j = 0; j < res[i].artists.length; j++) {
-                //         var artistTileInfo = {
-                //             ID: j,
-                //             selected: false
-                //         };
-                //         res[i].artists[j].tileInfo = artistTileInfo;
-                //     }
-                // }
                 $scope.eventList = res;
 
                 var results = [];
@@ -69,7 +54,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                     return $q.all(promises);
 
                 }
-            }).then(function(res) {
+            }).then(function() {
                 
                 // Sort the events by how many spotufy artist are in it
                 $scope.eventList.sort(function(a, b) {

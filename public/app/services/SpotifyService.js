@@ -155,9 +155,9 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
     }
 
     // returns number of seconds until spotify access token expires
-    function accessTokenTimeLeft() {
-        return Math.floor($cookies.get('spotifyTokenExpireAt') - (Date.now() / 1000));
-    }
+    // function accessTokenTimeLeft() {
+    //     return Math.floor($cookies.get('spotifyTokenExpireAt') - (Date.now() / 1000));
+    // }
 
     // Sets a timer to get new access token using expiry time in cookies
     function setrefreshTokenTimer() {

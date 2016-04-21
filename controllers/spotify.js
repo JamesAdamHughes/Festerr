@@ -119,6 +119,8 @@ router.get('/spotify/callback', function(req, res) {
    Also update the session cookie with the spotify ID  
 
    Return new access token and expire time
+   
+   TODO mabye just replace this with generic login function?
 */
 router.get('/spotify/refreshToken', function(req, res) {
 
