@@ -31,9 +31,19 @@ app.use(sessions({
 app.engine('.html', require('ejs').renderFile);
 
 // Serve requests to the / url
-app.get('/', function (req, res) {
+app.get('/', setupUserSession, function (req, res) {
   res.render('index.html');
 });
+
+// Check if a user has a session, if not create one with spotify ID if they have one
+function setupUserSession(req, res, next){
+    if(!req.session.userID){
+        // User has no session, create one for them with no id
+        req.session.userID = -1;
+    }
+    //Finish middlewear continue route
+    next();
+}
 
 // Serve /event 
 app.get('/event/*', require("./controllers/events.js"));

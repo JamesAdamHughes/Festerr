@@ -108,15 +108,18 @@ router.get('/spotify/callback', function(req, res) {
                     res.send("An error occured finding or creating user profile");
                 });
             });
-
         }).catch(function(err) {
             res.redirect('/#' + querystring.stringify(err));
         });
     }
 });
 
-// Get a new access token using refresh token
-// Previous one may have expired
+/*
+   Get a new access token using refresh token
+   Also update the session cookie with the spotify ID  
+
+   Return new access token and expire time
+*/
 router.get('/spotify/refreshToken', function(req, res) {
 
     console.log("GET /spotify/refreshToken");
@@ -127,6 +130,12 @@ router.get('/spotify/refreshToken', function(req, res) {
         response.ok = true;
         response.accessToken = spotifyRes.access_token;
         response.expire_at = spotifyRes.expire_at;
+        
+        // update the session to put the user id in it
+        return spotifyAPI.getUserInfo(spotifyRes.access_token);  
+    }).then(function(data){
+        req.session.userID = data.id;
+        console.log("Got user " + data.id);
         res.send(response);
     }).catch(function(err) {
         response.error = err;
@@ -134,7 +143,9 @@ router.get('/spotify/refreshToken', function(req, res) {
     });
 });
 
-// Returns all artists contained in every playlist from the given user 
+/*
+  Returns all artists contained in every playlist from the given user 
+*/
 router.get('/spotify/artists', function(req, res) {
 
     console.log("GET /spotify/artists");

@@ -118,7 +118,7 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
         Returns the json response
     */
     function call(url, options) {
-        
+
         // Add cookies only when no other cookie options set
         if (options.credentials === undefined) {
             options.credentials = 'include'; //send the cookies with spotify access code
@@ -133,27 +133,25 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
             }
         });
     }
-
+    
+    /*
+        Called when the page loads
+        
+        Checks if the user has spotify info in cookies  
+            If so, refresh them always (for session purposes)
+    */
     function setup() {
         var deferred = $q.defer();
         var spotifyAccessToken = $cookies.get('spotifyAccessToken');
 
         console.info("CHECKING SPOTIFY TOKEN");
-
+        
         if (spotifyAccessToken) {
-            // If token has run out or about to (5 mins), get new one
-            if (accessTokenTimeLeft() < (5 * 60)) {
-                console.info("NEEDED NEW TOKEN");
-                refreshAccessToken();
-            } {
-                deferred.resolve();
-                return deferred.promise;
-            }
+            return refreshAccessToken();
         } else {
             deferred.resolve();
             return deferred.promise;
         }
-
     }
 
     // returns number of seconds until spotify access token expires
