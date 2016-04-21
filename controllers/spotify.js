@@ -80,36 +80,37 @@ router.get('/spotify/callback', function(req, res) {
         // Request the access key using the auth code and return to the client        
         spotifyAPI.getAccessToken(code, redirect_uri, client_id, client_secret).then(function(tokens) {
 
-            // Create a session and user in the database if required
-            // this is all encrypted by the library    
-            spotifyAPI.getUserInfo(tokens.access_token).then(function(userData) {
-                req.session.userID = userData.id;
-                // Return access token in cookie to client
-                res.cookie('spotifyAccessToken', tokens.access_token);
-                res.cookie('spotifyRefreshToken', tokens.refresh_token);
-                res.cookie('spotifyTokenExpireAt', tokens.expire_at);
+            // Add access token in cookie to client
+            res.cookie('spotifyAccessToken', tokens.access_token);
+            res.cookie('spotifyRefreshToken', tokens.refresh_token);
+            res.cookie('spotifyTokenExpireAt', tokens.expire_at);
 
-                // Check if this user in the db, otherwise create them
-                models.User.findOrCreate({
-                    where: {spotifyID: userData.id},
-                    defaults: {email: userData.email}
-                }).spread(function(user, created) {
-                    // Print the new user details, can remove this when done testing
-                    console.log(user.get({
-                        plain: true
-                    }));
-                    console.log(created);
-                }).then(function() {
-                    // we can also pass the token to the browser to make requests from there
-                    res.redirect('/#');
-                }).catch(function(err){
-                    console.log("An error occured...");
-                    console.log(err);
-                    res.send("An error occured finding or creating user profile");
-                });
+            return spotifyAPI.getUserInfo(tokens.access_token);
+        }).then(function(userData) {
+
+            // Add user spotify ID to cookie
+            req.session.userID = userData.id;
+
+            // Create new user in the database if required
+            // this is all encrypted by the library  
+            // Check if this user in the db, otherwise create them
+            return models.User.findOrCreate({
+                where: { spotifyID: userData.id },
+                defaults: { email: userData.email }
+            }).spread(function(user, created) {
+                // Print the new user details, can remove this when done testing
+                console.log(user.get({
+                    plain: true
+                }));
+                console.log(created);
             });
+        }).then(function() {
+            // we can also pass the token to the browser to make requests from there
+            res.redirect('/#');
         }).catch(function(err) {
-            res.redirect('/#' + querystring.stringify(err));
+            console.log("An error occured...");
+            console.log(err);
+            res.send("An error occured finding or creating user profile");
         });
     }
 });
@@ -132,10 +133,10 @@ router.get('/spotify/refreshToken', function(req, res) {
         response.ok = true;
         response.accessToken = spotifyRes.access_token;
         response.expire_at = spotifyRes.expire_at;
-        
+
         // update the session to put the user id in it
-        return spotifyAPI.getUserInfo(spotifyRes.access_token);  
-    }).then(function(data){
+        return spotifyAPI.getUserInfo(spotifyRes.access_token);
+    }).then(function(data) {
         req.session.userID = data.id;
         console.log("Got user " + data.id);
         res.send(response);
@@ -163,12 +164,12 @@ router.get('/spotify/artists', function(req, res) {
             accessToken = value[1];
         }
     }
-
-    var userID = req.query.userID;
+    
+    var userID = req.session.userID;
     var response = {};
 
     // Get all the artists for the given user ID
-    if (accessToken !== "" || userID === undefined) {
+    if (accessToken !== "" &&  userID !== undefined) {
 
         spotifyAPI.getAllArtists(accessToken, userID).then(function(artists) {
             response.ok = true;
