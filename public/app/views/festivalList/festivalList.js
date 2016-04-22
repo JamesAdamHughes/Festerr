@@ -14,25 +14,11 @@ angular.module('FestivalListView', ['ngMaterial'])
             // Get the festival data from the server and display it
             FestivalDataService.getFestivalData().then(function(res) {
 
-                // add tile information to each festival we get
-                for (var i = 0; i < res.length; i++) {
-                    var tileInfo = {
-                        ID: i,
-                        selected: false
-                    };
-                    res[i].tileInfo = tileInfo;
-                    for (var j = 0; j < res[i].artists.length; j++) {
-                        var artistTileInfo = {
-                            ID: j,
-                            selected: false
-                        };
-                        res[i].artists[j].tileInfo = artistTileInfo;
-                    }
-                }
                 $scope.eventList = res;
 
                 var results = [];
                 var names = [];
+                
                 // Create list of available list
                 for (var i = $scope.eventList.length - 1; i >= 0; i--) {
 
@@ -68,7 +54,7 @@ angular.module('FestivalListView', ['ngMaterial'])
                     return $q.all(promises);
 
                 }
-            }).then(function(res) {
+            }).then(function() {
                 
                 // Sort the events by how many spotufy artist are in it
                 $scope.eventList.sort(function(a, b) {
@@ -137,31 +123,10 @@ angular.module('FestivalListView', ['ngMaterial'])
                 }
                 return display;
             };
-
-            // When a tile is selected, tell the prev selected to collapse          
-            // $scope.tileSelected = function(id) {
-            //     var prevEvent = $scope.eventList[$scope.currentlySelectedEventTile];
-
-            //     // tell prev selected to close, unless it is same as the one selected
-            //     // that is handled by the directive itself
-            //     if (prevEvent !== undefined) {
-
-            //         if (prevEvent.tileInfo.ID === id) {
-            //             // selected prev open, reset counter
-            //             $scope.currentlySelectedEventTile = -1;
-            //         } else {
-            //             $scope.currentlySelectedEventTile = id;
-            //         }
-            //         // collpase is a function defined in the festvial tile directive
-            //         prevEvent.collapse();
-            //     } else {
-            //         $scope.currentlySelectedEventTile = id;
-            //     }
-            // };
-
+            
+            // Go to event detail page if tile selected
             $scope.tileSelected = function(event) {
                 window.location.href = "#/event/?id=" + event.id;
-
             };
 
         }]);
