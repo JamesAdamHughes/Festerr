@@ -22,8 +22,6 @@ angular.module('FestivalListView', ['ngMaterial'])
             }).then(function(userArtists) {
 
                 // Set user artist list in directive
-                // $scope.userArtistList = userArtists;
-
                 //Only need to calculate user artists if there are any
                 if (userArtists.length !== 0) {
                     //Break event artist list into ones from the user's spotify and the rest
@@ -34,7 +32,6 @@ angular.module('FestivalListView', ['ngMaterial'])
                     }
                     // return when all the events have been filtered
                     return $q.all(promises);
-
                 }
             }).then(function() {
                 

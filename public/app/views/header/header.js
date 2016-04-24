@@ -53,7 +53,6 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
 
     // Get user info then set it for the header to display
     SpotifyService.getUserInfo().then(function(res) {
-        // console.log(res);
         $scope.spotifyLoggedIn = true;
         $scope.spotifyUserInfo = res;
 
@@ -88,7 +87,7 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
 
                 // Search the events and artists for the given query 
                 // Returns with possible suggestions that match the query, for autocomplete
-                resolve(SearchService.chipSearch(query, $scope.artistList));
+                resolve(SearchService.chipSearch(query));
                 
                 $scope.refreshDebounce();
             });

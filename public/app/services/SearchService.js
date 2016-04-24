@@ -1,7 +1,7 @@
 angular.module('festerrApp').factory('SearchService', function (FestivalDataService) {
 
     //Function to filter events and artist lists and show autocomplete suggestions for chip search
-    var chipSearch = function (query, artistList) {
+    var chipSearch = function (query) {
         var searching = true;
         var searchQuery = query;
         var events;
@@ -73,14 +73,8 @@ angular.module('festerrApp').factory('SearchService', function (FestivalDataServ
             var aDistance = levenshteinDistance(searchQuery, a.name);
             var bDistance = levenshteinDistance(searchQuery, b.name);
             return aDistance - bDistance;
-        }
+        };
     };
-
-    // var levenshteinSearch = function (a, b) {
-    //     var aDistance = levenshteinDistance(searchQuery, a.name);
-    //     var bDistance = levenshteinDistance(searchQuery, b.name);
-    //     return aDistance - bDistance;
-    // };
 
     var levenshteinDistance = function (a, b) {
         if (a.length == 0) return b.length;
