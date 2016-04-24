@@ -12,7 +12,7 @@ angular.module('festivalTileDirective', [])
                 collapse: '=',
                 artistList: '='
             },
-            templateUrl: 'templates/eventTile.html',
+            templateUrl: 'app/views/festivalList/eventTile.html',
             link: function(scope, element, attrs) {
 
                 var defaultMargin = 10;

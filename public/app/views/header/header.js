@@ -32,7 +32,6 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
 
     // Handle user clicking the signup button Displays a signup dialogue
     // If spotify code exists don't need to do this again
-    // TODO some user auth to check if they are signed in already etc
     var parentEl = angular.element(document.body);
     $scope.showSignupDialog = function($event) {
         if (!dialogOpen) {
@@ -43,7 +42,6 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
                 clickOutsideToClose: true,
                 templateUrl: "app/views/header/signupDialog.html",
                 controller: SignupController,
-                // onComplete: afterShowAnimation,
             }).finally(function() {
                 dialogOpen = false;
             });
@@ -98,7 +96,8 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
 
         return $scope.pendingSearch;
     };
-
+    
+    // Watch if user has started seaching, emit the search onto the rotscope
     $scope.$watch('selectedChips', function(oldV, newV) {
         if (newV) {
             $rootScope.$emit('header searchItemsUpdated', $scope.selectedChips);
@@ -163,11 +162,8 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
                 angular.element(document.getElementById('tabs-header-bar')).removeClass('nav-up').addClass('nav-down');
             }
         }
-
         lastScrollTop = st;
     }
-
-
 }
 
 function SignupController($scope, $mdDialog) {
