@@ -1,0 +1,10 @@
+#favourite-card-list-container{
+    margin-top: 20px;
+    width: 80%;
+}
+
+.favourite-card {
+    height: 150px;
+    width: 100%;
+    background-color: blue;
+}

@@ -1,0 +1,18 @@
+<div id="content-container" class="container" ng-controller="FavouriteListCtrl">
+
+    <!-- Loading progress bar -->
+    <div id="progress-container" ng-show="!eventsLoaded">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+
+    <!-- TILES CONTAINER -->
+    <div id="info-container" ng-show="eventsLoaded">
+        <div id="favourite-card-list-container">
+            <div class="favourite-card" ng-repeat="event in favouriteEvents">
+                {{event.eventname}}
+                {{event.entryprice}}
+
+            </div>
+        </div>
+    </div>
+</div>
