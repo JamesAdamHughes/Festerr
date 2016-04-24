@@ -11,7 +11,7 @@ function FavouriteListController($scope, $q, NetworkService, $location, SpotifyS
         venue: "My na's house ya fecker"
     }];
 
-    NetworkService.call("/event/likes", {
+    NetworkService.callAPI("/event/likes", {
         method: 'GET', credentials: 'include'
     }).then(function (res) {
         console.log(res);
