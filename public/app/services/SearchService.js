@@ -43,12 +43,12 @@ angular.module('festerrApp').factory('SearchService', function() {
             if (event.artists !== undefined) {
                 for (var i = event.artists.length - 1; i >= 0; i--) {
                     artistName = artistName || (angular.lowercase(event.artists[i].name).indexOf(lowerCaseQuery || '') !== -1);
-                };
+                }
             }
             if (event.spotifyArtists !== undefined) {
                 for (var i = event.spotifyArtists.length - 1; i >= 0; i--) {
                     artistName = artistName || (angular.lowercase(event.spotifyArtists[i].name).indexOf(lowerCaseQuery || '') !== -1);
-                };
+                }
             }
 
             return eventName || artistName;
@@ -70,13 +70,13 @@ angular.module('festerrApp').factory('SearchService', function() {
             var bDistance = levenshteinDistance(searchQuery, b.name);
             return aDistance - bDistance;
         }
-    }
+    };
 
     var levenshteinSearch = function(a, b) {
         var aDistance = levenshteinDistance(searchQuery, a.name);
         var bDistance = levenshteinDistance(searchQuery, b.name);
         return aDistance - bDistance;
-    }
+    };
 
     var levenshteinDistance = function(a, b) {
         if (a.length == 0) return b.length;
@@ -110,9 +110,9 @@ angular.module('festerrApp').factory('SearchService', function() {
         }
 
         return matrix[b.length][a.length];
-    }
+    };
 
     return {
         chipSearch: chipSearch
-    }
+    };
 });

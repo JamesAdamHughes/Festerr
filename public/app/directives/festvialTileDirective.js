@@ -76,7 +76,6 @@ angular.module('festivalTileDirective', [])
 
                 function setElementSizes() {
                     var screenWidth = $window.innerWidth;
-                    var screenHeight = $window.innerHeight;
 
                     // Whether to show festival and details card as row or column                
                     defaultContainerFlexFlow = screenWidth < breakPoint ? "column" : "row";
