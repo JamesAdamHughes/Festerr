@@ -88,7 +88,7 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
 
                 // Search the events and artists for the given query 
                 // Returns with possible suggestions that match the query, for autocomplete
-                resolve(SearchService.chipSearch(query, $scope.eventList, $scope.artistList));
+                resolve(SearchService.chipSearch(query, $scope.artistList));
                 
                 $scope.refreshDebounce();
             });
@@ -97,7 +97,7 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
         return $scope.pendingSearch;
     };
     
-    // Watch if user has started seaching, emit the search onto the rotscope
+    // Watch if user has started seaching, emit the search onto the rootscope
     $scope.$watch('selectedChips', function(oldV, newV) {
         if (newV) {
             $rootScope.$emit('header searchItemsUpdated', $scope.selectedChips);

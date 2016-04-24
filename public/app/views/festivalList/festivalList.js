@@ -12,35 +12,17 @@ angular.module('FestivalListView', ['ngMaterial'])
             var selectedChips = [];
 
             // Get the festival data from the server and display it
-            FestivalDataService.getFestivalData().then(function(res) {
+            FestivalDataService.getFestivalData().then(function(data) {
 
-                $scope.eventList = res;
-
-                var results = [];
-                var names = [];
+                $scope.eventList = data.events;
+                $scope.artistList = data.artists;
                 
-                // Create list of available list
-                for (var i = $scope.eventList.length - 1; i >= 0; i--) {
-
-                    $scope.eventList[i].formattedDate = DateFormatService.format($scope.eventList[i].date);
-
-                    for (var j = $scope.eventList[i].artists.length - 1; j >= 0; j--) {
-                        // Uses separate list of artist names so as to be able to quickly check their presence
-                        if (names.indexOf($scope.eventList[i].artists[j].name) === -1) {
-                            results.push($scope.eventList[i].artists[j]);
-                            names.push($scope.eventList[i].artists[j].name);
-                        }
-                    }
-                }
-                $scope.artistList = results;
-
                 // get user's artist list from spotify
                 return SpotifyService.getAllArtists();
-
             }).then(function(userArtists) {
 
                 // Set user artist list in directive
-                $scope.userArtistList = userArtists;
+                // $scope.userArtistList = userArtists;
 
                 //Only need to calculate user artists if there are any
                 if (userArtists.length !== 0) {
