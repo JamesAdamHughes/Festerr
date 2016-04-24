@@ -72,8 +72,7 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
             $scope.spotifyUserInfo.short_name = "Anon";
         }
 
-    }).catch(function(err){
-        console.log(err);
+    }).catch(function(){
     });
 
     // Performs chipSearch asynchronously so as not to hang the browser
