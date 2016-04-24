@@ -15,8 +15,7 @@ function FavouriteListController($scope, $q, NetworkService, $location, SpotifyS
         method: 'GET', credentials: 'include'
     }).then(function (res) {
         console.log(res);
+        $scope.favouriteEvents = res;
     });
-
-
 }
 

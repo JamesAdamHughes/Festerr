@@ -144,7 +144,11 @@ router.get('/event/likes', function (req, res) {
                 // Collect all the events data 
                 return q.all(promises);           
             }).then(function(userLikedEvents){
-                res.send(userLikedEvents);
+                var finalEvents = [];
+                userLikedEvents.forEach(function(e){
+                    finalEvents.push(e.event);
+                });
+                res.send(finalEvents);
             }).catch(function (err) {
                 console.log(err);
                 res.send(err);
