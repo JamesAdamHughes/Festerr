@@ -1,37 +1,41 @@
-angular.module('festerrApp').factory('SearchService', function() {
+angular.module('festerrApp').factory('SearchService', function (FestivalDataService) {
 
     //Function to filter events and artist lists and show autocomplete suggestions for chip search
-    var chipSearch = function(query, eventList, artistList) {
+    var chipSearch = function (query) {
         var searching = true;
         var searchQuery = query;
         var events;
         var artists;
-        var results;
+        var results;               
 
-        events = query ? eventList.filter(createEventFilterFor(query)) : [];
-        events = events.map(function(event) {
-            //Allows HTML to display 'name' and 'type' values in chips
-            event.name = event.eventname;
-            event.type = "event";
-            return event;
+        // Get all possible events and artists that match query
+        return FestivalDataService.getFestivalData().then(function (data) {
+            events = query ? data.events.filter(createEventFilterFor(query)) : [];
+            events = events.map(function (event) {
+                //Allows HTML to display 'name' and 'type' values in chips
+                event.name = event.eventname;
+                event.type = "event";
+                return event;
+            });
+
+            artists = query ? data.artists.filter(createArtistFilterFor(query)) : [];
+            artists = artists.map(function (artist) {
+                artist.type = "artist";
+                return artist;
+            });
+
+            results = events.concat(artists);
+
+            // Sort results using levenshteinSearch distance        
+            results.sort(createlevenshteinSearch(searchQuery));
+
+            // Only return the top 10 results
+            return results.slice(0, 10);
         });
-
-        artists = query ? artistList.filter(createArtistFilterFor(query)) : [];
-        artists = artists.map(function(artist) {
-            artist.type = "artist";
-            return artist;
-        });
-        results = events.concat(artists);
-
-        // Sort results using levenshteinSearch distance        
-        results.sort(createlevenshteinSearch(searchQuery));
-
-        // Only return the top 10 results
-        return results.slice(0, 10);
     };
 
     // Returns a filter for the eventlist for events (or artists within that event) matching a query
-    var createEventFilterFor = function(query) {
+    var createEventFilterFor = function (query) {
         var lowerCaseQuery = angular.lowercase(query);
 
         return function filterFn(event) {
@@ -43,12 +47,12 @@ angular.module('festerrApp').factory('SearchService', function() {
             if (event.artists !== undefined) {
                 for (var i = event.artists.length - 1; i >= 0; i--) {
                     artistName = artistName || (angular.lowercase(event.artists[i].name).indexOf(lowerCaseQuery || '') !== -1);
-                };
+                }
             }
             if (event.spotifyArtists !== undefined) {
                 for (var i = event.spotifyArtists.length - 1; i >= 0; i--) {
                     artistName = artistName || (angular.lowercase(event.spotifyArtists[i].name).indexOf(lowerCaseQuery || '') !== -1);
-                };
+                }
             }
 
             return eventName || artistName;
@@ -56,7 +60,7 @@ angular.module('festerrApp').factory('SearchService', function() {
     };
 
     // Returns a filter for the artist for artists matching a query
-    var createArtistFilterFor = function(query) {
+    var createArtistFilterFor = function (query) {
         var lowerCaseQuery = angular.lowercase(query);
 
         return function filterFn(artist) {
@@ -64,21 +68,15 @@ angular.module('festerrApp').factory('SearchService', function() {
         };
     };
 
-    var createlevenshteinSearch = function(searchQuery) {
-        return function(a, b) {
+    var createlevenshteinSearch = function (searchQuery) {
+        return function (a, b) {
             var aDistance = levenshteinDistance(searchQuery, a.name);
             var bDistance = levenshteinDistance(searchQuery, b.name);
             return aDistance - bDistance;
-        }
-    }
+        };
+    };
 
-    var levenshteinSearch = function(a, b) {
-        var aDistance = levenshteinDistance(searchQuery, a.name);
-        var bDistance = levenshteinDistance(searchQuery, b.name);
-        return aDistance - bDistance;
-    }
-
-    var levenshteinDistance = function(a, b) {
+    var levenshteinDistance = function (a, b) {
         if (a.length == 0) return b.length;
         if (b.length == 0) return a.length;
 
@@ -110,9 +108,9 @@ angular.module('festerrApp').factory('SearchService', function() {
         }
 
         return matrix[b.length][a.length];
-    }
+    };
 
     return {
         chipSearch: chipSearch
-    }
+    };
 });

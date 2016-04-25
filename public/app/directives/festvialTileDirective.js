@@ -12,7 +12,7 @@ angular.module('festivalTileDirective', [])
                 collapse: '=',
                 artistList: '='
             },
-            templateUrl: 'templates/eventTile.html',
+            templateUrl: 'app/views/festivalList/eventTile.html',
             link: function(scope, element, attrs) {
 
                 var defaultMargin = 10;
@@ -50,7 +50,7 @@ angular.module('festivalTileDirective', [])
                 setElementSizes();    
 
                 // Trim the eventname to fit on the cards
-                if (scope.event.eventname.length > 20) {
+                if (scope.event.eventname.length >= 19) {
                     scope.displayEventName = scope.event.eventname.substring(0, 17) + "...";
                 } else {
                     scope.displayEventName = scope.event.eventname;
@@ -76,7 +76,6 @@ angular.module('festivalTileDirective', [])
 
                 function setElementSizes() {
                     var screenWidth = $window.innerWidth;
-                    var screenHeight = $window.innerHeight;
 
                     // Whether to show festival and details card as row or column                
                     defaultContainerFlexFlow = screenWidth < breakPoint ? "column" : "row";

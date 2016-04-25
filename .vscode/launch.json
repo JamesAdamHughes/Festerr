@@ -29,6 +29,14 @@
 			"outDir": null,
 			"localRoot": "${workspaceRoot}",
 			"remoteRoot": null
-		}
+		},
+		 {
+            "name": "Launch Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000/#/",
+            "webRoot": "${workspaceRoot}/public/app",
+			"port": 3000
+        }
 	]
 }
