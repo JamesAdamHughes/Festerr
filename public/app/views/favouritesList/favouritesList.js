@@ -4,13 +4,9 @@ angular.module('FavouriteListView', ['ngMaterial'])
 
 function FavouriteListController($scope, $q, NetworkService, $location, SpotifyService, DateFormatService) {
 
-    $scope.eventsLoaded = true;
-    $scope.favouriteEvents = [{
-        eventname: "Test Event",
-        entryprice: "£129.87",
-        venue: "My na's house ya fecker"
-    }];
-
+    $scope.eventsLoaded = false;
+    $scope.authedUser = false;
+    
     $scope.formatDate = function (date) {
         return DateFormatService.format(date);
     };
@@ -19,7 +15,16 @@ function FavouriteListController($scope, $q, NetworkService, $location, SpotifyS
         method: 'GET', credentials: 'include'
     }).then(function (res) {
         console.log(res);
-        $scope.favouriteEvents = res;
+        $scope.eventsLoaded = true;
+        if (res.ok) {
+            $scope.favouriteEvents = res;
+            $scope.authedUser = true;
+        } else {
+            // User not logged in
+            $scope.authedUser = false;
+        }
+    }).catch(function (err) {
+        console.log(err);
     });
 }
 

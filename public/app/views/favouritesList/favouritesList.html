@@ -4,6 +4,10 @@
     <div id="progress-container" ng-show="!eventsLoaded">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
+    
+    <div ng-if="!authedUser" style="height:200px;padding-top: 100px;font-size:large;">
+        Log into Festerr to start adding favourite festivals!
+    </div>
 
     <!-- TILES CONTAINER -->
     <div id="info-container" ng-show="eventsLoaded">

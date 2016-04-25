@@ -125,8 +125,7 @@ router.get('/event/likes', function (req, res) {
     var response = { ok: false };
 
     if (req.session.userID) {
-        models.User.findOne(
-            {
+        models.User.findOne({
                 where: { spotifyID: req.session.userID }
             }).then(function (user) {
                 if (user) {
@@ -155,7 +154,8 @@ router.get('/event/likes', function (req, res) {
                 res.send(finalEvents);
             }).catch(function (err) {
                 console.log(err);
-                res.send(err);
+                response.error = err;
+                res.send(response);
             });
     } else {
         res.send(response);
