@@ -85,14 +85,18 @@ router.get('/event/', function (req, res) {
                         // If not logged in, just send normal data with no like info
                         res.send(response);
                     } else {
-                        return user.getEvents({ where: { skiddleID: data.event.id } });
+                        
+                        // if logged in, check if they have liked this one
+                        user.getEvents({
+                            where: { skiddleID: response.event.id }
+                        }).then(function (userEvents) {
+                            if (userEvents.length !== 0) {
+                                // The user has liked this previously!
+                                response.liked = true;
+                            }
+                            res.send(response);
+                        });
                     }
-                }).then(function (userEvents) {
-                    if (userEvents.length !== 0) {
-                        // The user has liked this previously!
-                        response.liked = true;
-                    }
-                    res.send(response);
                 }).catch(function (err) {
                     console.log("ERROR " + err);
                     res.send(err);
@@ -131,21 +135,21 @@ router.get('/event/likes', function (req, res) {
                 else {
                     throw new Error("No user found with id " + req.session.userID);
                 }
-            }).then(function(events) {
+            }).then(function (events) {
                 // Get the event information
                 var promises = [];
-                
-                for(var i = 0; i < events.length; i++){
-                    var p = skiddleAPI.getSingleEvent(events[i].dataValues.skiddleID).then(function(eventData){
+
+                for (var i = 0; i < events.length; i++) {
+                    var p = skiddleAPI.getSingleEvent(events[i].dataValues.skiddleID).then(function (eventData) {                        
                         return eventData;
                     });
                     promises.push(p);
                 }
                 // Collect all the events data 
-                return q.all(promises);           
-            }).then(function(userLikedEvents){
+                return q.all(promises);
+            }).then(function (userLikedEvents) {
                 var finalEvents = [];
-                userLikedEvents.forEach(function(e){
+                userLikedEvents.forEach(function (e) {                    
                     finalEvents.push(e.event);
                 });
                 res.send(finalEvents);

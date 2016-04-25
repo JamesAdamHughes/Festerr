@@ -1,10 +1,41 @@
 #favourite-card-list-container{
     margin-top: 20px;
-    width: 80%;
 }
 
 .favourite-card {
-    height: 150px;
-    width: 100%;
-    background-color: blue;
+    height: 170px;
+    width: 670px;
+    background-color: white;
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 4px #AAAAAA;
+
+}
+
+.favourite-card .festival-image {
+    width: 170px;
+    height: 100%;
+    background-size: cover;
+}
+
+.favourite-card .details-container {
+    width: 500px;
+    height: 100%;
+    padding: 16px;
+}
+
+.favourite-card .header {
+    font-size: x-large;
+    margin-left: 10px;
+}
+
+.favourite-card .event-details {
+}
+
+.info-box {
+    margin: 8px;
 }
