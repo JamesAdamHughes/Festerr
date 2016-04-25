@@ -151,7 +151,9 @@ router.get('/event/likes', function (req, res) {
                 userLikedEvents.forEach(function (e) {                    
                     finalEvents.push(e.event);
                 });
-                res.send(finalEvents);
+                response.events = finalEvents;
+                response.ok = true;
+                res.send(response);
             }).catch(function (err) {
                 console.log(err);
                 response.error = err;

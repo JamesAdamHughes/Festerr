@@ -17,7 +17,7 @@ function FavouriteListController($scope, $q, NetworkService, $location, SpotifyS
         console.log(res);
         $scope.eventsLoaded = true;
         if (res.ok) {
-            $scope.favouriteEvents = res;
+            $scope.favouriteEvents = res.events;
             $scope.authedUser = true;
         } else {
             // User not logged in
