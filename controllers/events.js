@@ -80,13 +80,18 @@ router.get('/event/', function (req, res) {
                     if (data.ok) {
                         response = data;
                         // Build google search query (with extra terms "crowd" & "stage" to get better images)
-                        var query = googleImageSearch.buildImageQuery(response.event.eventname + " crowd stage");
+                        var query = googleImageSearch.buildImageQuery(response.event.eventname + " festival crowd stage");
                         // Make google search
-                        return googleImageSearch.makeRequest(query); 
+                        return googleImageSearch.makeRequest(query).then( function(imageResponse) {
+                            return imageResponse[0].link;
+                        }).catch(function (err) {
+                            console.log("ERROR " + err.message);
+                            return response.event.largeimageurl;
+                        }); 
                     }
                 }).then(function (imageResponse){
-                        response.event.headerimageurl = imageResponse[0].link;
-                        return models.User.findOne({ where: { spotifyID: req.session.userID } });
+                    response.event.headerimageurl = imageResponse;
+                    return models.User.findOne({ where: { spotifyID: req.session.userID } });
                 }).then(function (user) {
                     if (!user) {
                         // If not logged in, just send normal data with no like info
