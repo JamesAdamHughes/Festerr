@@ -32,7 +32,6 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
 
     // Handle user clicking the signup button Displays a signup dialogue
     // If spotify code exists don't need to do this again
-    // TODO some user auth to check if they are signed in already etc
     var parentEl = angular.element(document.body);
     $scope.showSignupDialog = function($event) {
         if (!dialogOpen) {
@@ -43,7 +42,6 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
                 clickOutsideToClose: true,
                 templateUrl: "app/views/header/signupDialog.html",
                 controller: SignupController,
-                // onComplete: afterShowAnimation,
             }).finally(function() {
                 dialogOpen = false;
             });
@@ -55,7 +53,6 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
 
     // Get user info then set it for the header to display
     SpotifyService.getUserInfo().then(function(res) {
-        console.log(res);
         $scope.spotifyLoggedIn = true;
         $scope.spotifyUserInfo = res;
 
@@ -74,8 +71,7 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
             $scope.spotifyUserInfo.short_name = "Anon";
         }
 
-    }).catch(function(err){
-        console.log(err);
+    }).catch(function(){
     });
 
     // Performs chipSearch asynchronously so as not to hang the browser
@@ -91,14 +87,16 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
 
                 // Search the events and artists for the given query 
                 // Returns with possible suggestions that match the query, for autocomplete
-                resolve(SearchService.chipSearch(query, $scope.eventList, $scope.artistList));
+                resolve(SearchService.chipSearch(query));
+                
                 $scope.refreshDebounce();
             });
         }
 
         return $scope.pendingSearch;
     };
-
+    
+    // Watch if user has started seaching, emit the search onto the rootscope
     $scope.$watch('selectedChips', function(oldV, newV) {
         if (newV) {
             $rootScope.$emit('header searchItemsUpdated', $scope.selectedChips);
@@ -163,11 +161,8 @@ function HeaderController($scope, $q, $window, $interval, $mdDialog, SpotifyServ
                 angular.element(document.getElementById('tabs-header-bar')).removeClass('nav-up').addClass('nav-down');
             }
         }
-
         lastScrollTop = st;
     }
-
-
 }
 
 function SignupController($scope, $mdDialog) {

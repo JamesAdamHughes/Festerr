@@ -4,7 +4,7 @@ angular.module('EventDetailView', ['ngMaterial'])
 
 function EventDetailController($scope, $q, NetworkService, $location, SpotifyService) {
 
-    $scope.eventLiked = true;
+    $scope.eventLiked = false;
     $scope.event = {};
     $scope.userArtists;
     $scope.otherArtists;
@@ -18,15 +18,18 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
     // Filter the artist data into two groups
     function getEventDetails(eventID) {
         
-        var query = {
-            url: "/event?type=single&id=" + eventID,
-            method: "GET"
+        // Create the request
+        var url = "/event/?type=single&id=" + eventID;
+        var options = {
+            method: 'GET',
+            credentials: 'include'
         };
         
         // Get artist data then filter it
-        NetworkService.callAPI(query).then(function(res) {
+        NetworkService.callAPI(url, options).then(function(res) {
             if (res.ok) {
                 $scope.event = res.event;
+                $scope.eventLiked = res.liked ? true : false;
                 // filter the artists in the event 
                 return SpotifyService.filterUserArtists(res.event.artists);
             } else {
@@ -48,7 +51,8 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
 
         //Send the like change to the server to save it
         //TODO 
-
+        NetworkService.callAPI('/event/' + eventID + '/like', {method:'GET', credentials: 'include'});
+        
         // Remove the animate class when finished
         likeElement.addEventListener("animationend", removeAnimationClass);
     };

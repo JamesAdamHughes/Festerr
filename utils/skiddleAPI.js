@@ -1,6 +1,6 @@
 var request = require('request');
 var q = require('q');
-
+var models = require('../models');
 var cachedEventData = undefined;
 
 var defaultOptions = {
@@ -13,7 +13,9 @@ var defaultOptions = {
 
 var skiddleAPI = {
 
-	getAllEvents: function (res) {
+    getAllEvents: function() {
+        var deferred = q.defer();
+        var response;
 
         // Check to see if we've already cached the event data
         if (!cachedEventData) {
@@ -25,63 +27,97 @@ var skiddleAPI = {
             options.qs.order = '4';
 
             console.log("GET " + options.url);
+            
+            // We get all the festival data from skiddle, and insert it into our database
+            // If the event is already stored don't add it
+            // Return the cached data
+            apiRequest(options).then(function(data) {
+                // save the cached data
+                cachedEventData = data;
+                
+                return models.sequelize.transaction(function(t) {
+                    return models.Sequelize.Promise.map(data, function(event) {
+                        return models.Event.findOne({ where: { skiddleID: event.id } }, { transaction: t }).then(function(e) {
+                            if (!e) {
+                                // Event was not in the DB, so add it
+                                return models.Event.create({ skiddleID: event.id, name: event.eventname });
+                            } else {
+                                // Event was in the DB, no need to add it
+                            }
+                        }).catch(function(err){
+                            console.log(err);
+                        });
+                    });
+                });
+            }).then(function() {                
+                // return the cached data                
+                deferred.resolve(cachedEventData);
+            }).catch(function(err) {
+                // an error occured 
+                console.log(err);
+                deferred.reject("an error occured");
+            });
 
-            //Send the request
-            apiRequest(options, res);
-
-        // Cached data present
+            // Cached data present
         } else {
             response = cachedEventData;
             response.ok = true;
-            res.send(response);
+            deferred.resolve(response);
         }
 
+        return deferred.promise;
     },
-    
+
     // Returns the details of a given event
     // Takes event id as argument
-    getSingleEvent: function (id){
+    getSingleEvent: function(id) {
         var deferred = q.defer();
         var event;
-        
+
         // Check against the cache
-        if(!cachedEventData){
+        if (!cachedEventData) {
             // this shouldn't happen because we have to get here from the main page
             // TODO call this against skiddle
-            deferred.reject({ok:false, error:"No event data cached"});
-        } else{
-            for(var i = 0; i < cachedEventData.length; i++){
-                if(cachedEventData[i].id === id){
+            deferred.reject({ ok: false, error: "No event data cached" });
+        } else {
+            for (var i = 0; i < cachedEventData.length; i++) {
+                if (cachedEventData[i].id === id) {
                     event = cachedEventData[i];
                     break;
                 }
             }
             
-            if(event === undefined){
-                deferred.reject({ok:false, error: "Cannot find event in cache"});
-            } else {
-                deferred.resolve({ok:true, event: event});
+            // Return event data 
+            if (event === undefined) {
+                deferred.reject({ ok: false, error: "Cannot find event in cache" });
+            } else {              
+                deferred.resolve({ ok: true, event: event });
             }
         }
-        
+
         return deferred.promise;
     }
 };
 
 // Function to call api with given options and endpoint
-function apiRequest(options, res) {
-    request(options, function (error, reqResponse, body) {
-        if (error) throw new Error(error);
-        var contents = JSON.parse(body);
-        if (contents.error !== 0) {
+function apiRequest(options) {
+    var deferred = q.defer();
+
+    request(options, function(error, reqResponse, body) {
+        if (error) {
             console.log('ERROR ' + contents.errorcode + ': ' + contents.errormessage);
+            deferred.reject(error);
         } else {
-            cachedEventData = contents.results;
+            var contents = JSON.parse(body);
+            var response;
+
             response = contents.results;
             response.ok = true;
+            deferred.resolve(response);
         }
-        res.send(response);
     });
+
+    return deferred.promise;
 }
 
 module.exports = skiddleAPI;

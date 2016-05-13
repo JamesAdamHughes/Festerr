@@ -38,35 +38,4 @@
             </div>
         </md-card>
     </div>
-
-    <div class="festival-details-container animate-show" ng-if="isExpanded" style="width:{{detailsCardWidth}};height:{{festivalDisplayHeight}};">
-        <div class="festival-card festival-details" md-whiteframe="6" ng-show="isExpanded" style="height: {{festivalDisplayHeight}};">
-            <md-toolbar class="md-warn">
-                <div class="md-toolbar-tools">
-                    <h2 class="md-flex">Appearing Artists</h2>
-                </div>
-            </md-toolbar>
-            <md-content flex layout-padding style="height: {{festivalDetailsDisplayHeight}};">
-                <md-list>
-                    <md-subheader ng-show="event.spotifyArtists.length" class="md-no-sticky">Your Artists ({{ ::event.spotifyArtists.length}})</md-subheader>
-                    <md-list-item class="md-2-line" ng-repeat="artist in event.spotifyArtists | limitTo:20">
-                        <img ng-src="{{::artist.image}}?20" class="md-avatar" />
-                        <div class="md-list-item-text">
-                            <h3>{{ ::artist.name }}</h3>
-                            <p>Secondary text</p>
-                        </div>
-                    </md-list-item>
-                    <md-subheader class="md-no-sticky">Other Artists ({{ ::event.artists.length}})</md-subheader>
-                    <md-list-item class="md-2-line" ng-repeat="artist in event.artists | limitTo:20">
-                        <img ng-src="{{::artist.image}}?20" class="md-avatar" />
-                        <div class="md-list-item-text">
-                            <h3>{{ ::artist.name }}</h3>
-                            <p>Secondary text</p>
-                        </div>
-                    </md-list-item>
-                    <p ng-show="event.artists.length === 0">No artist data available, sorry!</p>
-                </md-list>
-                <md-content>
-        </div>
-    </div>
 </div>
