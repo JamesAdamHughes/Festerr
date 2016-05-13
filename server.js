@@ -11,8 +11,8 @@ var secretString = process.env.session_secret; // secret used to encrypt the ses
 var app = express();
 
 var options = {
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.crt')
+    key: fs.readFileSync('/config/server.key'),
+    cert: fs.readFileSync('/config/server.crt')
 };
 
 // All static filss are in the public folder
@@ -44,17 +44,9 @@ function setupUserSession(req, res, next) {
     next();
 }
 
-// Serve /event 
+// Serve endpoints with different controllers
 app.get('/event/*', require("./controllers/events.js"));
 app.get('/spotify/*', require('./controllers/spotify'));
-
-// Start the server listening on port 3000
-
-// Example query for google image search
-// var query = imageSearch.buildImageQuery("Strawberries and cream festival 2016");
-// var imageSearchResult = imageSearch.makeRequest(query).then(function(res){
-//     console.log(res);
-// });
 
 /*
     Start the server listening on port 3000
@@ -69,12 +61,6 @@ models.sequelize.sync().then(function () {
 
         console.log('Fester app listening at http://%s:%s', host, port);
    });
-    
-    // var server = app.listen(process.env.PORT || 3000, function () {
-
-
-
-    // });
 });
 
 
