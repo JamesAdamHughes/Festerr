@@ -6,7 +6,7 @@ if(process.env.mode === "PROD"){
     // the env vars are already set
 } else {
     // else in dev enviroment, so add the env variables
-    var init = require('./config/setEnvVars.js');  
+    require('./config/setEnvVars.js');  
 }
 
 var options = {
