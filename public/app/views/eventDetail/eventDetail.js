@@ -1,8 +1,8 @@
 angular.module('EventDetailView', ['ngMaterial'])
-    .controller('EventDetailCtrl', ['$scope', '$q', 'NetworkService', "$location", "SpotifyService", EventDetailController]);
+    .controller('EventDetailCtrl', ['$scope', '$q', 'NetworkService', "$location", "SpotifyService","DateFormatService", EventDetailController]);
 
 
-function EventDetailController($scope, $q, NetworkService, $location, SpotifyService) {
+function EventDetailController($scope, $q, NetworkService, $location, SpotifyService, DateFormatService) {
 
     $scope.eventLiked = false;
     $scope.event = {};
@@ -59,6 +59,10 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
         
         // Remove the animate class when finished
         likeElement.addEventListener("animationend", removeAnimationClass);
+    };    
+        
+    $scope.formatDate = function(date){
+        return DateFormatService.format(date);
     };
 
     // Remove animation class

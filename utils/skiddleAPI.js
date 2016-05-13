@@ -73,7 +73,7 @@ var skiddleAPI = {
     getSingleEvent: function(id) {
         var deferred = q.defer();
         var event;
-
+        
         // Check against the cache
         if (!cachedEventData) {
             // this shouldn't happen because we have to get here from the main page
@@ -81,7 +81,7 @@ var skiddleAPI = {
             deferred.reject({ ok: false, error: "No event data cached" });
         } else {
             for (var i = 0; i < cachedEventData.length; i++) {
-                if (cachedEventData[i].id === id) {
+                if (Number(cachedEventData[i].id) === Number(id)) {
                     event = cachedEventData[i];
                     break;
                 }

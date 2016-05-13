@@ -27,7 +27,7 @@
                     <div class="info-box">
                         <md-icon md-svg-src="/images/event_gray.svg" aria-label="Date">
                         </md-icon>
-                        {{event.date}}
+                        {{formatDate(event.date)}}
                     </div>
                     <div class="info-box">
                         <md-icon md-svg-src="/images/place_gray.svg" aria-label="Place">
@@ -35,7 +35,7 @@
                         {{event.venue.name}} {{event.venue.address}}
                     </div>
                     <div class="info-box">
-                        <md-icon md-svg-src="/images/ticket_gray.svg" aria-label="Price">
+                        <md-icon md-svg-src="/images/cash.svg" aria-label="Price">
                         </md-icon>
                         {{event.entryprice}}
                     </div>
