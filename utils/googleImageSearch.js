@@ -6,7 +6,7 @@ var queryBuilder = require('./queryBuilder.js');
 // Set the default params for the search
 var defaultParams = {
     // search term
-    q: "parklife+festival+2016",
+    q: "festival+crowd",
     // custom seach engine key
     cx: process.env.google_cx_key,
     // app key
@@ -17,6 +17,10 @@ var defaultParams = {
     fileType: "jpg",
     // what type of image to search for
     imgType: "photo",
+    // image size
+    imgSize: "xlarge",
+    //safe search level
+    safe: "medium",
     // how many results to return
     num: 5
 };
@@ -38,8 +42,7 @@ var googleImageSearch = {
         
         // Build the final query
         params.q = escapedSearch;
-        query = queryBuilder.buildQuery(process.env.google_url, params);
-        
+        query = queryBuilder.buildQuery(process.env.google_search_url, params);
         return query;         
     },
     

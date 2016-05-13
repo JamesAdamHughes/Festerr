@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router();
 var skiddleAPI = require(__dirname + '/../utils/skiddleAPI');
+var googleImageSearch = require(__dirname + '/../utils/googleImageSearch');
 var models = require('../models');
 var q = require('q');
 /*
@@ -76,15 +77,21 @@ router.get('/event/', function(req, res) {
                     // If a logged in user requests this, see if they have liked this event
                     if(data.ok){
                        response = data;
+                       // Build google search query (with extra terms "crowd" & "stage" to get better images)
+                       var query = googleImageSearch.buildImageQuery(response.event.eventname + " crowd stage");
+                       // Make google search
+                       return googleImageSearch.makeRequest(query); 
+                   }             
+                }).then(function(imageResponse){
+                       response.event.headerimageurl = imageResponse[0].link;
                        return models.User.findOne({where: {spotifyID: req.session.userID}}).then(function(user){
                            if(!user){
                                // If not logged in, just send normal data with no like info
                                res.send(response);
                            } else {
-                               return user.getEvents({where: {skiddleID: data.event.id}});
+                               return user.getEvents({where: {skiddleID: response.event.id}});
                            }
                        }); 
-                    }                    
                 }).then(function(userEvents){                    
                     if(userEvents.length !== 0){
                         // The user has liked this previously!
