@@ -1,8 +1,13 @@
 <div id="main-container">
 
     <ng-include src="'/app/views/header/header.html'"></ng-include>
+    
+        <!-- Loading progress bar -->
+    <div id="progress-container" ng-show="!eventLoaded">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
 
-    <div id="event-container">
+    <div id="event-container" ng-show="eventLoaded">
         <div id="event-image" ng-style="{ 'background-image': 'url(' + event.headerimageurl + ')'}">
         </div>
         <div id="event-details-container">
