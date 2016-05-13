@@ -84,14 +84,24 @@ angular.module('festerrApp').factory('SpotifyService', function($q, $location, $
         return getAllArtists().then(function(userArtists) {
             //Only need to calculate user artists if there are any
             if (userArtists.length !== 0) {
+                
+                var names = [];
+                
+                console.info(userArtists);
+                
                 //Break event artist list into ones from the user's spotify and the rest
                 allArtistsInEvent.forEach(function(eventArtist){
+                    
+                    names.push(eventArtist.name);
+                    
                     if(userArtists.indexOf(eventArtist.name) !== -1){
                         userArtistsInEvent.push(eventArtist);       
                     } else {
                         otherArtistsInEvent.push(eventArtist);
                     }
                 });
+                
+                console.log(names);    
 
                 return({ user: userArtistsInEvent, other: otherArtistsInEvent });
             } else {
