@@ -1,57 +1,54 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        
-        <title>Festerr</title>
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/EventDetail.css">
-		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
-		<link rel="stylesheet" type="text/css" href="css/gridStyles.css">
-        <link rel="stylesheet" type="text/css" href="css/signup.css">
-        <link rel="stylesheet" type="text/css" href="css/header.css">
-         <link rel="stylesheet" type="text/css" href="css/festivalCard.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 
-        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"> -->
-        <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-        <link rel="shortcut icon" type="image/ico"  type="image/x-icon" sizes="32x32" href="/images/favicon/favicon.ico">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <!--<link rel="shortcut icon" href="/images/favicon.ico/favicon-16x16.png" type="image/x-icon" />-->
-	</head>
+    <title>Festerr</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/EventDetail.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+    <link rel="stylesheet" type="text/css" href="css/gridStyles.css">
+    <link rel="stylesheet" type="text/css" href="css/signup.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/festivalCard.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 
-	<body ng-app="festerrApp">
-        
-        <ng-view></ng-view>
-    
-	</body>
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"> -->
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="/images/favicon/favicon.ico">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.0.0/mustache.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <!--<link rel="shortcut icon" href="/images/favicon.ico/favicon-16x16.png" type="image/x-icon" />-->
+</head>
+
+<body data-ng-app="festerrApp">
+
+    <div data-ng-view><div>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.0.0/mustache.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-cookies.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-aria.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/0.11.0/fetch.min.js"></script>
-    
-	<script type="text/javascript" src="js/FesterrMap.js"></script>
-	<script type="text/javascript" src="app/app.js"></script>
+
+    <script type="text/javascript" src="app/app.js"></script>
     <script type="text/javascript" src="app/views/mainController.js"></script>
-	<script type="text/javascript" src="app/views/festivalList/festivalList.js"></script>
+    <script type="text/javascript" src="app/views/festivalList/festivalList.js"></script>
     <script type="text/javascript" src="app/views/header/header.js"></script>
     <script type="text/javascript" src="app/views/eventDetail/eventDetail.js"></script>
-	<script type="text/javascript" src="app/services/FestivalDataService.js"></script>
-	<script type="text/javascript" src="app/services/NetworkService.js"></script>
+    <script type="text/javascript" src="app/services/FestivalDataService.js"></script>
+    <script type="text/javascript" src="app/services/NetworkService.js"></script>
     <script type="text/javascript" src="app/services/SpotifyService.js"></script>
     <script type="text/javascript" src="app/services/SearchService.js"></script>
-        <script type="text/javascript" src="app/services/DateFormatService.js"></script>
+    <script type="text/javascript" src="app/services/DateFormatService.js"></script>
+    <script type="text/javascript" src="app/directives/festvialTileDirective.js"></script>
+</body>
 
-	<script type="text/javascript" src="app/directives/festvialTileDirective.js"></script>
 </html>
