@@ -5,7 +5,7 @@ var sessions = require("client-sessions");
 var models = require("./models"); // Database models
 
 // check if enviroment vars are set, else load them
-if (process.env.mode !== "PROD") { require('./config/setEnvVars.js') }
+if (process.env.mode !== "PROD") { require('./config/setEnvVars.js');}
 
 var secretString = process.env.session_secret; // secret used to encrypt the session cookies
 var app = express();
