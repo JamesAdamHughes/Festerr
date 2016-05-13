@@ -8,6 +8,8 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
     $scope.event = {};
     $scope.userArtists;
     $scope.otherArtists;
+    $scope.eventLoaded = false;
+    
 
     var likeElement = document.getElementById('event-like-circle');
     var eventID = $location.search().id; // get the event ID from the query string
@@ -38,6 +40,8 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
         }).then(function(filteredArtists){
             $scope.userArtists = filteredArtists.user;
             $scope.otherArtists = filteredArtists.other;
+            
+            $scope.eventLoaded = true;
         });
     }
 
