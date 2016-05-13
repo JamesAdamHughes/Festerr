@@ -85,7 +85,7 @@ router.get('/event/', function (req, res) {
                         // If not logged in, just send normal data with no like info
                         res.send(response);
                     } else {
-                        
+
                         // if logged in, check if they have liked this one
                         user.getEvents({
                             where: { skiddleID: response.event.id }
@@ -126,39 +126,45 @@ router.get('/event/likes', function (req, res) {
 
     if (req.session.userID) {
         models.User.findOne({
-                where: { spotifyID: req.session.userID }
-            }).then(function (user) {
-                if (user) {
-                    return user.getEvents();
-                }
-                else {
-                    throw new Error("No user found with id " + req.session.userID);
-                }
-            }).then(function (events) {
-                // Get the event information
-                var promises = [];
+            where: { spotifyID: req.session.userID }
+        }).then(function (user) {
+            if (user) {
+                return user.getEvents();
+            }
+            else {
+                throw new Error("No user found with id " + req.session.userID);
+            }
+        }).then(function (events) {
+            // Get the event information
+            var promises = [];
 
-                for (var i = 0; i < events.length; i++) {
-                    var p = skiddleAPI.getSingleEvent(events[i].dataValues.skiddleID).then(function (eventData) {                        
-                        return eventData;
-                    });
-                    promises.push(p);
-                }
-                // Collect all the events data 
-                return q.all(promises);
-            }).then(function (userLikedEvents) {
-                var finalEvents = [];
-                userLikedEvents.forEach(function (e) {                    
-                    finalEvents.push(e.event);
+            for (var i = 0; i < events.length; i++) {
+                var p = skiddleAPI.getSingleEvent(events[i].dataValues.skiddleID).then(function (eventData) {
+                    console.log(eventData.event.eventname);
+                    return eventData;
+                }).catch(function (err) {
+                    // couldn't find the festival, return nothing
                 });
-                response.events = finalEvents;
-                response.ok = true;
-                res.send(response);
-            }).catch(function (err) {
-                console.log(err);
-                response.error = err;
-                res.send(response);
+                promises.push(p);
+            }
+            // Collect all the events data 
+            return q.all(promises);
+        }).then(function (userLikedEvents) {
+            var finalEvents = [];
+            userLikedEvents.forEach(function (e) {
+                if (e) {
+                    // event may be indefined if not found
+                    finalEvents.push(e.event);
+                }
             });
+            response.events = finalEvents;
+            response.ok = true;
+            res.send(response);
+        }).catch(function (err) {
+            console.log(err);
+            response.error = err;
+            res.send(response);
+        });
     } else {
         res.send(response);
     }
