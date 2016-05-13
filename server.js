@@ -11,8 +11,8 @@ var secretString = process.env.session_secret; // secret used to encrypt the ses
 var app = express();
 
 var options = {
-    key: fs.readFileSync('/config/server.key'),
-    cert: fs.readFileSync('/config/server.crt')
+    key: fs.readFileSync('./config/server.key'),
+    cert: fs.readFileSync('./config/server.crt')
 };
 
 // All static filss are in the public folder
