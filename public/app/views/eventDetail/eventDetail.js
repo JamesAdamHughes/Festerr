@@ -1,13 +1,15 @@
 angular.module('EventDetailView', ['ngMaterial'])
-    .controller('EventDetailCtrl', ['$scope', '$q', 'NetworkService', "$location", "SpotifyService", EventDetailController]);
+    .controller('EventDetailCtrl', ['$scope', '$q', 'NetworkService', "$location", "SpotifyService","DateFormatService", EventDetailController]);
 
 
-function EventDetailController($scope, $q, NetworkService, $location, SpotifyService) {
+function EventDetailController($scope, $q, NetworkService, $location, SpotifyService, DateFormatService) {
 
     $scope.eventLiked = false;
     $scope.event = {};
     $scope.userArtists;
     $scope.otherArtists;
+    $scope.eventLoaded = false;
+    
 
     var likeElement = document.getElementById('event-like-circle');
     var eventID = $location.search().id; // get the event ID from the query string
@@ -38,6 +40,8 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
         }).then(function(filteredArtists){
             $scope.userArtists = filteredArtists.user;
             $scope.otherArtists = filteredArtists.other;
+            
+            $scope.eventLoaded = true;
         });
     }
 
@@ -55,6 +59,10 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
         
         // Remove the animate class when finished
         likeElement.addEventListener("animationend", removeAnimationClass);
+    };    
+        
+    $scope.formatDate = function(date){
+        return DateFormatService.format(date);
     };
 
     // Remove animation class

@@ -1,5 +1,5 @@
 angular.module('festerrApp', [
-    'MainView', 'FestivalListView', 'HeaderView', 'EventDetailView', 'ngRoute', 'festivalTileDirective']).config(function ($routeProvider) {
+    'MainView', 'FestivalListView', 'HeaderView', 'EventDetailView', 'FavouriteListView', 'ngRoute', 'festivalTileDirective']).config(function ($routeProvider) {
         
         $routeProvider.when('/', {
             controller: 'MainCtrl',

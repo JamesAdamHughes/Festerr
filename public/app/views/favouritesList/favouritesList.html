@@ -1,0 +1,45 @@
+<div id="content-container" class="container" ng-controller="FavouriteListCtrl">
+
+    <!-- Loading progress bar -->
+    <div id="progress-container" ng-show="!eventsLoaded">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    
+    <div ng-if="!authedUser" style="height:200px;padding-top: 100px;font-size:large;">
+        Log into Festerr to start adding favourite festivals!
+    </div>
+
+    <!-- TILES CONTAINER -->
+    <div id="info-container" ng-show="eventsLoaded">
+        <div id="favourite-card-list-container">
+            <div class="favourite-card" ng-repeat="event in favouriteEvents">
+                <div class="festival-image" ng-style="{'background-image': 'url(' + event.largeimageurl +')'}">
+
+                </div>
+                <div class="details-container">
+                    <div class="header">
+                        {{event.eventname}}
+                    </div>
+                    <div class="event-details">
+                        <div class="info-box">
+                            <md-icon md-svg-src="/images/event_gray.svg" aria-label="Date">
+                            </md-icon>
+                            {{formatDate(event.date)}}
+                        </div>
+                        <div class="info-box">
+                            <md-icon md-svg-src="/images/place_gray.svg" aria-label="Place">
+                            </md-icon>
+                            {{event.venue.name}} {{event.venue.address}}
+                        </div>
+                        <div class="info-box">
+                            <md-icon md-svg-src="/images/cash.svg" aria-label="Price">
+                            </md-icon>
+                            {{event.entryprice}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
