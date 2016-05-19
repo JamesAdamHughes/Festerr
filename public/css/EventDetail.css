@@ -23,8 +23,6 @@
     width: 800px;
     height: 100%;
     margin-top: 50vh;
-    z-index: 100;
-    /*padding: 0px 100px 0px 100px;*/
     background-color: rgba(0,0,0,0);
     display: flex;
     flex-flow: column;
