@@ -26,7 +26,7 @@
     position: fixed;
     top: 0px;
     left: 0px; 
-    padding: 10px 40px 0px 40px;   
+    padding-top: 10px;
     width: 100%;  
     z-index: 100;
     display: flex;
@@ -85,6 +85,7 @@ input:focus::-webkit-input-placeholder { /* Only works on WebKit, Blink, Edge */
 
 #header-text-container {
     width: 80px;
+    margin-left: 10px;
     height: 50%;
     display: flex;
     flex-flow: row;
@@ -97,7 +98,7 @@ input:focus::-webkit-input-placeholder { /* Only works on WebKit, Blink, Edge */
 }
 
 #header-user-login-container {
-    width: 100px;
+    /*width: 100px;*/
     height: 50%;
 }
 
