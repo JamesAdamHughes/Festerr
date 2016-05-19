@@ -180,6 +180,26 @@ md-chips.md-default-theme .md-chips{
     box-shadow: none;
 }
 
+#header-text-container a:link {
+    text-decoration: none;
+    color:white;
+}
+
+#header-text-container a:visited {
+    text-decoration: none;
+    color:white;
+}
+
+#header-text-container a:hover {
+    text-decoration: none;
+    color:white;
+}
+
+#header-text-container a:active {
+    text-decoration: none;
+    color:white;
+}
+
 @media (max-width:600px) {
 
     /* Hide the username on small sreens */
