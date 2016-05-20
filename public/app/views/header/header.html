@@ -2,7 +2,7 @@
 
     <div id="main-header-bar">
         <div id="header-text-container">
-            <h1>Festerr</h1>
+            <h1><a href="/#/">Festerr</a></h1>
         </div>
 
         <div id="header-search-box-container">
@@ -37,11 +37,11 @@
     <div id="tabs-header-bar" class="nav-down">
         <div id="header-tabs-container">
         <md-tabs md-dynamic-height md-border-bottom>
-            <md-tab label="What's Hot">
+            <md-tab label="What's Hot" md-on-select="onTabSelected(0)">
             </md-tab>
-            <md-tab label="Upcoming">
+            <md-tab label="Upcoming" md-on-select="onTabSelected(1)">
             </md-tab>
-            <md-tab label="Favourites">
+            <md-tab label="Favourites" md-on-select="onTabSelected(2)">
             </md-tab>
         </md-tabs>
     </div>

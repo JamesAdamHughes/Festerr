@@ -1,9 +1,14 @@
 <div id="main-container">
 
     <ng-include src="'/app/views/header/header.html'"></ng-include>
+    
+        <!-- Loading progress bar -->
+    <div id="progress-container" ng-show="!eventLoaded">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
 
-    <div id="event-container">
-        <div id="event-image">
+    <div id="event-container" ng-show="eventLoaded">
+        <div id="event-image" ng-style="{ 'background-image': 'url(' + event.headerimageurl + ')'}">
         </div>
         <div id="event-details-container">
             <div id="event-header-container" class="panel">
@@ -22,7 +27,7 @@
                     <div class="info-box">
                         <md-icon md-svg-src="/images/event_gray.svg" aria-label="Date">
                         </md-icon>
-                        {{event.date}}
+                        {{formatDate(event.date)}}
                     </div>
                     <div class="info-box">
                         <md-icon md-svg-src="/images/place_gray.svg" aria-label="Place">
@@ -30,7 +35,7 @@
                         {{event.venue.name}} {{event.venue.address}}
                     </div>
                     <div class="info-box">
-                        <md-icon md-svg-src="/images/ticket_gray.svg" aria-label="Price">
+                        <md-icon md-svg-src="/images/cash.svg" aria-label="Price">
                         </md-icon>
                         {{event.entryprice}}
                     </div>
