@@ -12,17 +12,25 @@ Users are also able to search for upcoming events and artists that they are inte
  
 # Technologies 
 ## Stack 
+### Backend
  * Fester uses a NodeJS server to serve the html/css/js files to the client. The [ExpressJS](http://expressjs.com/) framework is used for route handling, serving the user the main app when they go to the base url. Other endpoints are used to provide a REST API service for the client to access data. For example, the `/spotify/artists/` endpoint provides the client with all of a user's Spotify artists.   
-     
+    
+ * The app gathers the necessary data by hitting endpoints defined in the server. The client and server are designed to be stateless, to follow REST guidelines, and use access tokens to authorize user sessions. 
+ 
+ * We use [Sqlite3](https://www.sqlite.org/whentouse.html) as our database engine. We choose this over MySQL and PostgreSQL because it was the most simple and effective solution to our needs while also offering excellent performance (Sqlite3 is recommeded for sites with over 100,000 hits a day). We do not need to store huge amounts of data as our database acts as a cache, and for each page we need only 2-3 SQL queries at most. Sqlite3 also required much less overhead in terms of setup and configuation, and as it offers far fewer features than than a traditional RDBMS (none of which we need for our app) is a much lighter system, and allows our site to be more responsive to user interaction with the DB when compared to a 'heavier' database solution.
+ 
+ * To interact with Sqlite3 we could use raw SQL queries, but we decided that this would be cumberson, error prone and less secure (through SQL injection attacks). We therefore choose to use an Object-Relational Mapping solution, which provides an API ontop of a database that allows us to use a 'virtual object database' in our Javascript code to manage to underlying data. We choose to use [Sequelize](http://docs.sequelizejs.com/en/latest/) as it is a promise-based ORM for Node.js which supports using SQlite and features transaction support, relations and more. (See more in the technical challanges section). 
+ 
+### Frontend
+   
  * [AngularJS](https://angularjs.org/) is a popular frontend framework developed by Google, which we have used to aide in the creation of our Single Page App (SPA). Angular provides an implementation of the Model, View, Controller (MVC) pattern. A declarative user interface allows two-way bindings to be added to HTML templates, allowing data on the page to be updated in real time when background models are changed. The app is built with reusable components (services, directives, factories) which are injected into the required views. This allows the separation of display & render logic (such as DOM manipulations) from the main logic (network requests, behind-the-scenes logic), which promotes DRY code, more so than with standard JavaScript. Finally, Angular comes with a powerful testing framework, Protractor, that provides unit and integration testing for the entire front end. 
   
- * We use vanilla CSS3 to provide styling to components. However, Angular also allows styles and classes to be applied dynamically, which results in some raw CSS on some components.   
+ * We use vanilla CSS3 to provide styling to components. However, Angular also allows styles and classes to be applied dynamically, which results in some inline CSS on some components.   
   
  * Festerr has a unique logo and favicon, created using GIMP and saved as .pngs and .ico files. Button icons use the .svg format to allow for adaptive rescaling.   
   
  * [Angular Material](https://material.angularjs.org/latest/) is a CSS library that provides pre-built HTML components that are a 'reference implementation of Google's Material Design Specification.' These components are reusable and tested, and also integrate well with the AngularJS framework we are already using.  
-  
- * The app gathers the necessary data by hitting endpoints defined in the server. The client and server are designed to be stateless, to follow REST guidelines, and use access tokens to authorize user sessions. 
+
      
 ## APIs 
  * All event info is gathered from [Skiddle](http://www.skiddle.com), a festival and event finder website. We use the [API](http://www.skiddle.com/api/) to access data about events happening in the UK. Other event APIs exist, such as SongKick, however Skiddle proved the least restrictive: allowing us to search for any events in a given time frame. Skiddle also provides basic artist data, which we cross-reference with Spotify data to provide a tailored front page for every user. 
@@ -34,10 +42,8 @@ Users are also able to search for upcoming events and artists that they are inte
  
  * __Responsive Design__. Modern websites should be designed to be viewable and usable on many different screen sizes, be they desktop, tablet or phone. This can be done by using separate desktop and mobile templates and serving the appropriate one, or using one responsive template that dynamically fits to any screen size. As mobile use of the web is growing, so too is it important for a site to be responsive.  
     * To achive this, we designed the site mobile first, mocking up UI ideas in GIMP (which can be seen in the `/dumpFiles` folder) until we settled on a design which worked well on both small and large screens. We split the interface into 'modules' of separate content, which can be reordered or flowed on the screen using CSS media queries to define screen size breakpoints. The CSS property 'flex' allows items to grow and shrink in size to fit its container. Flex also allows for the ordering, spacing and wrapping of items in space using simple properties, which provide a simple but powerful tool for building responsive designs. For example, the main festival tile grid wraps to smaller sizes, showing 4 elements per row on large screens, 2 on smaller and finally a single column on phone screens. This keeps all the functionality the same but better usability on small devices. 
-    * We plan to add further responsive design elements, such as increasing font sizes on smaller screens. 
- 
- * __Cross Browser Compatibility__. To ensure cross browser compatibility we regularly tested the site on a range of browsers using several different rendering and JavaScript engines, including WebKit based Chrome and Safari, Gecko used by Firefox and Microsoft's Chakra and Trident. From this testing we found missing components that had to be polyfilled, for example the [fetch](https://fetch.spec.whatwg.org/) API for making http requests. However, by sticking to the most common HTML tags and CSS properties we encountered few issues.  
-       
+    * We plan to add further responsive design elements, such as increasing font sizes on smaller screens.  
+  
  * __Modular Components__. While developing non-trival app in JS, we deemed it important build components as 'mini-services', stand alone modules that serve a single, clearly defined purpose. By then combining these small modules we could then build larger functional components. AngularJS promotes this design pattern through dependency injection. Modules can be composed of directive or services which contain the main logic, which are then injected into angular controllers, providing an 'inversion of control'. 
     * An example of this is our SpotifyService module. This service handles managing the user's Spotify session, for example refreshing access tokens or getting a user's artists. We then inject this into the FestivalList controller, which uses this module to retrive and display Spotify information in response to user input. 
 
@@ -61,30 +67,36 @@ Users are also able to search for upcoming events and artists that they are inte
     * Secondly, the necessary keys would have to be kept out of version control, so as to keep them safe from security breaches in the hosted git repository. This meant creating an untracked JSON file containing the keys, and maintaining it manually on both team members local repositories.
     * All keys (and other private info) are set as enviroment variables at run time. This means the keys are never stored in code, and has the benefit of allowing different configuations of the server by setting or changing enviroment variables. This important as we have need different API codes for local development and for deployment in the wild (on Heroku).  
 
-* Spotify OAuth2 Flow. Some requests to the Spotify API, for example user's private data like their name or saved tracks, require the user to have granted permission for the app to access it. To prove the user has given permission, request headers to the resource must include a valid access token.
+ * Spotify OAuth2 Flow. Some requests to the Spotify API, for example user's private data like their name or saved tracks, require the user to have granted permission for the app to access it. To prove the user has given permission, request headers to the resource must include a valid access token.
     * Spotify provides different 'flows' for authorisation, and we decided to use the [Authorisation Code](https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow) flow for Festerr. This flow provides a refresh token, to extend the validatiy of access tokens (which expire after a given time). The is suitable for us as the user need only log in once, and not on every visit to the site.
     * The OAuth2 flow consists of serval steps, detailed in the link above. This was a new challnage for us, and has been a significant feature to add as it required conforming to a rigorous 3rd party specifiation of several API calls. To improve security, we also generate unique states and codes to correlate requests and responses and ensure they come from our server. 
         * Additionally we plan to encode the hash of some client state (like the cookie) in this state variable, validating the response to additionally ensure that the request and response originated in the same browser. This provides protection against attacks such as cross-site request forgery.
     * Getting the access token from Spotify's OAuth2 service allows use to access playlist and track data from a user's spotify playlist. This token however is only valid for a certain amount of time (60 minutes). We therefore store the expiry date in the site's cookies, and when they expire automaticlly request a new access token for the user. We must also check the token is valid when the user first navigates to the page. This is done using Angular's module system, which provides a config function for modules before they are injected into other components.  
 
-* __Heroku__. Festerr is deployed onto a Heroku free dyno. The deployment is linked to the Festerr GitHub repository, each commit to the master branch triggers the Heroko app to fetch and delpoy the master app, using the commands defined in the Procfile. As we currently have no pre-deployment steps, this is simply `node server.js`. We plan to add a task runner (such as grunt) to run pre-deployment steps, such as minifying scripts and managing client-side dependancies.
+ * __Heroku__. Festerr is deployed onto a Heroku free dyno. The deployment is linked to the Festerr GitHub repository, each commit to the master branch triggers the Heroko app to fetch and delpoy the master app, using the commands defined in the Procfile. As we currently have no pre-deployment steps, this is simply `node server.js`. We plan to add a task runner (such as grunt) to run pre-deployment steps, such as minifying scripts and managing client-side dependancies.
     * We futher plan to add a continious integration service to Festerr, using CircleCI. This will allow us to run tests and other scripts required before starting the app. This be more important when we add our database, which will require migrations between deployments.
     * Heroku supports setting configuration enviroment variables, which we use to change API endpoints between local and production enviroments. For example, the spotify API callback for getting access tokens must be set to a domain, which is localhost for testing, and herokuapps in production. 
 
-* __XHTML__. FILL IN THIS SECTION JAMES
-
-* __SVG ANIAMTIONS__. FILL IN THIS SECTION LOUIS
-
-* __IMAGE COLOR PALETTE EXTRACTION__. FILL IN THIS SECTION LOUIS
-
+ * __Database Integration and Caching__. If one user requests data, we first check if it is in the cache and return that, otherwise we make the external call and cache the response before sending it abck to the user. We also store user id's (generated by the user's Spotify information) so that we can uniquely identify them.  between external API's and our own pages to reduce the number of external API called we need to make.  so that which is not in the cache, we fetch such cache only tokens and references to external links for as event IDs)
  
+
+ * __XHTML__. FILL IN THIS SECTION JAMES
+
+ * __SVG ANIAMTIONS__. FILL IN THIS SECTION LOUIS
+
+ * __IMAGE COLOR PALETTE EXTRACTION__. FILL IN THIS SECTION LOUIS
+
+ * __Cross Browser Compatibility__. To ensure cross browser compatibility we regularly tested the site on a range of browsers using several different rendering and JavaScript engines, including WebKit based Chrome and Safari, Gecko used by Firefox and Microsoft's Chakra and Trident. From this testing we found missing components that had to be polyfilled, for example the [fetch](https://fetch.spec.whatwg.org/) API for making http requests. However, by sticking to the most common HTML tags and CSS properties we encountered few issues.  
+ 
+  
 # Operating Overview 
 ## Running the Site 
      
  * `cd` to the festerr root level folder. 
  * run `npm install` to install the necessary NodeJS packages.
- * run `node server.js`.You should see the output `Festerr app listening at http://0.0.0.0:3000` on the prompt. 
- * Navigate to `localhost:3000` and you should see the page. 
+ * run `node server.js`.You should see the output `Festerr app listening at https://0.0.0.0:3000` on the prompt. 
+ * Navigate to `https://localhost:3000` and you should see the page. 
+ * As we are using HTTPS protocol with a self signed certificate, some browsers may show a dialog warning you when you naviagte to the page. Simply click through this to view the site.
  * We have provided a free Spotify account to use for testing. This account has several playlists containing many unique artists, allowing us to see the impact of the Festerr score. The account details are: 
     * username: UOBFesterrTest 
     * password UOBFesterrPassword 
@@ -97,7 +109,7 @@ Users are also able to search for upcoming events and artists that they are inte
   
  * The toolbar allows users to search for events or artists. These are autosuggested as 'chips' by our search engine, which uses a version of the hamming distance (Levenshtein Distance) to give intelligent suggestions on user input, updated as they type. Events with matching names or artists are then shown. 
   
- * Selecting an event expands its card to show more details, such as when and where the event is happening. It also displays all artists appearing in the event, highlighting those that are found in the user's Spotify collection. We plan to show a Google Maps location on this card as well. 
+ * Selecting an event brings you to the event details page. This page gives much more detail about an event such as when and where the event is happening. It also displays all artists appearing in the event, highlighting those that are found in the user's Spotify collection. We also include a link that allows users to go to the festival's site to buy tickets. This page also shows a background image for the event which we dynamically add from our google search integration.
   
  * The toolbar contains a button allowing to user to login using an existing Spotify account. This takes them to a Spotify login page, allowing them to securely log in to Spotify servers without Festerr having to store usernames or passwords. When they agree to allow Festerr access to their playlist data, they are taken back to the front page. Festivals are then ranked by our Festerr ranking score (explained above).  
  
