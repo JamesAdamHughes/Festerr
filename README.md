@@ -70,6 +70,10 @@ Users are also able to search for upcoming events and artists that they are inte
 * __Heroku__. Festerr is deployed onto a Heroku free dyno. The deployment is linked to the Festerr GitHub repository, each commit to the master branch triggers the Heroko app to fetch and delpoy the master app, using the commands defined in the Procfile. As we currently have no pre-deployment steps, this is simply `node server.js`. We plan to add a task runner (such as grunt) to run pre-deployment steps, such as minifying scripts and managing client-side dependancies.
     * We futher plan to add a continious integration service to Festerr, using CircleCI. This will allow us to run tests and other scripts required before starting the app. This be more important when we add our database, which will require migrations between deployments.
     * Heroku supports setting configuration enviroment variables, which we use to change API endpoints between local and production enviroments. For example, the spotify API callback for getting access tokens must be set to a domain, which is localhost for testing, and herokuapps in production. 
+
+* __XHTML__. FILL IN THIS SECTION JAMES
+
+* __SVG ANIAMTIONS__. FILL IN THIS SECTION LOUIS
  
 # Operating Overview 
 ## Running the Site 
