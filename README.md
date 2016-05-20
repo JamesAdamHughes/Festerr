@@ -74,6 +74,9 @@ Users are also able to search for upcoming events and artists that they are inte
 * __XHTML__. FILL IN THIS SECTION JAMES
 
 * __SVG ANIAMTIONS__. FILL IN THIS SECTION LOUIS
+
+* __IMAGE COLOR PALETTE EXTRACTION__. FILL IN THIS SECTION LOUIS
+
  
 # Operating Overview 
 ## Running the Site 
