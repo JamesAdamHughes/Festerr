@@ -67,7 +67,7 @@ models.sequelize.sync().then(function () {
         var host = server.address().address;
         var port = server.address().port;
 
-        console.log('Fester app listening at http://%s:%s', host, port);
+        console.log('Fester app listening at https://%s:%s', host, port);
 
     });
 });
