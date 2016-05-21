@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="yes"?>
 
-<svg id="logo" version="1.1" viewBox="0.0 0.0 960.0 720.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg id="logo" version="1.1" viewBox="0.0 0.0 960.0 960.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
 <style type="text/css" >
 
@@ -34,22 +34,32 @@
     }
 </style>
 
+<g id="background_circle">
+    <circle fill="#ffffff" cx="480" cy="480" r="400"></circle>
+</g>
+
 <g id="box_bl">
-    <path fill="#446cb3" d="m229.16798 383.78217l229.54329 0l0 229.54327l-229.54329 0z" fill-rule="nonzero"></path>
+    <path fill="#446cb3" d="m229.16798 503.78217 
+                            l229.54329 0
+                            l0 229.54327
+                            l-229.54329 0 z" fill-rule="nonzero"></path>
 </g>
 
 <g id="box_r">
-    <path fill="#db0a5b" d="m493.70746 117.480354l248.28345 0l0 496.53546l-248.28345 0z" fill-rule="nonzero"></path>
+    <path fill="#db0a5b" d="m493.70746 237.480354 
+                            l248.28345 0
+                            l0 496.53546
+                            l-248.28345 0 z" fill-rule="nonzero"></path>
 </g>
 
 <g id="wifi-1">
-    <path fill="#db0a5b" d="m381.90814 346.8819l0 0c0 -20.433258 8.157318 -40.020996 22.660828 -54.414246c14.5035095 -14.3932495 34.152924 -22.400879 54.58557 -22.244934l-0.58499146 76.65918z" fill-rule="nonzero"></path>
+    <path fill="#db0a5b" d="m381.90814 466.8819l0 0c0 -20.433258 8.157318 -40.020996 22.660828 -54.414246c14.5035095 -14.3932495 34.152924 -22.400879 54.58557 -22.244934l-0.58499146 76.65918z" fill-rule="nonzero"></path>
 </g>
 <g id="wifi-2">
-    <path fill="#db0a5b" d="m308.71127 345.81104l0 0c0 -81.765076 65.97897 -148.20926 147.74203 -148.78374l0.31045532 44.18579l0 0c-57.48105 0.40386963 -103.8656 47.115463 -103.8656 104.597946z" fill-rule="nonzero"></path>
+    <path fill="#db0a5b" d="m308.71127 465.81104l0 0c0 -81.765076 65.97897 -148.20926 147.74203 -148.78374l0.31045532 44.18579l0 0c-57.48105 0.40386963 -103.8656 47.115463 -103.8656 104.597946z" fill-rule="nonzero"></path>
 </g>
 <g id="wifi-3">
-    <path fill="#db0a5b" d="m229.16798 345.81104l0 0c0 -125.022385 100.54558 -226.7961 225.55873 -228.3139l0.5856018 48.23359l0 0c-98.602875 1.1971588 -177.9072 81.47015 -177.9072 180.0803z" fill-rule="nonzero"></path>
+    <path fill="#db0a5b" d="m229.16798 465.81104l0 0c0 -125.022385 100.54558 -226.7961 225.55873 -228.3139l0.5856018 48.23359l0 0c-98.602875 1.1971588 -177.9072 81.47015 -177.9072 180.0803z" fill-rule="nonzero"></path>
 </g>
 
 </svg>
