@@ -42,7 +42,7 @@
                 </div>
                 <div id="event-header-actions">
                     <md-button>Favourite</md-button>
-                    <md-button href="{{::event.link}}" target="_blank" class="md-primary">
+                    <md-button href="{{::event.link}}" target="_blank" class="md-primary" ng-style="{ 'color': 'rgb(' + event.palette.Vibrant.rgb + ')'}">
                         Buy Tickets
                     </md-button>
                 </div>
