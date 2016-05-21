@@ -135,7 +135,7 @@ input:focus::-webkit-input-placeholder { /* Only works on WebKit, Blink, Edge */
 }
 
 #header-tabs-container {
-    width:80%;
+    width:100%;
     margin-top: 20px;
 }
 

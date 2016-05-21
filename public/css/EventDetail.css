@@ -20,7 +20,7 @@
 
 #event-details-container {
     position:relative;
-    width: 800px;
+    width: 900px;
     height: 100%;
     margin-top: 50vh;
     background-color: rgba(0,0,0,0);
@@ -92,6 +92,12 @@
    color: #DB0A5B
 } 
 
+.info-box {
+    display: flex;
+    width: 41%;
+}
+
+
 #event-like-circle:focus {outline:0;}
 
 
@@ -142,6 +148,16 @@
 @media (max-width : 970px) {
     .event-info-container .md-headline{
         width:400px;
+    }
+    
+    #event-details-container {
+        width: 600px;
+    }
+}
+
+@media (max-width : 550px) {
+    #event-details-container {
+        width: 400px;
     }
 }
 

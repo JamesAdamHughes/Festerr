@@ -29,7 +29,7 @@ function EventDetailController($scope, $q, NetworkService, $location, SpotifySer
         
         // Get artist data then filter it
         NetworkService.callAPI(url, options).then(function(res) {
-            if (res.ok) {
+            if (res.ok) {                                 
                 $scope.event = res.event;
                 $scope.eventLiked = res.liked ? true : false;
                 // filter the artists in the event 

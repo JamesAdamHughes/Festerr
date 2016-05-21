@@ -1,8 +1,8 @@
 <div id="main-container">
 
     <ng-include src="'/app/views/header/header.html'"></ng-include>
-    
-        <!-- Loading progress bar -->
+
+    <!-- Loading progress bar -->
     <div id="progress-container" ng-show="!eventLoaded">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
@@ -15,7 +15,7 @@
                 <div id="event-like-circle" ng-click="likeClicked()" ng-style="{ 'background': 'rgb(' + event.palette.Vibrant.rgb + ')'}">
                     <md-icon ng-if="!eventLiked" md-svg-src="/images/fav_white_border.svg" aria-label="Date" style="width: 48px;height: 48px;">
                     </md-icon>
-                    <md-icon ng-if="eventLiked"md-svg-src="/images/fav_white.svg" aria-label="Date" style="width: 48px;height: 48px;">
+                    <md-icon ng-if="eventLiked" md-svg-src="/images/fav_white.svg" aria-label="Date" style="width: 48px;height: 48px;">
                     </md-icon>
                 </div>
                 <span class="md-headline">{{event.eventname}}</span>
@@ -27,17 +27,23 @@
                     <div class="info-box">
                         <md-icon md-svg-src="/images/event_gray.svg" aria-label="Date">
                         </md-icon>
-                        {{formatDate(event.date)}}
+                        <div class="text">
+                            {{formatDate(event.date)}}
+                        </div>
                     </div>
                     <div class="info-box">
                         <md-icon md-svg-src="/images/place_gray.svg" aria-label="Place">
                         </md-icon>
-                        {{event.venue.name}} {{event.venue.address}}
+                        <div class="text">
+                            {{event.venue.name}}</br> {{event.venue.town}}
+                        </div>
                     </div>
                     <div class="info-box">
                         <md-icon md-svg-src="/images/cash.svg" aria-label="Price">
                         </md-icon>
-                        {{event.entryprice}}
+                        <div class="text">
+                            {{event.entryprice}}
+                        </div>
                     </div>
                 </div>
                 <div id="event-header-actions">
@@ -53,8 +59,9 @@
                 <span class="md-headline">Your Artists</span>
 
                 <md-grid-list class="artist-grid" md-cols="4" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="4" md-row-height-gt-md="1:1" md-row-height="4:3"
-                md-gutter="8px" md-gutter-gt-sm="4px">
-                    <md-grid-tile class="tile" ng-repeat="tile in userArtists" md-rowspan="1" md-colspan="1" md-colspan-sm="1" ng-class="tile" ng-style="{ 'background-image': 'url(' + tile.image + ')'}">
+                    md-gutter="8px" md-gutter-gt-sm="4px">
+                    <md-grid-tile class="tile" ng-repeat="tile in userArtists" md-rowspan="1" md-colspan="1" md-colspan-sm="1" ng-class="tile"
+                        ng-style="{ 'background-image': 'url(' + tile.image + ')'}">
                         <md-icon md-svg-icon=""></md-icon>
                         <md-grid-tile-footer>
                             <h3>{{tile.name}}</h3></md-grid-tile-footer>
@@ -64,9 +71,9 @@
             <div class="event-info-container panel">
                 <span class="md-headline">Other Artists</span>
                 <md-grid-list class="artist-grid" md-cols="4" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="4" md-row-height-gt-md="1:1" md-row-height="4:3"
-                md-gutter="8px" md-gutter-gt-sm="4px">
+                    md-gutter="8px" md-gutter-gt-sm="4px">
                     <md-grid-tile class="tile" ng-repeat="tile in otherArtists" md-rowspan="1" md-colspan="1" md-colspan-sm="1" ng-class="tile"
-                    ng-style="{ 'background-image': 'url(' + tile.image + ')'}">
+                        ng-style="{ 'background-image': 'url(' + tile.image + ')'}">
                         <md-icon md-svg-icon=""></md-icon>
                         <md-grid-tile-footer>
                             <h3>{{tile.name}}</h3></md-grid-tile-footer>
