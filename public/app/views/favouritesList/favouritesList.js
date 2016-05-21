@@ -10,6 +10,10 @@ function FavouriteListController($scope, $q, NetworkService, $location, SpotifyS
     $scope.formatDate = function (date) {
         return DateFormatService.format(date);
     };
+    
+    $scope.favouriteClicked = function(event){
+        window.location.href = "#/event/?id=" + event.id;
+    };
 
     NetworkService.callAPI("/event/likes", {
         method: 'GET', credentials: 'include'
