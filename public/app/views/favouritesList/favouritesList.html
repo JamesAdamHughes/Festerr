@@ -12,7 +12,7 @@
     <!-- TILES CONTAINER -->
     <div id="info-container" ng-show="eventsLoaded">
         <div id="favourite-card-list-container">
-            <div class="favourite-card" ng-repeat="event in favouriteEvents">
+            <div class="favourite-card" ng-repeat="event in favouriteEvents" ng-click="favouriteClicked(event)">
                 <div class="festival-image" ng-style="{'background-image': 'url(' + event.largeimageurl +')'}">
 
                 </div>

@@ -79,7 +79,7 @@ Users are also able to search for upcoming events and artists that they are inte
  * Spotify OAuth2 Flow. Some requests to the Spotify API, for example user's private data like their name or saved tracks, require the user to have granted permission for the app to access it. To prove the user has given permission, request headers to the resource must include a valid access token.
     * Spotify provides different 'flows' for authorization, and we decided to use the [Authorisation Code](https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow) flow for Festerr. This flow provides a refresh token, to extend the validity of access tokens (which expire after a given time). The is suitable for us as the user need only log in once, and not on every visit to the site.
     * The OAuth2 flow consists of serval steps, detailed in the link above. This was a new challenge for us, and has been a significant feature to add as it required conforming to a rigorous 3rd party specification of several API calls. To improve security, we also generate unique states and codes to correlate requests and responses and ensure they come from our server. 
-        * Additionally we plan to encode the hash of some client state (like the cookie) in this state variable, validating the response to additionally ensure that the request and response originated in the same browser. This provides protection against attacks such as cross-site request forgery.
+    * Additionally we to encode the hash of some client state (like the cookie) in this state variable, validating the response to additionally ensure that the request and response originated in the same browser. This provides protection against attacks such as cross-site request forgery.
     * Getting the access token from Spotify's OAuth2 service allows use to access playlist and track data from a user's Spotify playlist. This token however is only valid for a certain amount of time (60 minutes). We therefore store the expiry date in the site's cookies, and when they expire automatically request a new access token for the user. We must also check the token is valid when the user first navigates to the page. This is done using Angular's module system, which provides a config function for modules before they are injected into other components.  
     
  * __Access Tokens__. When using external APIs, many often require the use of some access token retrieved beforehand when a developer registers with the API provider. As these are personal to the developer and should not be shared it was essential to store them privately. This had two consequences: first, the keys would have to remain on the server, and as such all API calls would have to be called from there. As we already had a robust routing framework in place, we implemented this effectively by having specific server endpoints calling specific external APIs. Secondly, the necessary keys would have to be kept out of version control, so as to keep them safe from security breaches in the hosted git repository. This meant creating an untracked JSON file containing the keys, and maintaining it manually on both team members local repositories.  
@@ -115,13 +115,20 @@ Users are also able to search for upcoming events and artists that they are inte
  
  * The main page shows a list of festivals, ranked by Skiddle as most popular to least. We limit this to 20 events, but plan to add pagination or 'infinite scrolling' to show more. 
  
- * The first time the `/event/` endpoint it called on the server, it will call the Skiddle API and retrieve the necessary event list, and then will cache it so as to reduce unnecessary calls to the external service. 
-  
- * The toolbar allows users to search for events or artists. These are autosuggested as 'chips' by our search engine, which uses a version of the hamming distance (Levenshtein Distance) to give intelligent suggestions on user input, updated as they type. Events with matching names or artists are then shown. 
-  
- * Selecting an event brings you to the event details page. This page gives much more detail about an event such as when and where the event is happening. It also displays all artists appearing in the event, highlighting those that are found in the user's Spotify collection. We also include a link that allows users to go to the festival's site to buy tickets. This page also shows a background image for the event which we dynamically add from our google search integration.
-  
+ * Each event is shown with the name, the Festerr score and a thumbnail image of the festival. Hovering over an event shows more detail.
+   
+ * The toolbar allows users to search for events or artists. These are autosuggested as 'chips' by our search engine, which uses a version of the hamming distance (Levenshtein Distance) to give intelligent suggestions on user input, updated as they type. Events with matching names or artists are then shown.  
+   
  * The toolbar contains a button allowing to user to login using an existing Spotify account. This takes them to a Spotify login page, allowing them to securely log in to Spotify servers without Festerr having to store usernames or passwords. When they agree to allow Festerr access to their playlist data, they are taken back to the front page. Festivals are then ranked by our Festerr ranking score (explained above).  
+  
+ * Selecting an event brings you to the event details page. This page gives much more detail about an event such as when and where the event is happening.    * This page also displays all artists appearing in the event, highlighting those that are found in the user's Spotify collection. 
+    * We have included a link that allows users to go to the festival's site to buy tickets. 
+    * We also shows a background image for the event which we dynamically add from our google search integration.
+    * User's can 'favourite' the event to look at later by clicking the large heart button on the top right of the event card. When favorutied the heart is filled in, otherwise it is outlined. This button is coloured dynamcially with the main colours of the festival (retrieved from the festival header image)     
+    * The first time the `/event/` endpoint it called on the server, it will call the Skiddle API and retrieve the necessary event list, and then will cache it so as to reduce unnecessary calls to the external service.
+
+ * The Favorites tab shows a logged in user a list of events they have 'Favourited' in the past. Clicking on one of these cards brings the user to event details page. If the user is not logged in they are instead prompted to log in with Spotify.  
+
  
  
 ## Deployed Site on Heroku 
