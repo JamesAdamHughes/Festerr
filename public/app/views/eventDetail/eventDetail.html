@@ -12,7 +12,7 @@
         </div>
         <div id="event-details-container">
             <div id="event-header-container" class="panel">
-                <div id="event-like-circle" ng-click="likeClicked()" >
+                <div id="event-like-circle" ng-click="likeClicked()" ng-style="{ 'background': 'rgb(' + event.palette.Vibrant.rgb + ')'}">
                     <md-icon ng-if="!eventLiked" md-svg-src="/images/fav_white_border.svg" aria-label="Date" style="width: 48px;height: 48px;">
                     </md-icon>
                     <md-icon ng-if="eventLiked"md-svg-src="/images/fav_white.svg" aria-label="Date" style="width: 48px;height: 48px;">
