@@ -4,6 +4,7 @@ var skiddleAPI = require(__dirname + '/../utils/skiddleAPI');
 var googleImageSearch = require(__dirname + '/../utils/googleImageSearch');
 var models = require('../models');
 var q = require('q');
+var vibrant = require('node-vibrant');
 
 /*
     Given a user (in session) and an event, lets user add an event to their likes
@@ -91,6 +92,14 @@ router.get('/event/', function (req, res) {
                     }
                 }).then(function (imageResponse){
                     response.event.headerimageurl = imageResponse;
+                    return new Promise(function(resolve,reject) {
+                        vibrant.from(imageResponse).getPalette (function(err, palette){
+                            if (err !== null) return reject(err);
+                            resolve(palette);
+                        });   
+                    });
+                }).then(function (paletteResponse) {
+                    response.event.palette = paletteResponse;
                     return models.User.findOne({ where: { spotifyID: req.session.userID } });
                 }).then(function (user) {
                     if (!user) {
