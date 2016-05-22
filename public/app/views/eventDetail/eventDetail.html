@@ -68,7 +68,7 @@
                 </md-grid-list>
             </div>
             <div class="event-info-container panel">
-                <span class="md-headline">Other Artists</span>
+                <span class="md-headline">{{ userArtists.length ? 'Other Artists' : 'Artists' }}</span>
                 <md-grid-list class="artist-grid" md-cols="4" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="4" md-row-height-gt-md="1:1" md-row-height="4:3"
                     md-gutter="8px" md-gutter-gt-sm="4px">
                     <md-grid-tile class="tile" ng-repeat="tile in otherArtists" md-rowspan="1" md-colspan="1" md-colspan-sm="1" ng-class="tile"
