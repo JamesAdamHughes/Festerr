@@ -9,6 +9,8 @@ Festerr is a music festival discovery platform that combines data from multiple 
 An event is ranked by our Festerr score: the number of artists playing at the event that are also in the user's Spotify library. The more artists, the higher the rank. This score will also be calculated baed on how soon an event is occurring and how many other people have it 'favourited'. 
  
 Users are also able to search for upcoming events and artists that they are interested in. 
+
+The site is live on http://festerr.herokuapp.com 
  
 # Technologies 
 ## Stack 
@@ -107,8 +109,8 @@ Users are also able to search for upcoming events and artists that they are inte
      
  * `cd` to the festerr root level folder. 
  * run `npm install` to install the necessary NodeJS packages.
- * run `node server.js`.You should see the output `Festerr app listening at https://0.0.0.0:3000` on the prompt. 
- * Navigate to `https://localhost:3000` and you should see the page. 
+ * run `node server.js`.You should see the output `Festerr app listening at https://0.0.0.0:3000` or `Festerr app listening at http://0.0.0.0:3000` on the prompt. 
+ * Navigate to `https://localhost:3000` or `http://localhost:3000` (depending on whether the server is running HTTPS or not) and you should see the page. 
  * As we are using HTTPS protocol with a self signed certificate, some browsers may show a dialog warning you when you navigate to the page. Simply click through this to view the site.
  * We have provided a free Spotify account to use for testing. This account has several playlists containing many unique artists, allowing us to see the impact of the Festerr score. The account details are: 
     * username: UOBFesterrTest 
